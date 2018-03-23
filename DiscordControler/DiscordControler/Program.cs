@@ -29,6 +29,7 @@ namespace DiscordControler
 
 
             _client.Log += Log;
+
             await RegisterCommandsAsync();
 
             await _client.LoginAsync(TokenType.Bot, botToken);
@@ -38,6 +39,7 @@ namespace DiscordControler
             await Task.Delay(-1);
         }
 
+        
         private Task Log(LogMessage arg)
         {
             Console.WriteLine(arg);
@@ -47,11 +49,20 @@ namespace DiscordControler
 
         public async Task RegisterCommandsAsync() {
 
-            _client.MessageReceived += handleCommandAsync;
+            _client.MessageReceived += HandleCommandAsync;
+            _client.UserJoined += AnnouceUserJoined;
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly());
         }
 
-        private async Task handleCommandAsync(SocketMessage arg)
+        private async Task AnnouceUserJoined(SocketGuildUser user)
+        {
+            var guild = user.Guild;
+            var channel = guild.GetTextChannel(426423137073364995);
+            await channel.SendMessageAsync($"Seja bem vindo, {user.Mention}");
+        }
+
+
+        private async Task HandleCommandAsync(SocketMessage arg)
         {
             var message = arg as SocketUserMessage;
 
