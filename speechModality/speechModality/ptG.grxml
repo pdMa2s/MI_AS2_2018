@@ -1,29 +1,128 @@
 ﻿<?xml version="1.0"?>
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
-	<rule id="rootRule" scope="public">
-	  <item>
-		  <item>
-			<ruleref uri="#object"/>
-			<tag>out.shape=rules.latest();</tag>
-		  </item>
-		  <item>
-			<ruleref uri="#color"/>
-			<tag>out.color=rules.latest();</tag>
-		  </item>
-	  </item>
-	</rule>
-	<rule id="object">
-	  <one-of>
-		<item>quadrado<tag>out="SQUARE"</tag></item>
-		<item>círculo<tag>out="CIRCLE"</tag></item>
-		<item>triângulo<tag>out="TRIANGLE"</tag></item>
-	  </one-of>
-	</rule>
-	<rule id="color">
-	  <one-of>
-		<item>verde<tag>out="GREEN"</tag></item>
-		<item>azul<tag>out="BLUE"</tag></item>
-		<item>vermelho<tag>out="RED"</tag></item>
-	  </one-of>
-	</rule>
+  <rule id="rootRule" scope="public">
+    <item>Ambrósio</item>
+    <ruleref uri="#action"/>
+    <tag>out.act=rules.latest();</tag>
+  </rule>
+  <rule id="action">
+    <one-of>
+      <item>
+        cria
+        <ruleref uri="#create"/>
+      </item>
+      <item>
+        adiciona
+        <tag>out="ADD_USER";</tag>
+        <ruleref uri="#user"/>
+      </item>
+      <item>
+        remove
+        <tag>out="REMOVE_USER";</tag>
+        <ruleref uri="#user"/>
+      </item>
+      <item>
+        ban
+        <ruleref uri="#userBan"/>
+      </item>
+      <item>
+        envia
+        <ruleref uri="#sendMessage"/>
+      </item>
+      <item>
+        edita
+        <ruleref uri="#editMessage"/>
+      </item>
+      <item>
+        elimina
+        <ruleref uri="#eliminate"/>
+      </item>
+      <item>
+        quero sair
+        <ruleref special="GARBAGE"/>
+        <item>guild tal<tag>out="LEAVE_GUILD";</tag></item>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="create">
+    <ruleref special="GARBAGE"></ruleref>
+    <one-of>
+      <item>
+        guild
+        <tag>out="CREATE_GUILD";</tag>
+        <ruleref special="GARBAGE"/>
+        <item>nome tal</item>
+      </item>
+      <item>
+        channel
+        <tag>out="CREATE_CHANNEL";</tag>
+        <ruleref special="GARBAGE"/>
+        <item>nome tal</item>
+        <item>à guild tal</item>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="user">
+    <ruleref special="GARBAGE"/>
+    <item>utilizador tal</item>
+    <item>guild tal</item>
+  </rule>
+  <rule id="userBan">
+    <ruleref special="GARBAGE"/>
+    <item>utilizador tal</item>
+    <ruleref special="GARBAGE"/>
+    <item>guild tal</item>
+    <item>porque tal<tag>out="BAN_USER"</tag></item>
+  </rule>
+  <rule id="sendMessage">
+    <ruleref special="GARBAGE"/>
+    <item>channel tal</item>
+    <ruleref special="GARBAGE"/>
+    <item>mensagem tal<tag>out="SEND_MESSAGE";</tag></item>
+  </rule>
+  <rule id="editMessage">
+    <ruleref special="GARBAGE"/>
+    <item>última mensagem</item>
+    <ruleref special="GARBAGE"/>
+    <item>channel tal</item>
+    <item>para tal<tag>out="EDIT_MESSAGE";</tag>
+    </item>
+  </rule>
+  <rule id="eliminate">
+    <ruleref special="GARBAGE"/>
+    <one-of>
+      <item>
+        última mensagem
+        <ruleref special="GARBAGE"/>
+        <item>channel tal<tag>out="DELETE_LAST_MESSAGE"</tag></item>
+      </item>
+      <item>channel tal<tag>out="DELETE_CHANNEL"</tag></item>
+    </one-of>
+  </rule>
+  <!--rule id="rootRule" scope="public">
+    <item>
+      <item>
+        <ruleref uri="#object"/>
+        <tag>out.shape=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri="#color"/>
+        <tag>out.color=rules.latest();</tag>
+      </item>
+    </item>
+  </rule>
+  <rule id="object">
+    <one-of>
+      <item>quadrado<tag>out="SQUARE"</tag></item>
+      <item>círculo<tag>out="CIRCLE"</tag></item>
+      <item>triângulo<tag>out="TRIANGLE"</tag></item>
+    </one-of>
+  </rule>
+  <rule id="color">
+    <one-of>
+      <item>verde<tag>out="GREEN"</tag></item>
+      <item>azul<tag>out="BLUE"</tag></item>
+      <item>vermelho<tag>out="RED"</tag></item>
+    </one-of>
+  </rule-->
 </grammar>

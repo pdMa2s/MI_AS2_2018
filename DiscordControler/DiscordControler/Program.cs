@@ -66,7 +66,7 @@ namespace DiscordControler
         {
             var message = arg as SocketUserMessage;
 
-            if (message is null || message.Author.IsBot) return;
+            if (message == null || message.Author.IsBot) return;
 
             int argumentPosition = 0;
 

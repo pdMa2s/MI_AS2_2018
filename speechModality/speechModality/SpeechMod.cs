@@ -55,7 +55,8 @@ namespace speechModality
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             onRecognized(new SpeechEventArg(){Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true});
-            
+            foreach (var resultSemantic in e.Result.Semantics)
+                Console.WriteLine(resultSemantic.Value.Value);
             //SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["SHAPE","COLOR"]}
             string json = "{ \"recognized\": [";
