@@ -3,7 +3,12 @@
   <rule id="rootRule" scope="public">
     <item>Ambrósio</item>
     <ruleref uri="#action"/>
-    <tag>out.act=rules.latest();</tag>
+    <tag>out.action=rules.latest();</tag>
+    <tag>out.guildName=rules.guildsName;</tag>
+    <tag>out.channelName=rules.channelsName;</tag>
+    <tag>out.userName=rules.usersName;</tag>
+    <tag>out.message=rules.messages;</tag>
+    <tag>out.reason=rules.reasons;</tag>
   </rule>
   <rule id="action">
     <one-of>
@@ -23,14 +28,17 @@
       </item>
       <item>
         ban
+        <tag>out="BAN_USER";</tag>
         <ruleref uri="#userBan"/>
       </item>
       <item>
         envia
+        <tag>out="SEND_MESSAGE";</tag>
         <ruleref uri="#sendMessage"/>
       </item>
       <item>
         edita
+        <tag>out="EDIT_MESSAGE";</tag>
         <ruleref uri="#editMessage"/>
       </item>
       <item>
@@ -39,64 +47,115 @@
       </item>
       <item>
         quero sair
+        <tag>out="LEAVE_GUILD";</tag>
         <ruleref special="GARBAGE"/>
-        <item>guild tal<tag>out="LEAVE_GUILD";</tag></item>
+        <item>guild</item>
+        <ruleref uri="#guildsName"/>
       </item>
     </one-of>
   </rule>
-  <rule id="create">
+  <rule id="create" scope="public">
     <ruleref special="GARBAGE"></ruleref>
     <one-of>
       <item>
         guild
         <tag>out="CREATE_GUILD";</tag>
         <ruleref special="GARBAGE"/>
-        <item>nome tal</item>
+        <item>nome</item>
+        <ruleref uri="#guildsName"/>
       </item>
       <item>
         channel
         <tag>out="CREATE_CHANNEL";</tag>
         <ruleref special="GARBAGE"/>
-        <item>nome tal</item>
-        <item>à guild tal</item>
+        <item>nome</item>
+        <ruleref uri="#channelsName"/>
+        <ruleref special="GARBAGE"/>
+        <item>guild</item>
+        <ruleref uri="#guildsName"/>
       </item>
     </one-of>
   </rule>
   <rule id="user">
     <ruleref special="GARBAGE"/>
-    <item>utilizador tal</item>
-    <item>guild tal</item>
+    <item>utilizador</item>
+    <ruleref uri="#usersName"/>
+    <ruleref special="GARBAGE"/>
+    <item>guild</item>
+    <ruleref uri="#guildsName"/>
   </rule>
   <rule id="userBan">
     <ruleref special="GARBAGE"/>
-    <item>utilizador tal</item>
+    <item>utilizador</item>
+    <ruleref uri="#usersName"/>
     <ruleref special="GARBAGE"/>
-    <item>guild tal</item>
-    <item>porque tal<tag>out="BAN_USER"</tag></item>
+    <item>guild</item>
+    <ruleref uri="#guildsName"/>
+    <item>porque</item>
+    <ruleref uri="#reasons"/>
   </rule>
   <rule id="sendMessage">
     <ruleref special="GARBAGE"/>
-    <item>channel tal</item>
+    <item>channel</item>
+    <ruleref uri="#channelsName"/>
     <ruleref special="GARBAGE"/>
-    <item>mensagem tal<tag>out="SEND_MESSAGE";</tag></item>
+    <item>mensagem</item>
+    <ruleref uri="#messages"/>
   </rule>
   <rule id="editMessage">
     <ruleref special="GARBAGE"/>
     <item>última mensagem</item>
     <ruleref special="GARBAGE"/>
-    <item>channel tal</item>
-    <item>para tal<tag>out="EDIT_MESSAGE";</tag>
-    </item>
+    <item>channel</item>
+    <ruleref uri="#channelsName"/>
+    <item>para</item>
+    <ruleref uri="#messages"/>
   </rule>
   <rule id="eliminate">
     <ruleref special="GARBAGE"/>
     <one-of>
       <item>
         última mensagem
+        <tag>out="DELETE_LAST_MESSAGE";</tag>
         <ruleref special="GARBAGE"/>
-        <item>channel tal<tag>out="DELETE_LAST_MESSAGE"</tag></item>
+        <item>channel</item>
+        <ruleref uri="#channelsName"/>
       </item>
-      <item>channel tal<tag>out="DELETE_CHANNEL"</tag></item>
+      <item>
+        channel
+        <tag>out="DELETE_CHANNEL";</tag>
+        <ruleref uri="#channelsName"/>
+    </item>
+    </one-of>
+  </rule>
+  <rule id="guildsName">
+    <one-of>
+      <item>tal<tag>out="tal";</tag></item>
+      <item>cenas<tag>out="cenas";</tag></item>
+    </one-of>
+  </rule>
+  <rule id="channelsName">
+    <one-of>
+      <item>tal<tag>out="tal";</tag></item>
+      <item>cenas<tag>out="cenas";</tag></item>
+    </one-of>
+  </rule>
+  <rule id="usersName">
+    <one-of>
+      <item>tal<tag>out="tal";</tag></item>
+      <item>cenas<tag>out="cenas";</tag></item>
+    </one-of>
+  </rule>
+  <rule id="messages">
+    <one-of>
+      <item>tal<tag>out="tal";</tag></item>
+      <item>cenas<tag>out="cenas";</tag></item>
+    </one-of>
+  </rule>
+  <rule id="reasons">
+    <one-of>
+      <item>tal<tag>out="tal";</tag></item>
+      <item>cenas<tag>out="cenas";</tag></item>
     </one-of>
   </rule>
   <!--rule id="rootRule" scope="public">

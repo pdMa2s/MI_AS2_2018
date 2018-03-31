@@ -33,8 +33,50 @@ namespace AppGui
             var doc = XDocument.Parse(e.Message);
             var com = doc.Descendants("command").FirstOrDefault().Value;
             dynamic json = JsonConvert.DeserializeObject(com);
-
-            Shape _s = null;
+            Console.WriteLine(json);
+            var action = json.recognized.action;
+            Console.WriteLine(action);
+            switch ((string) action)
+            {
+                case "CREATE_GUILD":
+                    var guildName = json.recognized.guildName;
+                    break;
+                case "CREATE_CHANNEL":
+                    var channelName = json.recognized.channelName;
+                    var guildNameToAddChannel = json.recognized.guildName;
+                    break;
+                case "ADD_USER":
+                    var usernameToAdd = json.recognized.userName;
+                    var guildNameToAddUser = json.recognized.guildName;
+                    break;
+                case "REMOVE_USER":
+                    var usernameToRemove = json.recognized.userName;
+                    var guildNameToRemoveUser = json.recognized.guildName;
+                    break;
+                case "BAN_USER":
+                    var usernameToBan = json.recognized.userName;
+                    var guildNameToBanUser = json.recognized.guildName;
+                    var reason = json.recognized.reason;
+                    break;
+                case "SEND_MESSAGE":
+                    var channelNameToSendMsg = json.recognized.channelName;
+                    var messageToAdd = json.recognized.message;
+                    break;
+                case "EDIT_MESSAGE":
+                    var channelNameToEditMsg = json.recognized.channelName;
+                    var messageEdited = json.recognized.message;
+                    break;
+                case "DELETE_LAST_MESSAGE":
+                    var channelNameToDeleteMsg = json.recognized.channelName;
+                    break;
+                case "DELETE_CHANNEL":
+                    var channelNameToDelete = json.recognized.channelName;
+                    break;
+                case "LEAVE_GUILD":
+                    var guildNameToLeave = json.recognized.guildName;
+                    break;
+            }
+            /*Shape _s = null;
             switch ((string)json.recognized[0].ToString())
             {
                 case "SQUARE": _s = rectangle;
@@ -59,7 +101,7 @@ namespace AppGui
                         _s.Fill = Brushes.Red;
                         break;
                 }
-            });
+            });*/
             
 
 
