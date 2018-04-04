@@ -130,13 +130,13 @@
   </rule>
   <rule id="guildsName">
     <one-of>
-      <item>tal<tag>out="tal";</tag></item>
+      <item>IMServer<tag>out="IMServer";</tag></item>
       <item>cenas<tag>out="cenas";</tag></item>
     </one-of>
   </rule>
   <rule id="channelsName">
     <one-of>
-      <item>tal<tag>out="tal";</tag></item>
+      <item>teste<tag>out="teste";</tag></item>
       <item>cenas<tag>out="cenas";</tag></item>
     </one-of>
   </rule>

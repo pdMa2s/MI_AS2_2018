@@ -87,7 +87,7 @@ namespace DiscordControler
 
         }
 
-        private void MmiC_Message(object sender, MmiEventArgs e)
+        private async void MmiC_Message(object sender, MmiEventArgs e)
         {
             Console.WriteLine(e.Message);
             var doc = XDocument.Parse(e.Message);
@@ -100,42 +100,66 @@ namespace DiscordControler
             switch ((string)action)
             {
                 case "CREATE_GUILD":
-                    var guildName = json.recognized.guildName;
+                    var guildName = json.recognized.guildName.ToString() as String;
+                    await createGuild(guildName);
                     break;
                 case "CREATE_CHANNEL":
-                    var channelName = json.recognized.channelName;
-                    var guildNameToAddChannel = json.recognized.guildName;
+                    var channelName = json.recognized.channelName.ToString() as String;
+                    var guildNameToAddChannel = json.recognized.guildName.ToString() as String;
+                    await createChannel(channelName, guildNameToAddChannel);
                     break;
                 case "ADD_USER":
-                    var usernameToAdd = json.recognized.userName;
-                    var guildNameToAddUser = json.recognized.guildName;
+                    var usernameToAdd = json.recognized.userName.ToString() as String;
+                    var guildNameToAddUser = json.recognized.guildName.ToString() as String;
                     break;
                 case "REMOVE_USER":
-                    var usernameToRemove = json.recognized.userName;
-                    var guildNameToRemoveUser = json.recognized.guildName;
+                    var usernameToRemove = json.recognized.userName.ToString() as String;
+                    var guildNameToRemoveUser = json.recognized.guildName.ToString() as String;
                     break;
                 case "BAN_USER":
-                    var usernameToBan = json.recognized.userName;
-                    var guildNameToBanUser = json.recognized.guildName;
-                    var reason = json.recognized.reason;
+                    var usernameToBan = json.recognized.userName.ToString() as String;
+                    var guildNameToBanUser = json.recognized.guildName.ToString() as String;
+                    var reason = json.recognized.reason.ToString() as String;
                     break;
                 case "SEND_MESSAGE":
-                    var channelNameToSendMsg = json.recognized.channelName;
-                    var messageToAdd = json.recognized.message;
+                    var channelNameToSendMsg = json.recognized.channelName.ToString() as String;
+                    var messageToAdd = json.recognized.message.ToString() as String;
                     break;
                 case "EDIT_MESSAGE":
-                    var channelNameToEditMsg = json.recognized.channelName;
-                    var messageEdited = json.recognized.message;
+                    var channelNameToEditMsg = json.recognized.channelName.ToString() as String;
+                    var messageEdited = json.recognized.message.ToString() as String;
                     break;
                 case "DELETE_LAST_MESSAGE":
-                    var channelNameToDeleteMsg = json.recognized.channelName;
+                    var channelNameToDeleteMsg = json.recognized.channelName.ToString() as String;
                     break;
                 case "DELETE_CHANNEL":
-                    var channelNameToDelete = json.recognized.channelName;
+                    var channelNameToDelete = json.recognized.channelName.ToString() as String;
                     break;
                 case "LEAVE_GUILD":
-                    var guildNameToLeave = json.recognized.guildName;
+                    var guildNameToLeave = json.recognized.guildName.ToString() as String;
                     break;
+            }
+        }
+
+        private Task createGuild(string guildName)
+        {
+            //var response = await _client.CreateGuildAsync(guildName, );
+        }
+
+        private async Task createChannel(string channelName, string guildNameToAddChannel)
+        {
+            var guildsOfClient = _client.Guilds;
+            var guildsFiltered = guildsOfClient.Where(guild => guild.Name.Equals(guildNameToAddChannel));
+            Console.WriteLine(guildsFiltered.Count());
+            if (guildsFiltered.Count() == 0)
+            {
+                Console.WriteLine("Não existe nenhuma guild com esse nome!");
+            }
+            else
+            {
+                var guild = guildsFiltered.First();
+                var response = await guild.CreateTextChannelAsync(channelName);
+                Console.WriteLine("Channel criado com sucesso!");
             }
         }
     }
