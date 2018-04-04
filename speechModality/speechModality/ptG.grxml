@@ -131,7 +131,7 @@
   <rule id="guildsName">
     <one-of>
       <item>IMServer<tag>out="IMServer";</tag></item>
-      <item>cenas<tag>out="cenas";</tag></item>
+      <item>teste<tag>out="teste";</tag></item>
     </one-of>
   </rule>
   <rule id="channelsName">

@@ -31,7 +31,6 @@ namespace DiscordControler
 
             string botToken = "NDI2NDI1OTUwMTU1MTc3OTk0.DZXWHA.0j3R_PJEqWgpdd2iiYVq7dP6jN0";
 
-
             _client.Log += Log;
 
             //await RegisterCommandsAsync(); // handle text commands
@@ -101,7 +100,7 @@ namespace DiscordControler
             {
                 case "CREATE_GUILD":
                     var guildName = json.recognized.guildName.ToString() as String;
-                    //await createGuild(guildName);
+                    await createGuild(guildName);
                     break;
                 case "CREATE_CHANNEL":
                     var channelName = json.recognized.channelName.ToString() as String;
@@ -141,10 +140,17 @@ namespace DiscordControler
             }
         }
 
-        /*private Task createGuild(string guildName)
+        private async Task createGuild(string guildName)
         {
-            var response = await _client.CreateGuildAsync(guildName, );
-        }*/
+            string regionID = "eu-west";
+            IVoiceRegion region = _client.GetVoiceRegion(regionID);
+            var response = await _client.CreateGuildAsync(guildName, region);
+            Console.WriteLine("Guild criado com sucesso!");
+            //falta adicionar o utilizador a guild criada
+            /*var guildsOfClient = _client.Guilds;
+            var guildsFiltered = guildsOfClient.Where(guildObject => guildObject.Name.Equals(guildName));
+            var guild = guildsFiltered.First();*/
+        }
 
         private async Task createChannel(string channelName, string guildNameToAddChannel)
         {
