@@ -101,7 +101,7 @@ namespace DiscordControler
             {
                 case "CREATE_GUILD":
                     var guildName = json.recognized.guildName.ToString() as String;
-                    await createGuild(guildName);
+                    //await createGuild(guildName);
                     break;
                 case "CREATE_CHANNEL":
                     var channelName = json.recognized.channelName.ToString() as String;
@@ -141,10 +141,10 @@ namespace DiscordControler
             }
         }
 
-        private Task createGuild(string guildName)
+        /*private Task createGuild(string guildName)
         {
-            //var response = await _client.CreateGuildAsync(guildName, );
-        }
+            var response = await _client.CreateGuildAsync(guildName, );
+        }*/
 
         private async Task createChannel(string channelName, string guildNameToAddChannel)
         {
