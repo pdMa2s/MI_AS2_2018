@@ -27,7 +27,7 @@
         <ruleref uri="#user"/>
       </item>
       <item>
-        ban
+        bane
         <tag>out="BAN_USER";</tag>
         <ruleref uri="#userBan"/>
       </item>
