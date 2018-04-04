@@ -15,6 +15,10 @@ namespace DiscordControler
     class Controler
     {
         static void Main(string[] args) => new Controler().RunBotAsync().GetAwaiter().GetResult();
+
+        private readonly ulong _defaultChannelId = 426423137073364995;
+        private readonly ulong _defaultGuildId = 426423137073364993;
+
         
         private DiscordSocketClient _client;
         private CommandService _commands;
@@ -28,7 +32,7 @@ namespace DiscordControler
                 .AddSingleton(_client)
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
-
+           
             string botToken = "NDI2NDI1OTUwMTU1MTc3OTk0.DZXWHA.0j3R_PJEqWgpdd2iiYVq7dP6jN0";
 
             _client.Log += Log;
@@ -39,6 +43,7 @@ namespace DiscordControler
 
             await _client.LoginAsync(TokenType.Bot, botToken);
 
+            
             await _client.StartAsync();
 
             await Task.Delay(-1);
@@ -62,7 +67,7 @@ namespace DiscordControler
         private async Task AnnouceUserJoined(SocketGuildUser user)
         {
             var guild = user.Guild;
-            var channel = guild.GetTextChannel(426423137073364995);
+            var channel = guild.GetTextChannel(_defaultChannelId);
             await channel.SendMessageAsync($"Seja bem vindo, {user.Mention}");
         }
 
@@ -100,12 +105,12 @@ namespace DiscordControler
             {
                 case "CREATE_GUILD":
                     var guildName = json.recognized.guildName.ToString() as String;
-                    await createGuild(guildName);
+                    await CreateGuild(guildName);
                     break;
                 case "CREATE_CHANNEL":
                     var channelName = json.recognized.channelName.ToString() as String;
                     var guildNameToAddChannel = json.recognized.guildName.ToString() as String;
-                    await createChannel(channelName, guildNameToAddChannel);
+                    await CreateChannel(channelName, guildNameToAddChannel);
                     break;
                 case "ADD_USER":
                     var usernameToAdd = json.recognized.userName.ToString() as String;
@@ -117,8 +122,9 @@ namespace DiscordControler
                     break;
                 case "BAN_USER":
                     var usernameToBan = json.recognized.userName.ToString() as String;
-                    var guildNameToBanUser = json.recognized.guildName.ToString() as String;
-                    var reason = json.recognized.reason.ToString() as String;
+                    var guildNameToBanUser = json["guildName"] == null ? null : json.recognized.guildName as String;
+                    var reason = json["reason"] == null ? null : json.recognized.reason.ToString() as String;
+                    await BanUser(usernameToBan, guildNameToBanUser, reason);
                     break;
                 case "SEND_MESSAGE":
                     var channelNameToSendMsg = json.recognized.channelName.ToString() as String;
@@ -140,7 +146,7 @@ namespace DiscordControler
             }
         }
 
-        private async Task createGuild(string guildName)
+        private async Task CreateGuild(string guildName)
         {
             string regionID = "eu-west";
             IVoiceRegion region = _client.GetVoiceRegion(regionID);
@@ -152,7 +158,7 @@ namespace DiscordControler
             var guild = guildsFiltered.First();*/
         }
 
-        private async Task createChannel(string channelName, string guildNameToAddChannel)
+        private async Task CreateChannel(string channelName, string guildNameToAddChannel)
         {
             var guildsOfClient = _client.Guilds;
             var guildsFiltered = guildsOfClient.Where(guild => guild.Name.Equals(guildNameToAddChannel));
@@ -165,8 +171,51 @@ namespace DiscordControler
             {
                 var guild = guildsFiltered.First();
                 var response = await guild.CreateTextChannelAsync(channelName);
+              
                 Console.WriteLine("Channel criado com sucesso!");
             }
+        }
+
+        private async Task BanUser(string userName, string guildName, string banReason) {
+            var guild = FindGuild(guildName);
+            var user = FindUser(guild, userName);
+
+            if (user is null) {
+                await guild.GetTextChannel(_defaultChannelId).SendMessageAsync("Esse utilizador não existe!");
+                Console.WriteLine("O utilizador não existe!");
+                return;
+            }
+
+            if (banReason is null)
+                await guild.AddBanAsync(user.Id);
+            else
+                await guild.AddBanAsync(user.Id, reason:banReason);
+
+            await guild.GetTextChannel(_defaultChannelId).SendMessageAsync($"Já podes dizer adeus ao {userName}!");
+            
+            Console.WriteLine($"Já podes dizer adeus ao {userName}!");
+        }
+        private SocketGuild FindGuild(string guildName) {
+            var guildsOfClient = _client.Guilds;
+            var guildsFiltered = guildsOfClient.Where(g => g.Name.Equals(guildName));
+            var guild = (SocketGuild)null;
+            if (guildsFiltered.Count() == 0)
+            {
+                guild = _client.GetGuild(_defaultGuildId);
+            }
+            else
+            {
+                guild = guildsFiltered.First();
+            }
+            return guild;
+        }
+        private SocketUser FindUser(SocketGuild guild , string userName) {
+            foreach (var u in guild.Users)
+            {
+                if (u.Username.Equals(userName))
+                    return u;
+            }
+            return null;
         }
     }
 }

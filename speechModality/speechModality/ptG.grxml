@@ -89,10 +89,19 @@
     <item>utilizador</item>
     <ruleref uri="#usersName"/>
     <ruleref special="GARBAGE"/>
-    <item>guild</item>
-    <ruleref uri="#guildsName"/>
-    <item>porque</item>
-    <ruleref uri="#reasons"/>
+    <item repeat="0-1">
+      <item>guild</item>
+      <ruleref uri="#guildsName"/>
+
+    </item>
+    <item repeat="0-1">
+      <one-of>
+        <item>porque</item>
+        <item>por</item>
+      </one-of>
+      <ruleref uri="#reasons"/>
+    </item>
+    
   </rule>
   <rule id="sendMessage">
     <ruleref special="GARBAGE"/>
