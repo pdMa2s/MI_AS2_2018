@@ -19,11 +19,11 @@ namespace DiscordControler
         private DiscordSocketClient _client;
         private CommandService _commands;
         private IServiceProvider _service;
-
+        private MmiCommunication _comModule;
         public async Task RunBotAsync() {
             _client = new DiscordSocketClient();
             _commands = new CommandService();
-
+            _comModule = new Coms().GetMmic();
             _service = new ServiceCollection()
                 .AddSingleton(_client)
                 .AddSingleton(_commands)
@@ -34,7 +34,9 @@ namespace DiscordControler
 
             _client.Log += Log;
 
-            //oawait RegisterCommandsAsync();
+            //await RegisterCommandsAsync(); // handle text commands
+            _comModule.Message += MmiC_Message; // subscribe to the messages that come from the comMudole
+            _comModule.Start();
 
             await _client.LoginAsync(TokenType.Bot, botToken);
 

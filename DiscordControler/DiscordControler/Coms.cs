@@ -16,7 +16,7 @@ namespace DiscordControler
             
             mmiC = new MmiCommunication("localhost", 8000, "User1", "GUI");
             //mmiC.Message += MmiC_Message;
-            mmiC.Start();
+            //mmiC.Start();
 
         }
         public MmiCommunication GetMmic() {
