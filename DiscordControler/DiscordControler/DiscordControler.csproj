@@ -137,7 +137,7 @@
   <ItemGroup>
     <Compile Include="Modules\Coms.cs" />
     <Compile Include="Modules\Ping.cs" />
-    <Compile Include="Controler.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
