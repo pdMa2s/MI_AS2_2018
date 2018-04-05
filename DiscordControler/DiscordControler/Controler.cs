@@ -21,7 +21,7 @@ namespace DiscordControler
         private readonly ulong _defaultChannelId = 426423137073364995;
         private readonly ulong _defaultGuildId = 426423137073364993;
         private readonly ulong _userID = 414166532143316992;
-
+        private readonly string _userNick = "IMStudent2018";
         
         private DiscordSocketClient _client;
         private CommandService _commands;
@@ -121,8 +121,9 @@ namespace DiscordControler
                     break;
                 case "REMOVE_USER":
                     var usernameToRemove = json.recognized.userName.ToString() as String;
-                    var guildNameToRemoveUser = json.recognized.guildName.ToString() as String;
+                    var guildNameToRemoveUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     var kickReason = json["reason"] == null ? null : json.recognized.reason.ToString() as String;
+                    await KickUser(usernameToRemove, guildNameToRemoveUser, kickReason);
                     break;
                 case "BAN_USER":
                     var usernameToBan = json.recognized.userName.ToString() as String;
@@ -143,9 +144,12 @@ namespace DiscordControler
                     break;
                 case "DELETE_CHANNEL":
                     var channelNameToDelete = json.recognized.channelName.ToString() as String;
+                    var guildNameToDeleteChannel = json["guildName"] == null ? null : json.recognized.guildName as String;
+                    await DeleteChanel(channelNameToDelete, guildNameToDeleteChannel);
                     break;
                 case "LEAVE_GUILD":
                     var guildNameToLeave = json.recognized.guildName.ToString() as String;
+                    await LeaveGuild(guildNameToLeave);
                     break;
             }
         }
@@ -186,6 +190,24 @@ namespace DiscordControler
                 Console.WriteLine("Channel criado com sucesso!");
             }
         }
+        private async Task DeleteChanel(string channelName, string guildName) {
+            var guild = FindGuild(guildName);
+            var channel = FindChannel(guild, channelName);
+            await channel.DeleteAsync();
+            Console.WriteLine("Canal apagado!");
+        }
+        private async Task KickUser(string userName, string guildName, string kickReason) {
+            var guild = FindGuild(guildName);
+            var user = FindUser(guild, userName);
+
+            if (user == null) {
+                Console.WriteLine("Não sei de quem falas!");
+                return;
+            }
+  
+            await user.KickAsync(reason: kickReason);
+            Console.WriteLine($"O {userName} vai lá fora apanhar ar.");
+        }
 
         private async Task BanUser(string userName, string guildName, string banReason) {
             var guild = FindGuild(guildName);
@@ -195,13 +217,23 @@ namespace DiscordControler
                 Console.WriteLine("O utilizador não existe!");
                 return;
             }
-
-            if (banReason == null)
-                await guild.AddBanAsync(user.Id);
-            else
-                await guild.AddBanAsync(user.Id, reason:banReason);
+            await guild.AddBanAsync(user.Id, reason:banReason);
 
             Console.WriteLine($"Já podes dizer adeus ao {userName}!");
+        }
+
+        private async Task LeaveGuild(string guildName) {
+            var guild = FindGuild(guildName);
+            var user = FindUser(guild,_userNick);
+
+            if (user is null) {
+                Console.WriteLine("Não estás nessa guild!");
+                return;
+            }
+
+            await user.KickAsync();
+
+            Console.WriteLine("O pessoal da guild manda abraços.");
         }
         private SocketGuild FindGuild(string guildName) {
             var guildsOfClient = _client.Guilds;
@@ -217,11 +249,19 @@ namespace DiscordControler
             }
             return guild;
         }
-        private SocketUser FindUser(SocketGuild guild , string userName) {
+        private SocketGuildUser FindUser(SocketGuild guild , string userName) {
             foreach (var u in guild.Users)
             {
                 if (u.Username.Equals(userName))
                     return u;
+            }
+            return null;
+        }
+
+        private SocketGuildChannel FindChannel(SocketGuild guild, string channelName) {
+            foreach (var c in guild.Channels) {
+                if (c.Name.Equals(channelName))
+                    return c;
             }
             return null;
         }

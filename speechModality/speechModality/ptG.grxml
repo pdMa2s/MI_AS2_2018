@@ -57,7 +57,11 @@
         <ruleref uri="#editMessage"/>
       </item>
       <item>
-        elimina
+        <one-of>
+          <item>elimina</item>
+          <item>remove</item>
+          <item>apaga</item>
+        </one-of>
         <ruleref uri="#eliminate"/>
       </item>
       <item>
@@ -149,9 +153,17 @@
         <ruleref uri="#channelsName"/>
       </item>
       <item>
-        channel
+        <one-of>
+          <item>channel</item>
+          <item>canal</item>
+        </one-of>
         <tag>out="DELETE_CHANNEL";</tag>
         <ruleref uri="#channelsName"/>
+        <ruleref special="GARBAGE"/>
+        <item repeat="0-1">
+          <item>guild</item>
+          <ruleref uri="#guildsName"/>
+         </item>
     </item>
     </one-of>
   </rule>
