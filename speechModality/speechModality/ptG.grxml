@@ -152,7 +152,19 @@
         channel
         <tag>out="DELETE_CHANNEL";</tag>
         <ruleref uri="#channelsName"/>
-    </item>
+      </item>
+      <item>
+        bane
+        <tag>out="REMOVE_BAN";</tag>
+        <ruleref special="GARBAGE"/>
+        <item>utilizador</item>
+        <ruleref uri="#usersName"/>
+        <ruleref special="GARBAGE"/>
+        <item repeat="0-1">
+          <item>guild</item>
+          <ruleref uri="#guildsName"/>
+        </item>
+      </item>
     </one-of>
   </rule>
   <rule id="guildsName">
@@ -169,7 +181,7 @@
   </rule>
   <rule id="usersName">
     <one-of>
-      <item>tal<tag>out="tal";</tag></item>
+      <item>Matos<tag>out="Matos";</tag></item>
       <item>cenas<tag>out="cenas";</tag></item>
     </one-of>
   </rule>
