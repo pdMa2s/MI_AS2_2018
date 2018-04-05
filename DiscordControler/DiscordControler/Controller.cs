@@ -108,7 +108,7 @@ namespace DiscordControler
             {
                 case "REMOVE_USER": //fica
                     var usernameToRemove = json.recognized.userName.ToString() as String;
-                    var guildNameToRemoveUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var guildNameToRemoveUser = json["guildName"] == null ? "" : json.recognized.guildName.ToString() as String;
                     var kickReason = json["reason"] == null ? null : json.recognized.reason.ToString() as String;
                     await KickUser(usernameToRemove, guildNameToRemoveUser, kickReason);
                     break;
@@ -137,23 +137,41 @@ namespace DiscordControler
                     await RemoveBan(userNameToRemBan, guildNameToRemBan);
                     break;
                 case "USER_STATUS":
+                    var userNameToKnowStatus = json.recognized.userName.ToString() as String;
+                    var guildNameToKnowStatus = json["guildName"] == null ? "" : json.recognized.guildName as String;
+                    await UserStatus(userNameToKnowStatus, guildNameToKnowStatus);
                     break;
 
             }
         }
 
+        private async Task UserStatus(string userName, string guildName)
+        {
+            var guild = FindGuild(guildName);
+            var user = FindUser(guild, userName);
+           
+            if (user is null)
+            {
+                Console.WriteLine("Desconheço essa pessoa.");
+                return;
+            }
+            var status = user.Status;
+            Console.WriteLine(status);
+        }
         private async Task DeleteLastMessage(string channelName){
             var guild = _client.GetGuild(_defaultGuildId);
             var channel = (SocketTextChannel) FindChannel(guild, channelName);
-            var message = channel.GetMessagesAsync(1).First();
-            //Console.WriteLine(message);
+            var message = await channel.GetMessagesAsync(1).First();
+            Console.WriteLine(message);
         }
-            private async Task DeleteChanel(string channelName, string guildName) {
+
+        private async Task DeleteChanel(string channelName, string guildName) {
             var guild = FindGuild(guildName);
             var channel = FindChannel(guild, channelName);
             await channel.DeleteAsync();
             Console.WriteLine("Canal apagado!");
         }
+
         private async Task KickUser(string userName, string guildName, string kickReason) {
             var guild = FindGuild(guildName);
             var user = FindUser(guild, userName);
@@ -229,6 +247,8 @@ namespace DiscordControler
         }
 
         private SocketGuild FindGuild(string guildName) {
+            if(guildName.Length == 0)
+                return _client.GetGuild(_defaultGuildId);
             var guildsOfClient = _client.Guilds;
             var guildsFiltered = guildsOfClient.Where(g => g.Name.Equals(guildName));
             var guild = (SocketGuild)null;
