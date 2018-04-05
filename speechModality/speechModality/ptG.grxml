@@ -22,12 +22,27 @@
         <ruleref uri="#user"/>
       </item>
       <item>
-        remove
+        <one-of>
+          <item>tira</item>
+          <item>remove</item>
+          <item>kika</item>
+          <item>dá kick</item>
+        </one-of>
         <tag>out="REMOVE_USER";</tag>
+        <ruleref special="GARBAGE"/>
         <ruleref uri="#user"/>
+        <item repeat="0-1">
+        <one-of>
+          <item>porque</item>
+          <item>por</item>
+          <item>por causa</item>
+        </one-of>
+        <ruleref uri="#reasons"/>
+    </item>
       </item>
       <item>
-        bane
+        <ruleref special="GARBAGE"/>
+        <item>bane</item> 
         <tag>out="BAN_USER";</tag>
         <ruleref uri="#userBan"/>
       </item>
@@ -81,8 +96,11 @@
     <item>utilizador</item>
     <ruleref uri="#usersName"/>
     <ruleref special="GARBAGE"/>
-    <item>guild</item>
-    <ruleref uri="#guildsName"/>
+    <item repeat="0-1">
+      <item>guild</item>
+      <ruleref uri="#guildsName"/>  
+    </item>
+    
   </rule>
   <rule id="userBan">
     <ruleref special="GARBAGE"/>

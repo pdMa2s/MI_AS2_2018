@@ -122,12 +122,13 @@ namespace DiscordControler
                 case "REMOVE_USER":
                     var usernameToRemove = json.recognized.userName.ToString() as String;
                     var guildNameToRemoveUser = json.recognized.guildName.ToString() as String;
+                    var kickReason = json["reason"] == null ? null : json.recognized.reason.ToString() as String;
                     break;
                 case "BAN_USER":
                     var usernameToBan = json.recognized.userName.ToString() as String;
                     var guildNameToBanUser = json["guildName"] == null ? null : json.recognized.guildName as String;
-                    var reason = json["reason"] == null ? null : json.recognized.reason.ToString() as String;
-                    await BanUser(usernameToBan, guildNameToBanUser, reason);
+                    var banReason = json["reason"] == null ? null : json.recognized.reason.ToString() as String;
+                    await BanUser(usernameToBan, guildNameToBanUser, banReason);
                     break;
                 case "SEND_MESSAGE":
                     var channelNameToSendMsg = json.recognized.channelName.ToString() as String;
@@ -191,7 +192,6 @@ namespace DiscordControler
             var user = FindUser(guild, userName);
 
             if (user == null) {
-                await guild.GetTextChannel(_defaultChannelId).SendMessageAsync("Esse utilizador não existe!");
                 Console.WriteLine("O utilizador não existe!");
                 return;
             }
@@ -201,8 +201,6 @@ namespace DiscordControler
             else
                 await guild.AddBanAsync(user.Id, reason:banReason);
 
-            await guild.GetTextChannel(_defaultChannelId).SendMessageAsync($"Já podes dizer adeus ao {userName}!");
-            
             Console.WriteLine($"Já podes dizer adeus ao {userName}!");
         }
         private SocketGuild FindGuild(string guildName) {
