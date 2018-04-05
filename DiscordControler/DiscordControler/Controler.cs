@@ -7,8 +7,10 @@ using Newtonsoft.Json;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Linq;
 using System.Xml.Linq;
+using Discord.Rest;
 
 namespace DiscordControler
 {
@@ -18,6 +20,7 @@ namespace DiscordControler
 
         private readonly ulong _defaultChannelId = 426423137073364995;
         private readonly ulong _defaultGuildId = 426423137073364993;
+        private readonly ulong _userID = 414166532143316992;
 
         
         private DiscordSocketClient _client;
@@ -150,12 +153,19 @@ namespace DiscordControler
         {
             string regionID = "eu-west";
             IVoiceRegion region = _client.GetVoiceRegion(regionID);
-            var response = await _client.CreateGuildAsync(guildName, region);
-            Console.WriteLine("Guild criado com sucesso!");
-            //falta adicionar o utilizador a guild criada
-            /*var guildsOfClient = _client.Guilds;
-            var guildsFiltered = guildsOfClient.Where(guildObject => guildObject.Name.Equals(guildName));
-            var guild = guildsFiltered.First();*/
+            var guildCreated = await _client.CreateGuildAsync(guildName, region);
+
+            var channels = await guildCreated.GetChannelsAsync();
+            var channelId = channels.First().Id;
+            var channelDefault = await guildCreated.GetChannelAsync(channelId);
+            var inviteObject = await channelDefault.CreateInviteAsync();
+            var urlInvite = inviteObject.Url;
+
+            var user = _client.GetUser(_userID);
+            var channelPrivate = await user.GetOrCreateDMChannelAsync();
+            await channelPrivate.SendMessageAsync("Guild criada com sucesso!");
+            await channelPrivate.SendMessageAsync($"Link {urlInvite}");
+            Console.WriteLine("guild criada com sucesso");
         }
 
         private async Task CreateChannel(string channelName, string guildNameToAddChannel)
@@ -180,13 +190,13 @@ namespace DiscordControler
             var guild = FindGuild(guildName);
             var user = FindUser(guild, userName);
 
-            if (user is null) {
+            if (user == null) {
                 await guild.GetTextChannel(_defaultChannelId).SendMessageAsync("Esse utilizador não existe!");
                 Console.WriteLine("O utilizador não existe!");
                 return;
             }
 
-            if (banReason is null)
+            if (banReason == null)
                 await guild.AddBanAsync(user.Id);
             else
                 await guild.AddBanAsync(user.Id, reason:banReason);
