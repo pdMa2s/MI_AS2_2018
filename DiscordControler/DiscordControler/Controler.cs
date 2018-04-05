@@ -117,7 +117,8 @@ namespace DiscordControler
                     break;
                 case "ADD_USER":
                     var usernameToAdd = json.recognized.userName.ToString() as String;
-                    var guildNameToAddUser = json.recognized.guildName.ToString() as String;
+                    var guildNameToAddUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    await AddUser(usernameToAdd, guildNameToAddUser);
                     break;
                 case "REMOVE_USER":
                     var usernameToRemove = json.recognized.userName.ToString() as String;
@@ -151,6 +152,11 @@ namespace DiscordControler
                     var guildNameToLeave = json.recognized.guildName.ToString() as String;
                     await LeaveGuild(guildNameToLeave);
                     break;
+                case "REMOVE_BAN":
+                    var userNameToRemBan = json.recognized.userName.ToString() as String;
+                    var guildNameToRemBan = json["guildName"] == null ? null : json.recognized.guildName as String;
+                    await RemoveBan(userNameToRemBan, guildNameToRemBan);
+                    break;
             }
         }
 
@@ -168,7 +174,7 @@ namespace DiscordControler
 
             var user = _client.GetUser(_userID);
             var channelPrivate = await user.GetOrCreateDMChannelAsync();
-            await channelPrivate.SendMessageAsync("Guild criada com sucesso!");
+            //await channelPrivate.SendMessageAsync("Guild criada com sucesso!");
             await channelPrivate.SendMessageAsync($"Link {urlInvite}");
             Console.WriteLine("guild criada com sucesso");
         }
@@ -235,6 +241,65 @@ namespace DiscordControler
 
             Console.WriteLine("O pessoal da guild manda abraços.");
         }
+        private async Task AddUser(string usernameToAdd, string guildNameToAddUser)
+        {
+            var guild = FindGuild(guildNameToAddUser);
+            var userAdd = _client.GetUser(usernameToAdd, usernameToAdd);
+            var user = _client.GetUser(_userID);
+            var invites = await guild.GetInvitesAsync();
+            var invite = (RestInviteMetadata) null; 
+            if (invites.Count != 0)
+            {
+                invite = invites.First();
+            }
+            else
+            {
+                var channels = guild.Channels;
+                var channel = channels.First();
+                invite = await channel.CreateInviteAsync();
+            }
+            var inviteURL = invite.Url;
+
+            var channelPrivate = await userAdd.GetOrCreateDMChannelAsync();
+            await channelPrivate.SendMessageAsync($"O utilizador {user.Username} convidou para a guild {guildNameToAddUser}!");
+            await channelPrivate.SendMessageAsync($"Link {inviteURL}");
+            Console.WriteLine("User adicionado com sucesso");
+        }
+
+        private async Task RemoveBan(string userNameToRemBan, string guildNameToRemBan)
+        {
+            var guild = FindGuild(guildNameToRemBan);
+            var user = FindUser(guild, userNameToRemBan);
+
+            if (user == null)
+            {
+                Console.WriteLine("O utilizador não existe!");
+                return;
+            }
+            var bans = await guild.GetBansAsync();
+            var banToRemove = (RestBan)null;
+            foreach (RestBan ban in bans)
+            {
+                if (ban.User.Username.Equals(userNameToRemBan))
+                {
+                    banToRemove = ban;
+                    break;
+                }
+            }
+
+            if (banToRemove == null)
+            {
+                Console.WriteLine("Não existe nenhum ban ao utilizador "+userNameToRemBan);
+                
+            }
+            else
+            {
+                await guild.RemoveBanAsync(user.Id);
+                Console.WriteLine("Foi removido o ban ao utilizador "+userNameToRemBan);
+            }
+
+        }
+
         private SocketGuild FindGuild(string guildName) {
             var guildsOfClient = _client.Guilds;
             var guildsFiltered = guildsOfClient.Where(g => g.Name.Equals(guildName));

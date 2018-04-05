@@ -32,17 +32,17 @@
         <ruleref special="GARBAGE"/>
         <ruleref uri="#user"/>
         <item repeat="0-1">
-        <one-of>
-          <item>porque</item>
-          <item>por</item>
-          <item>por causa</item>
-        </one-of>
-        <ruleref uri="#reasons"/>
-    </item>
+          <one-of>
+            <item>porque</item>
+            <item>por</item>
+            <item>por causa</item>
+          </one-of>
+          <ruleref uri="#reasons"/>
+        </item>
       </item>
       <item>
         <ruleref special="GARBAGE"/>
-        <item>bane</item> 
+        <item>bane</item>
         <tag>out="BAN_USER";</tag>
         <ruleref uri="#userBan"/>
       </item>
@@ -102,9 +102,9 @@
     <ruleref special="GARBAGE"/>
     <item repeat="0-1">
       <item>guild</item>
-      <ruleref uri="#guildsName"/>  
+      <ruleref uri="#guildsName"/>
     </item>
-    
+
   </rule>
   <rule id="userBan">
     <ruleref special="GARBAGE"/>
@@ -123,7 +123,7 @@
       </one-of>
       <ruleref uri="#reasons"/>
     </item>
-    
+
   </rule>
   <rule id="sendMessage">
     <ruleref special="GARBAGE"/>
@@ -163,64 +163,71 @@
         <item repeat="0-1">
           <item>guild</item>
           <ruleref uri="#guildsName"/>
-         </item>
-    </item>
+        </item>
+      </item>
+      <item>
+        bane
+        <tag>out="REMOVE_BAN";</tag>
+        <ruleref special="GARBAGE"/>
+        <item>utilizador</item>
+        <ruleref uri="#usersName"/>
+        <ruleref special="GARBAGE"/>
+        <item repeat="0-1">
+          <item>guild</item>
+          <ruleref uri="#guildsName"/>
+        </item>
+      </item>
     </one-of>
   </rule>
   <rule id="guildsName">
     <one-of>
-      <item>IMServer<tag>out="IMServer";</tag></item>
-      <item>teste<tag>out="teste";</tag></item>
+      <item>
+        IMServer<tag>out="IMServer";</tag>
+      </item>
+      <item>
+        teste<tag>out="teste";</tag>
+      </item>
     </one-of>
   </rule>
   <rule id="channelsName">
     <one-of>
-      <item>teste<tag>out="teste";</tag></item>
-      <item>cenas<tag>out="cenas";</tag></item>
+      <item>
+        teste<tag>out="teste";</tag>
+      </item>
+      <item>
+        cenas<tag>out="cenas";</tag>
+      </item>
     </one-of>
   </rule>
   <rule id="usersName">
     <one-of>
-      <item>tal<tag>out="tal";</tag></item>
-      <item>cenas<tag>out="cenas";</tag></item>
+      <item>
+        Matos<tag>out="Matos";</tag>
+      </item>
+      <item>
+        cenas<tag>out="cenas";</tag>
+      </item>
     </one-of>
   </rule>
   <rule id="messages">
     <one-of>
-      <item>tal<tag>out="tal";</tag></item>
-      <item>cenas<tag>out="cenas";</tag></item>
+      <item>
+        tal<tag>out="tal";</tag>
+      </item>
+      <item>
+        cenas<tag>out="cenas";</tag>
+      </item>
     </one-of>
   </rule>
   <rule id="reasons">
     <one-of>
-      <item>tal<tag>out="tal";</tag></item>
-      <item>cenas<tag>out="cenas";</tag></item>
-    </one-of>
-  </rule>
-  <!--rule id="rootRule" scope="public">
-    <item>
       <item>
-        <ruleref uri="#object"/>
-        <tag>out.shape=rules.latest();</tag>
+        tal<tag>out="tal";</tag>
       </item>
       <item>
-        <ruleref uri="#color"/>
-        <tag>out.color=rules.latest();</tag>
+        cenas<tag>out="cenas";</tag>
       </item>
-    </item>
-  </rule>
-  <rule id="object">
-    <one-of>
-      <item>quadrado<tag>out="SQUARE"</tag></item>
-      <item>círculo<tag>out="CIRCLE"</tag></item>
-      <item>triângulo<tag>out="TRIANGLE"</tag></item>
     </one-of>
   </rule>
-  <rule id="color">
-    <one-of>
-      <item>verde<tag>out="GREEN"</tag></item>
-      <item>azul<tag>out="BLUE"</tag></item>
-      <item>vermelho<tag>out="RED"</tag></item>
-    </one-of>
-  </rule-->
+  
 </grammar>
