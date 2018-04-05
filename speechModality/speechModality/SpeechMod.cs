@@ -55,8 +55,8 @@ namespace speechModality
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             onRecognized(new SpeechEventArg(){Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true});
-            foreach (var resultSemantic in e.Result.Semantics) 
-                Console.WriteLine(resultSemantic.Key+":"+resultSemantic.Value.Value);
+            /*foreach (var resultSemantic in e.Result.Semantics) 
+                Console.WriteLine(resultSemantic.Key+":"+resultSemantic.Value.Value);*/
             
             //SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["SHAPE","COLOR"]}
@@ -68,7 +68,8 @@ namespace speechModality
             }
             json = json.Substring(0, json.Length - 2);
             json += "} }";
-            Console.WriteLine(json);
+            //Console.WriteLine(json);
+            Console.WriteLine("--------"+e.Result.Semantics["action"].Value+"-------");
             var exNot = lce.ExtensionNotification(e.Result.Audio.StartTime+"", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration)+"",e.Result.Confidence, json);
             mmic.Send(exNot);
         }
