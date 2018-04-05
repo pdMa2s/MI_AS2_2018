@@ -1,26 +1,16 @@
 ﻿<?xml version="1.0"?>
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
   <rule id="rootRule" scope="public">
-    <item>Ambrósio</item>
+    <item>Wally</item>
     <ruleref uri="#action"/>
     <tag>out.action=rules.latest();</tag>
-    <tag>out.guildName=rules.guildsName;</tag>
-    <tag>out.channelName=rules.channelsName;</tag>
-    <tag>out.userName=rules.usersName;</tag>
-    <tag>out.message=rules.messages;</tag>
-    <tag>out.reason=rules.reasons;</tag>
+    <tag>out.guildName=rules.guildNameRule;</tag>
+    <tag>out.channelName=rules.channelNameRule;</tag>
+    <tag>out.userName=rules.userNameRule;</tag>
+    <tag>out.reason=rules.reasonRule;</tag>
   </rule>
   <rule id="action">
     <one-of>
-      <item>
-        cria
-        <ruleref uri="#create"/>
-      </item>
-      <item>
-        adiciona
-        <tag>out="ADD_USER";</tag>
-        <ruleref uri="#user"/>
-      </item>
       <item>
         <one-of>
           <item>tira</item>
@@ -29,32 +19,16 @@
           <item>dá kick</item>
         </one-of>
         <tag>out="REMOVE_USER";</tag>
-        <ruleref special="GARBAGE"/>
-        <ruleref uri="#user"/>
-        <item repeat="0-1">
-          <one-of>
-            <item>porque</item>
-            <item>por</item>
-            <item>por causa</item>
-          </one-of>
-          <ruleref uri="#reasons"/>
-        </item>
+        <ruleref uri="#userRemoveOrBan"/>
       </item>
       <item>
-        <ruleref special="GARBAGE"/>
-        <item>bane</item>
+        <one-of>
+          <item>bane</item>
+          <item>expulsa</item>
+          <item>afasta</item>
+        </one-of>
         <tag>out="BAN_USER";</tag>
-        <ruleref uri="#userBan"/>
-      </item>
-      <item>
-        envia
-        <tag>out="SEND_MESSAGE";</tag>
-        <ruleref uri="#sendMessage"/>
-      </item>
-      <item>
-        edita
-        <tag>out="EDIT_MESSAGE";</tag>
-        <ruleref uri="#editMessage"/>
+        <ruleref uri="#userRemoveOrBan"/>
       </item>
       <item>
         <one-of>
@@ -65,82 +39,42 @@
         <ruleref uri="#eliminate"/>
       </item>
       <item>
-        quero sair
+        <one-of>
+          <item>quero sair</item>
+          <item>tira me</item>
+        </one-of>
         <tag>out="LEAVE_GUILD";</tag>
         <ruleref special="GARBAGE"/>
-        <item>guild</item>
-        <ruleref uri="#guildsName"/>
+        <ruleref uri="#guildNameRule"/>
+      </item>
+      <item>
+        <one-of>
+          <item>qual é</item>
+          <item>diz me</item>
+        </one-of>
+        <tag>out="USER_STATUS";</tag>
+        <ruleref special="GARBAGE"/>
+        <item>estado</item>
+        <ruleref special="GARBAGE"/>
+        <ruleref uri="#userNameRule"/>
+        <ruleref special="GARBAGE"/>
+        <item repeat="0-1">
+          <ruleref uri="#guildNameRule"/>
+        </item>    
       </item>
     </one-of>
   </rule>
-  <rule id="create" scope="public">
-    <ruleref special="GARBAGE"></ruleref>
-    <one-of>
-      <item>
-        guild
-        <tag>out="CREATE_GUILD";</tag>
-        <ruleref special="GARBAGE"/>
-        <item>nome</item>
-        <ruleref uri="#guildsName"/>
-      </item>
-      <item>
-        channel
-        <tag>out="CREATE_CHANNEL";</tag>
-        <ruleref special="GARBAGE"/>
-        <item>nome</item>
-        <ruleref uri="#channelsName"/>
-        <ruleref special="GARBAGE"/>
-        <item>guild</item>
-        <ruleref uri="#guildsName"/>
-      </item>
-    </one-of>
-  </rule>
-  <rule id="user">
+  <rule id="userRemoveOrBan">
     <ruleref special="GARBAGE"/>
-    <item>utilizador</item>
-    <ruleref uri="#usersName"/>
+    <ruleref uri="#userNameRule"/>
     <ruleref special="GARBAGE"/>
     <item repeat="0-1">
-      <item>guild</item>
-      <ruleref uri="#guildsName"/>
-    </item>
-
-  </rule>
-  <rule id="userBan">
-    <ruleref special="GARBAGE"/>
-    <item>utilizador</item>
-    <ruleref uri="#usersName"/>
+      <ruleref uri="#guildNameRule"/>
+    </item>    
     <ruleref special="GARBAGE"/>
     <item repeat="0-1">
-      <item>guild</item>
-      <ruleref uri="#guildsName"/>
-
+      <ruleref uri="#reasonRule"/>
     </item>
-    <item repeat="0-1">
-      <one-of>
-        <item>porque</item>
-        <item>por</item>
-      </one-of>
-      <ruleref uri="#reasons"/>
-    </item>
-
-  </rule>
-  <rule id="sendMessage">
-    <ruleref special="GARBAGE"/>
-    <item>channel</item>
-    <ruleref uri="#channelsName"/>
-    <ruleref special="GARBAGE"/>
-    <item>mensagem</item>
-    <ruleref uri="#messages"/>
-  </rule>
-  <rule id="editMessage">
-    <ruleref special="GARBAGE"/>
-    <item>última mensagem</item>
-    <ruleref special="GARBAGE"/>
-    <item>channel</item>
-    <ruleref uri="#channelsName"/>
-    <item>para</item>
-    <ruleref uri="#messages"/>
   </rule>
   <rule id="eliminate">
     <ruleref special="GARBAGE"/>
@@ -149,85 +83,76 @@
         última mensagem
         <tag>out="DELETE_LAST_MESSAGE";</tag>
         <ruleref special="GARBAGE"/>
-        <item>channel</item>
-        <ruleref uri="#channelsName"/>
-      </item>
-      <item>
-        <one-of>
-          <item>channel</item>
-          <item>canal</item>
-        </one-of>
-        <tag>out="DELETE_CHANNEL";</tag>
-        <ruleref uri="#channelsName"/>
+        <ruleref uri="#channelNameRule"/>
         <ruleref special="GARBAGE"/>
         <item repeat="0-1">
-          <item>guild</item>
-          <ruleref uri="#guildsName"/>
+          <ruleref uri="#guildNameRule"/>
         </item>
+      </item>
+      <item>
+        <ruleref uri="#channelNameRule"/>
+        <ruleref special="GARBAGE"/>
+        <item repeat="0-1">
+          <ruleref uri="#guildNameRule"/>
+        </item>
+        <tag>out="DELETE_CHANNEL";</tag>
       </item>
       <item>
         bane
         <tag>out="REMOVE_BAN";</tag>
         <ruleref special="GARBAGE"/>
-        <item>utilizador</item>
-        <ruleref uri="#usersName"/>
+        <ruleref uri="#userNameRule"/>
         <ruleref special="GARBAGE"/>
         <item repeat="0-1">
-          <item>guild</item>
-          <ruleref uri="#guildsName"/>
+          <ruleref uri="#guildNameRule"/>
         </item>
       </item>
     </one-of>
   </rule>
-  <rule id="guildsName">
+  <rule id="guildNameRule">
     <one-of>
-      <item>
-        IMServer<tag>out="IMServer";</tag>
-      </item>
-      <item>
-        teste<tag>out="teste";</tag>
-      </item>
+        <item>server</item>
+        <item>servidor</item>
+        <item>grupo</item>
+        <item>comunidade</item>
+        <item>guild</item>
+    </one-of>
+    <one-of>
+      <item>IMServer<tag>out="IMServer";</tag></item>
+      <item>teste<tag>out="teste";</tag></item>
     </one-of>
   </rule>
-  <rule id="channelsName">
+  <rule id="channelNameRule">
     <one-of>
-      <item>
-        teste<tag>out="teste";</tag>
-      </item>
-      <item>
-        cenas<tag>out="cenas";</tag>
-      </item>
+      <item>channel</item>
+      <item>canal</item>
+    </one-of>
+    <one-of>
+      <item>teste<tag>out="teste";</tag></item>
+      <item>general<tag>out="general";</tag></item>
     </one-of>
   </rule>
-  <rule id="usersName">
+  <rule id="userNameRule">
+    <item repeat="0-1">
+      <one-of>
+        <item>utilizador</item>
+        <item>user</item>
+      </one-of>
+    </item>
     <one-of>
-      <item>
-        Matos<tag>out="Matos";</tag>
-      </item>
-      <item>
-        cenas<tag>out="cenas";</tag>
-      </item>
+      <item>Matos<tag>out="Matos";</tag></item>
+      <item>cenas<tag>out="cenas";</tag></item>
     </one-of>
   </rule>
-  <rule id="messages">
+  <rule id="reasonRule">
     <one-of>
-      <item>
-        tal<tag>out="tal";</tag>
-      </item>
-      <item>
-        cenas<tag>out="cenas";</tag>
-      </item>
+      <item>porque</item>
+      <item>por</item>
+      <item>por causa</item>
+    </one-of>
+    <one-of>
+      <item>tal<tag>out="tal";</tag></item>
+      <item>cenas<tag>out="cenas";</tag></item>
     </one-of>
   </rule>
-  <rule id="reasons">
-    <one-of>
-      <item>
-        tal<tag>out="tal";</tag>
-      </item>
-      <item>
-        cenas<tag>out="cenas";</tag>
-      </item>
-    </one-of>
-  </rule>
-  
 </grammar>
