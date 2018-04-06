@@ -72,8 +72,8 @@ namespace DiscordControler.Modules
         public string GetLowConfidence()
         {
             List<string> lowConfidence = new List<string> {"Desculpa, estava desatento! Podes repetir se faz favor?",
-                                                       "Desculpa, não percebi. Achas que podes repetir novamente mais perto do microfone se faz favor?",
-                                                        "Desculpa, mas hoje estou um bocado para o surdo. Podes repetir novamente, mas alto se faz favor?"};
+                                                       "Desculpa, não percebi. Achas que podes repetir?",
+                                                        "Desculpa, mas hoje estou um bocado para o surdo. Podes repetir novamente?"};
             return lowConfidence[randomGen.Next(lowConfidence.Count)];
         }
 
@@ -91,6 +91,22 @@ namespace DiscordControler.Modules
                                                        $"Eu percebi que queres que o utilizador {username} não volte por uns tempos ao servidor {guildName}. Estou correto?",
                                                         $"Acho que ouvi que queres expulsar o utilizador {username} do servidor {guildName}. Verdade?"};
             return banUserExplicit[randomGen.Next(banUserExplicit.Count)];
+        }
+
+        public string GetDeleteMessageExplicit(string channelName, string guildName)
+        {
+            List<string> deleteMessageExplicit = new List<string> {$"Então, queres que elimine a ultima mensagem do canal {channelName} do servidor {guildName}, correto?",
+                                                       $"Tens a certeza que queres apagar a ultima mensagem do canal {channelName} do servidor {guildName}?",
+                                                        $"Percebi que queres remover a ultima mensagem do canal {channelName} do servidor {guildName}. Estou correto?"};
+            return deleteMessageExplicit[randomGen.Next(deleteMessageExplicit.Count)];
+        }
+
+        public string GetDeleteChannelExplicit(string channelName, string guildName)
+        {
+            List<string> deleteChannelExplicit = new List<string> {$"Então, queres que elimine o canal {channelName} do servidor {guildName}, correto?",
+                                                       $"Tens a certeza que queres apagar o canal {channelName} do servidor {guildName}?",
+                                                        $"Percebi que queres remover o canal {channelName} do servidor {guildName}. Estou correto?"};
+            return deleteChannelExplicit[randomGen.Next(deleteChannelExplicit.Count)];
         }
 
         public string GetLeaveGuildExplicit(string guildName)
@@ -156,6 +172,20 @@ namespace DiscordControler.Modules
                                                         $"Tens mesmo a certeza que queres ativar o microfone e o audio ao utilizador {username} no servidor {guildName}?"};
             return unMuteUnDeafExplicit[randomGen.Next(unMuteUnDeafExplicit.Count)];
         }
+
+        public string GetDeleteLastMessageExplicit(string channelName, string guildName) {
+            List<string> deleteLastMessageExplicitSpeech = new List<string> {$"Queres pagar a última mensagem do {channelName} do servidor {guildName}?"};
+            return deleteLastMessageExplicitSpeech[randomGen.Next(deleteLastMessageExplicitSpeech.Count)];
+        }
+
+        public string GetDeleteLastMessage(string channelName, string guildName){
+            List<string> deleteLastMessageSpeech = new List<string> { $"Última mensagem do canal {channelName} apagada!",
+                                                                             $"Mensagem apagada. Disseste alguma coisa embaraçosa?"};
+            return deleteLastMessageSpeech[randomGen.Next(deleteLastMessageSpeech.Count)];
+
+        }
+
+
 
         public string GetBanUSer(string userName, string guildName)
         {

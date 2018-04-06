@@ -2,7 +2,15 @@
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
   <rule id="rootRule" scope="public">
     <one-of>
-      <item>Wally</item>
+      <item>
+        Wally
+        <ruleref uri="#action"/>
+        <tag>out.action=rules.latest();</tag>
+        <tag>out.guildName=rules.guildNameRule;</tag>
+        <tag>out.channelName=rules.channelNameRule;</tag>
+        <tag>out.userName=rules.userNameRule;</tag>
+        <tag>out.reason=rules.reasonRule;</tag>
+      </item>
       <item>
         <ruleref uri="#yesOptions"/>
         <tag>out.confirmation="yes";</tag>
@@ -12,12 +20,6 @@
         <tag>out.confirmation="no";</tag>
       </item>
     </one-of>
-    <ruleref uri="#action"/>
-    <tag>out.action=rules.latest();</tag>
-    <tag>out.guildName=rules.guildNameRule;</tag>
-    <tag>out.channelName=rules.channelNameRule;</tag>
-    <tag>out.userName=rules.userNameRule;</tag>
-    <tag>out.reason=rules.reasonRule;</tag>
     <!--ruleref special="GARBAGE"/-->
   </rule>
   <rule id="action">
@@ -222,22 +224,27 @@
   </rule>
   <rule id="yesOptions">
     <one-of>
-      <item>não</item>
-      <item>nope</item>
-      <item>no</item>
-      <item>nei pensar</item>
-      <item>incorreto</item>
-    </one-of>
-  </rule>
-  <rule id="noOptions">
-    <one-of>
       <item>sim</item>
       <item>yes</item>
       <item>oui</item>
       <item>claro</item>
       <item>yap</item>
+      <item>ya</item>
       <item>tenho</item>
       <item>correto</item>
+      <item>verdade</item>
+    </one-of>
+  </rule>
+  <rule id="noOptions">
+    <one-of>
+      <item>não</item>
+      <item>nope</item>
+      <item>no</item>
+      <item>nei pensar</item>
+      <item>incorreto</item>
+      <item>negativo</item>
+      <item>nada disso</item>
+      <item>errado</item>
     </one-of>
   </rule>
 </grammar>
