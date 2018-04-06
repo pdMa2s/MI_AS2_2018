@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Xml.Linq;
 using Discord.Rest;
+using DiscordControler.Modules;
 
 namespace DiscordControler
 {
@@ -26,6 +27,7 @@ namespace DiscordControler
         private CommandService _commands;
         private IServiceProvider _service;
         private MmiCommunication _comModule;
+        private Tts _tts;
         public async Task RunBotAsync() {
             _client = new DiscordSocketClient();
             _commands = new CommandService();
@@ -34,7 +36,8 @@ namespace DiscordControler
                 .AddSingleton(_client)
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
-           
+            _tts = new Tts();
+            _tts.Speak("otorrinolaringologista");
             string botToken = "NDMxNTg4NTczMTI5NjA1MTIw.Dag8Yw.lW9VrG3H8cJLiFv8rg0eUBkvwBY";
 
             _client.Log += Log;
