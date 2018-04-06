@@ -239,7 +239,6 @@ namespace DiscordControler
                 return;
             }
 
-            //voice confirmation missing 
             if (confidence.Equals("explicit confirmation"))
             {
                 _tts.Speak(_speechTemplates.GetDeleteLastMessageExplicit(channelName, guild.Name));
@@ -307,7 +306,7 @@ namespace DiscordControler
 
             if (user == null)
             {
-                Console.WriteLine("O utilizador não existe!");
+                _tts.Speak(_speechTemplates.GetUnkownUser());
                 return;
             }
             var bans = await guild.GetBansAsync();
