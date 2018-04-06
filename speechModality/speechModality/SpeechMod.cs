@@ -76,11 +76,11 @@ namespace speechModality
             }
             else if (e.Result.Confidence > 0.46 && e.Result.Confidence < 0.79)
             {
-                json += ", \"confidence\":\"explicit confimation\"} }";
+                json += ", \"confidence\":\"explicit confirmation\"} }";
             }
             else if (e.Result.Confidence > 0.8)
             {
-                json += ", \"confidence\":\"implicit confimation\" } }";
+                json += ", \"confidence\":\"implicit confirmation\" } }";
             }
             Console.WriteLine(json);
             //Console.WriteLine("--------"+e.Result.Semantics["action"].Value+"-------");

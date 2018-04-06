@@ -92,7 +92,7 @@ namespace DiscordControler
 
             if (confidence.Equals("low confidence"))
                 _tts.Speak(_speechTemplates.GetLowConfidence());
-            else if (confidence.Equals("explicit confimation"))
+            else if (confidence.Equals("explicit confirmation"))
                 lastJsonMessage = json;
             else
             {
@@ -180,9 +180,10 @@ namespace DiscordControler
             }
 
 
-            if (confidence.Equals("explicit confimation"))
+            if (confidence.Equals("explicit confirmation"))
             {
-                _tts.Speak(_speechTemplates.GetKickUserConfirmation(userName, guildName));
+                _tts.Speak(_speechTemplates.GetKickUserExplicit(userName, guild.Name));
+                return;
             }
 
             await user.KickAsync(reason: kickReason);
@@ -200,9 +201,10 @@ namespace DiscordControler
                 return;
             }
 
-            if (confidence.Equals("explicit confimation"))
+            if (confidence.Equals("explicit confirmation"))
             {
-                _tts.Speak(_speechTemplates.GetBanUserConfirmation(userName, guildName));
+                _tts.Speak(_speechTemplates.GetBanUserExplicit(userName, guild.Name));
+                return;
             }
 
             await guild.AddBanAsync(user.Id, reason: banReason);
@@ -237,6 +239,12 @@ namespace DiscordControler
                 return;
             }
 
+            if (confidence.Equals("explicit confirmation"))
+            {
+                _tts.Speak(_speechTemplates.GetLeaveGuildExplicit(guild.Name));
+                return;
+            }
+
             await user.KickAsync();
 
             Console.WriteLine("O pessoal da guild manda abraços.");
@@ -266,17 +274,21 @@ namespace DiscordControler
             if (banToRemove == null)
             {
                 Console.WriteLine($"Não existe nenhum ban ao utilizador {userNameToRemBan}");
+                return;
+            }
 
-            }
-            else
+            if (confidence.Equals("explicit confirmation"))
             {
-                await guild.RemoveBanAsync(user.Id);
-                Console.WriteLine($"Foi removido o ban ao utilizador {userNameToRemBan}");
+                _tts.Speak(_speechTemplates.GetRemoveBanExplicit(userNameToRemBan, guild.Name));
+                return;
             }
+
+            await guild.RemoveBanAsync(user.Id);
+            Console.WriteLine($"Foi removido o ban ao utilizador {userNameToRemBan}");
 
         }
 
-        private void UserStatus(string userName, string guildName, string confidence)
+        private void UserStatus(string userName, string guildName, string confidence) // acho que não vale apena
         {
             var guild = FindGuild(guildName);
             var user = FindUser(guild, userName);
@@ -301,6 +313,15 @@ namespace DiscordControler
                 return;
             }
 
+            if (confidence.Equals("explicit confirmation"))
+            {
+                if (mute)
+                    _tts.Speak(_speechTemplates.GetMuteExplicit(userNameToMute, guild.Name));
+                else
+                    _tts.Speak(_speechTemplates.GetUnMuteExplicit(userNameToMute, guild.Name));
+                return;
+            }
+
             await user.ModifyAsync(x => x.Mute = mute);
             if (mute)
                 Console.WriteLine("Fui tirada a voz ao user " + userNameToMute);
@@ -319,6 +340,15 @@ namespace DiscordControler
                 return;
             }
 
+            if (confidence.Equals("explicit confirmation"))
+            {
+                if (deaf)
+                    _tts.Speak(_speechTemplates.GetDeafExplicit(userNameToDeaf, guild.Name));
+                else
+                    _tts.Speak(_speechTemplates.GetUnDeafExplicit(userNameToDeaf, guild.Name));
+                return;
+            }
+
             await user.ModifyAsync(x => x.Deaf = deaf);
             if (deaf)
                 Console.WriteLine("Fui tirado os ouvidos ao user " + userNameToDeaf);
@@ -334,6 +364,15 @@ namespace DiscordControler
             if (user == null)
             {
                 Console.WriteLine("Desconheço essa pessoa.");
+                return;
+            }
+
+            if (confidence.Equals("explicit confirmation"))
+            {
+                if (muteDeaf)
+                    _tts.Speak(_speechTemplates.GetMuteDeafExplicit(userNameToMuteDeaf, guild.Name));
+                else
+                    _tts.Speak(_speechTemplates.GetUnMuteUnDeafExplicit(userNameToMuteDeaf, guild.Name));
                 return;
             }
 

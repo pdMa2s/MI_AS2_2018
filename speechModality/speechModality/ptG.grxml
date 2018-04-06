@@ -83,6 +83,8 @@
       <item>
         <one-of>
           <item>desativa o audio</item>
+          <item>bloquea o som</item>
+          <item>restringe o audio</item>
           <item>deaf</item>
         </one-of>
         <tag>out="DEAF_USER";</tag>
@@ -102,12 +104,17 @@
         <one-of>
           <item>mete voz</item>
           <item>ativa o microfone</item>
+          <item>quero ouvir</item>
         </one-of>
         <tag>out="UNMUTE_USER";</tag>
         <ruleref uri="#userStatusMuteDeaf"/>
       </item>
       <item>
-        <item>ativa o audio</item>
+        <one-of>
+          <item>ativa o audio</item>
+          <item>desbloquea o som</item>
+          <item>undeaf</item>
+        </one-of>
         <tag>out="UNDEAF_USER";</tag>
         <ruleref uri="#userStatusMuteDeaf"/>
       </item>
@@ -219,6 +226,7 @@
       <item>nope</item>
       <item>no</item>
       <item>nei pensar</item>
+      <item>incorreto</item>
     </one-of>
   </rule>
   <rule id="noOptions">
@@ -228,6 +236,8 @@
       <item>oui</item>
       <item>claro</item>
       <item>yap</item>
+      <item>tenho</item>
+      <item>correto</item>
     </one-of>
   </rule>
 </grammar>
