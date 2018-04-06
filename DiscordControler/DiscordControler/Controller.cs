@@ -181,6 +181,9 @@ namespace DiscordControler
                     var guildNameToMuteDeafUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await ChangeMuteDeafUser(userNameToMuteDeaf, guildNameToMuteDeafUser, true, confidence);
                     break;
+                default:
+                    Console.WriteLine("Invalid action!");
+                    break;
             }
         }
 
@@ -201,7 +204,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await user.KickAsync(reason: kickReason);
+            await user.KickAsync(reason: kickReason);
             _tts.Speak(_speechTemplates.GetKickUser(userName));
         }
 
@@ -222,17 +225,31 @@ namespace DiscordControler
                 return;
             }
 
-            //await guild.AddBanAsync(user.Id, reason: banReason);
-
-            Console.WriteLine($"Já podes dizer adeus ao {userName}!");
+            await guild.AddBanAsync(user.Id, reason: banReason);
+            _tts.Speak(_speechTemplates.GetBanUSer(userName, guildName));
         }
 
         private async Task DeleteLastMessage(string channelName, string guildNameToDeleteMsg, string confidence)
         {
             var guild = FindGuild(guildNameToDeleteMsg);
             var channel = (SocketTextChannel)FindChannel(guild, channelName);
-            var message = await channel.GetMessagesAsync(1).First();
-            Console.WriteLine(message);
+            
+            if (channel == null) {
+                _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guildNameToDeleteMsg));
+                return;
+            }
+
+            //voice confirmation missing 
+            if (confidence.Equals("explicit confirmation"))
+            {
+                _tts.Speak(_speechTemplates.GetDeleteLastMessageExplicit(channelName, guild.Name));
+                return;
+            }
+
+            var message = await channel.GetMessagesAsync(1).Flatten();
+            await channel.DeleteMessagesAsync(message);
+
+            _tts.Speak(_speechTemplates.GetDeleteLastMessage(channelName, guild.Name));
         }
 
         private async Task DeleteChanel(string channelName, string guildName, string confidence)
@@ -256,7 +273,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await channel.DeleteAsync();
+            await channel.DeleteAsync();
 
             _tts.Speak(_speechTemplates.GetDeleteChannel(channelName));
         }
@@ -278,7 +295,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await user.KickAsync();
+            await user.KickAsync();
 
             _tts.Speak(_speechTemplates.GetLeaveGuild(guildName));
         }
@@ -316,7 +333,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await guild.RemoveBanAsync(user.Id);
+            await guild.RemoveBanAsync(user.Id);
             Console.WriteLine($"Foi removido o ban ao utilizador {userNameToRemBan}");
 
         }
@@ -355,7 +372,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await user.ModifyAsync(x => x.Mute = mute);
+            await user.ModifyAsync(x => x.Mute = mute);
             if (mute)
                 Console.WriteLine("Fui tirada a voz ao user " + userNameToMute);
             else
@@ -382,7 +399,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await user.ModifyAsync(x => x.Deaf = deaf);
+            await user.ModifyAsync(x => x.Deaf = deaf);
             if (deaf)
                 Console.WriteLine("Fui tirado os ouvidos ao user " + userNameToDeaf);
             else
@@ -409,8 +426,8 @@ namespace DiscordControler
                 return;
             }
 
-            //await user.ModifyAsync(x => x.Deaf = muteDeaf);
-            //await user.ModifyAsync(x => x.Mute = muteDeaf);
+            await user.ModifyAsync(x => x.Deaf = muteDeaf);
+            await user.ModifyAsync(x => x.Mute = muteDeaf);
             if (muteDeaf)
                 Console.WriteLine("Fui tirado os ouvidos e a voz ao user " + userNameToMuteDeaf);
             else
