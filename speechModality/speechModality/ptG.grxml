@@ -8,6 +8,7 @@
     <tag>out.channelName=rules.channelNameRule;</tag>
     <tag>out.userName=rules.userNameRule;</tag>
     <tag>out.reason=rules.reasonRule;</tag>
+    <!--ruleref special="GARBAGE"/-->
   </rule>
   <rule id="action">
     <one-of>
@@ -55,12 +56,48 @@
         <tag>out="USER_STATUS";</tag>
         <ruleref special="GARBAGE"/>
         <item>estado</item>
-        <ruleref special="GARBAGE"/>
-        <ruleref uri="#userNameRule"/>
-        <ruleref special="GARBAGE"/>
-        <item repeat="0-1">
-          <ruleref uri="#guildNameRule"/>
-        </item>    
+        <ruleref uri="#userStatusMuteDeaf"/>
+      </item>
+      <item>
+        <one-of>
+          <item>cala</item>
+          <item>silencia</item>  
+          <item>mute</item>
+          <item>tira a voz</item>
+        </one-of>
+        <tag>out="MUTE_USER";</tag>
+        <ruleref uri="#userStatusMuteDeaf"/>
+      </item>
+      <item>
+        <one-of>
+          <item>desativa o audio</item>
+          <item>deaf</item>
+        </one-of>
+        <tag>out="DEAF_USER";</tag>
+        <ruleref uri="#userStatusMuteDeaf"/>
+      </item>
+      <item>
+        <item>corta as comunicações</item>
+        <tag>out="MUTE_DEAF_USER";</tag>
+        <ruleref uri="#userStatusMuteDeaf"/>
+      </item>
+      <item>
+        <item>retoma as comunicações</item>
+        <tag>out="UNMUTE_UNDEAF_USER";</tag>
+        <ruleref uri="#userStatusMuteDeaf"/>
+      </item>
+      <item>
+        <one-of>
+          <item>mete voz</item>
+          <item>ativa o microfone</item>
+        </one-of>
+        <tag>out="UNMUTE_USER";</tag>
+        <ruleref uri="#userStatusMuteDeaf"/>
+      </item>
+      <item>
+        <item>ativa o audio</item>
+        <tag>out="UNDEAF_USER";</tag>
+        <ruleref uri="#userStatusMuteDeaf"/>
       </item>
     </one-of>
   </rule>
@@ -109,6 +146,14 @@
       </item>
     </one-of>
   </rule>
+  <rule id="userStatusMuteDeaf">
+    <ruleref special="GARBAGE"/>
+    <ruleref uri="#userNameRule"/>
+    <ruleref special="GARBAGE"/>
+    <item repeat="0-1">
+      <ruleref uri="#guildNameRule"/>
+    </item>
+  </rule>
   <rule id="guildNameRule">
     <one-of>
         <item>server</item>
@@ -130,6 +175,7 @@
     <one-of>
       <item>teste<tag>out="teste";</tag></item>
       <item>general<tag>out="general";</tag></item>
+      <item>geral<tag>out="geral"</tag></item>
     </one-of>
   </rule>
   <rule id="userNameRule">
