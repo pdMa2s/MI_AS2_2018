@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using mmisharp;
 using Microsoft.Speech.Recognition;
 
@@ -57,19 +53,37 @@ namespace speechModality
             onRecognized(new SpeechEventArg(){Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true});
             /*foreach (var resultSemantic in e.Result.Semantics) 
                 Console.WriteLine(resultSemantic.Key+":"+resultSemantic.Value.Value);*/
-            
+
             //SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["SHAPE","COLOR"]}
-            string json = "{ \"recognized\": {";
+
+            string json = "";
+
+            if (e.Result.Confidence < 0.30)
+                return;
+
+            json = "{ \"recognized\": {";
             foreach (var resultSemantic in e.Result.Semantics)
             {
                 if (!resultSemantic.Value.Value.ToString().Equals(""))
-                    json+= "\"" + resultSemantic.Key +"\": \"" + resultSemantic.Value.Value +"\", ";
+                    json += "\"" + resultSemantic.Key + "\": \"" + resultSemantic.Value.Value + "\", ";
             }
             json = json.Substring(0, json.Length - 2);
-            json += "} }";
-            //Console.WriteLine(json);
-            Console.WriteLine("--------"+e.Result.Semantics["action"].Value+"-------");
+
+            if (e.Result.Confidence > 0.31 && e.Result.Confidence < 0.45)
+            {
+                json += ", \"confidence\":\"low confidence\" } }";
+            }
+            else if (e.Result.Confidence > 0.46 && e.Result.Confidence < 0.79)
+            {
+                json += ", \"confidence\":\"explicit confimation\"} }";
+            }
+            else if (e.Result.Confidence > 0.8)
+            {
+                json += ", \"confidence\":\"implicit confimation\" } }";
+            }
+            Console.WriteLine(json);
+            //Console.WriteLine("--------"+e.Result.Semantics["action"].Value+"-------");
             var exNot = lce.ExtensionNotification(e.Result.Audio.StartTime+"", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration)+"",e.Result.Confidence, json);
             mmic.Send(exNot);
         }

@@ -1,7 +1,17 @@
 ﻿<?xml version="1.0"?>
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
   <rule id="rootRule" scope="public">
-    <item>Wally</item>
+    <one-of>
+      <item>Wally</item>
+      <item>
+        <ruleref uri="#yesOptions"/>
+        <tag>out.confirmation="yes";</tag>
+      </item>
+      <item>
+        <ruleref uri="#noOptions"/>
+        <tag>out.confirmation="no";</tag>
+      </item>
+    </one-of>
     <ruleref uri="#action"/>
     <tag>out.action=rules.latest();</tag>
     <tag>out.guildName=rules.guildNameRule;</tag>
@@ -54,7 +64,10 @@
         </one-of>
         <tag>out="USER_STATUS";</tag>
         <ruleref special="GARBAGE"/>
-        <item>estado</item>
+        <one-of>
+          <item>estado</item>
+          <item>status</item>
+        </one-of>
         <ruleref uri="#userStatusMuteDeaf"/>
       </item>
       <item>
@@ -198,6 +211,22 @@
     <one-of>
       <item>tal<tag>out="tal";</tag></item>
       <item>cenas<tag>out="cenas";</tag></item>
+    </one-of>
+  </rule>
+  <rule id="yesOptions">
+    <one-of>
+      <item>não</item>
+      <item>nope</item>
+      <item>no</item>
+      <item>nei pensar</item>
+    </one-of>
+  </rule>
+  <rule id="noOptions">
+    <one-of>
+      <item>sim</item>
+      <item>yes</item>
+      <item>oui</item>
+      <item>claro</item>
     </one-of>
   </rule>
 </grammar>
