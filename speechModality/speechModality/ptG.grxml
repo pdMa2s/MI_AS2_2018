@@ -26,6 +26,7 @@
         <one-of>
           <item>bane</item>
           <item>expulsa</item>
+          <item>afasta</item>
         </one-of>
         <tag>out="BAN_USER";</tag>
         <ruleref uri="#userRemoveOrBan"/>
