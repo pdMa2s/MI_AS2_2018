@@ -93,6 +93,22 @@ namespace DiscordControler.Modules
             return banUserExplicit[randomGen.Next(banUserExplicit.Count)];
         }
 
+        public string GetDeleteMessageExplicit(string channelName, string guildName)
+        {
+            List<string> deleteMessageExplicit = new List<string> {$"Então, queres que elimine a ultima mensagem do canal {channelName} do servidor {guildName}, correto?",
+                                                       $"Tens a certeza que queres apagar a ultima mensagem do canal {channelName} do servidor {guildName}?",
+                                                        $"Percebi que queres remover a ultima mensagem do canal {channelName} do servidor {guildName}. Estou correto?"};
+            return deleteMessageExplicit[randomGen.Next(deleteMessageExplicit.Count)];
+        }
+
+        public string GetDeleteChannelExplicit(string channelName, string guildName)
+        {
+            List<string> deleteChannelExplicit = new List<string> {$"Então, queres que elimine o canal {channelName} do servidor {guildName}, correto?",
+                                                       $"Tens a certeza que queres apagar o canal {channelName} do servidor {guildName}?",
+                                                        $"Percebi que queres remover o canal {channelName} do servidor {guildName}. Estou correto?"};
+            return deleteChannelExplicit[randomGen.Next(deleteChannelExplicit.Count)];
+        }
+
         public string GetLeaveGuildExplicit(string guildName)
         {
             List<string> leaveGuildExplicit = new List<string> {$"Então, queres que te tira do servidor {guildName}, correto?",

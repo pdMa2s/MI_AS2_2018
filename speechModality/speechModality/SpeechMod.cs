@@ -76,7 +76,7 @@ namespace speechModality
             }
             else if (e.Result.Confidence > 0.46 && e.Result.Confidence < 0.79)
             {
-                json += ", \"confidence\":\"explicit confirmation\"} }";
+                json += ", \"confidence\":\"explicit confirmation\" } }";
             }
             else if (e.Result.Confidence > 0.8)
             {
