@@ -36,7 +36,7 @@ namespace DiscordControler
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
            
-            string botToken = "NDMxNTE1MTkwMzIwOTU1Mzky.Daf3Zg.q9WyW9ZeRLUG3eYu6eXGvTXw9uk";
+            string botToken = "NDMxNTg4NTczMTI5NjA1MTIw.Dag8Yw.lW9VrG3H8cJLiFv8rg0eUBkvwBY";
 
             _client.Log += Log;
 
@@ -314,7 +314,7 @@ namespace DiscordControler
         }
 
         private SocketGuild FindGuild(string guildName) {
-            if(guildName.Length == 0)
+            if(guildName is null)
                 return _client.GetGuild(_defaultGuildId);
             var guildsOfClient = _client.Guilds;
             var guildsFiltered = guildsOfClient.Where(g => g.Name.Equals(guildName));
