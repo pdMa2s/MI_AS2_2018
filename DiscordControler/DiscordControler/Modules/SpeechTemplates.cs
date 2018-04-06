@@ -157,6 +157,13 @@ namespace DiscordControler.Modules
             return unMuteUnDeafExplicit[randomGen.Next(unMuteUnDeafExplicit.Count)];
         }
 
+        public string GetBanUSer(string userName, string guildName)
+        {
+            List<string> banUserImplicit = new List<string> {$"Já podes dizer adeus ao {userName}!",
+                                                       $"O utilizador {userName} está banido do servidor {guildName}."};
+            return banUserImplicit[randomGen.Next(banUserImplicit.Count)];
+        }
+
         private bool HasPlaceholder(string s)
         {
             return Regex.IsMatch(s, ".*{.*}.*");

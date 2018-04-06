@@ -87,7 +87,7 @@ namespace DiscordControler
             dynamic json = JsonConvert.DeserializeObject(com);
             Console.WriteLine(json);
             var action = json.recognized.action;
-            var confidence = json.recognized.condidence.ToString() as String;
+            var confidence = json.recognized.confidence.ToString() as String;
             Console.WriteLine(action);
 
             if (confidence.Equals("low confidence"))
@@ -208,8 +208,7 @@ namespace DiscordControler
             }
 
             await guild.AddBanAsync(user.Id, reason: banReason);
-
-            Console.WriteLine($"Já podes dizer adeus ao {userName}!");
+            _tts.Speak(_speechTemplates.GetBanUSer(userName, guildName));
         }
 
         private async Task DeleteLastMessage(string channelName, string guildNameToDeleteMsg, string confidence)
@@ -217,7 +216,7 @@ namespace DiscordControler
             var guild = FindGuild(guildNameToDeleteMsg);
             var channel = (SocketTextChannel)FindChannel(guild, channelName);
             var message = await channel.GetMessagesAsync(1).First();
-            Console.WriteLine(message);
+            Console.WriteLine("message: " + message);
         }
 
         private async Task DeleteChanel(string channelName, string guildName, string confidence)
