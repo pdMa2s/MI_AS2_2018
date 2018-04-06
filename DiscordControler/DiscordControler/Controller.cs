@@ -78,7 +78,7 @@ namespace DiscordControler
         }
 
 
-        
+
         private void MmiC_Message(object sender, MmiEventArgs e)
         {
             Console.WriteLine(e.Message);
@@ -86,11 +86,10 @@ namespace DiscordControler
             var com = doc.Descendants("command").FirstOrDefault().Value;
             dynamic json = JsonConvert.DeserializeObject(com);
             Console.WriteLine(json);
-            var action = json["action"] == null ? null : json.recognized.action.ToString() as String;
-            var confirmation = json["confirmation"] == null ? null : json.recognized.confirmation.ToString() as String;
-            var confidence = json.recognized.condidence.ToString() as String;
+            var action = json.recognized["action"] == null ? null : json.recognized.action.ToString() as String;
+            var confirmation = json.recognized["confirmation"] == null ? null : json.recognized.confirmation.ToString() as String;
+            var confidence = json.recognized.confidence.ToString() as String;
             Console.WriteLine(action);
-
             if (confidence.Equals("low confidence"))
                 _tts.Speak(_speechTemplates.GetLowConfidence());
             else if (confidence.Equals("explicit confirmation") && confirmation == null)
@@ -104,7 +103,7 @@ namespace DiscordControler
             {
                 if (confirmation.Equals("yes"))
                 {
-                    executeCommand(lastJsonMessage, lastJsonMessage.recognized.action.ToString as String, "implicit confirmation");
+                    executeCommand(lastJsonMessage, lastJsonMessage.recognized.action.ToString() as String, "implicit confirmation");
                     lastJsonMessage = null;
                 }
                 else
@@ -196,14 +195,13 @@ namespace DiscordControler
                 return;
             }
 
-
             if (confidence.Equals("explicit confirmation"))
             {
                 _tts.Speak(_speechTemplates.GetKickUserExplicit(userName, guild.Name));
                 return;
             }
 
-            await user.KickAsync(reason: kickReason);
+            //await user.KickAsync(reason: kickReason);
             _tts.Speak(_speechTemplates.GetKickUser(userName));
         }
 
@@ -224,7 +222,7 @@ namespace DiscordControler
                 return;
             }
 
-            await guild.AddBanAsync(user.Id, reason: banReason);
+            //await guild.AddBanAsync(user.Id, reason: banReason);
 
             Console.WriteLine($"Já podes dizer adeus ao {userName}!");
         }
@@ -258,7 +256,7 @@ namespace DiscordControler
                 return;
             }
 
-            await channel.DeleteAsync();
+            //await channel.DeleteAsync();
 
             _tts.Speak(_speechTemplates.GetDeleteChannel(channelName));
         }
@@ -280,7 +278,7 @@ namespace DiscordControler
                 return;
             }
 
-            await user.KickAsync();
+            //await user.KickAsync();
 
             _tts.Speak(_speechTemplates.GetLeaveGuild(guildName));
         }
@@ -318,7 +316,7 @@ namespace DiscordControler
                 return;
             }
 
-            await guild.RemoveBanAsync(user.Id);
+            //await guild.RemoveBanAsync(user.Id);
             Console.WriteLine($"Foi removido o ban ao utilizador {userNameToRemBan}");
 
         }
@@ -357,7 +355,7 @@ namespace DiscordControler
                 return;
             }
 
-            await user.ModifyAsync(x => x.Mute = mute);
+            //await user.ModifyAsync(x => x.Mute = mute);
             if (mute)
                 Console.WriteLine("Fui tirada a voz ao user " + userNameToMute);
             else
@@ -384,7 +382,7 @@ namespace DiscordControler
                 return;
             }
 
-            await user.ModifyAsync(x => x.Deaf = deaf);
+            //await user.ModifyAsync(x => x.Deaf = deaf);
             if (deaf)
                 Console.WriteLine("Fui tirado os ouvidos ao user " + userNameToDeaf);
             else
@@ -411,8 +409,8 @@ namespace DiscordControler
                 return;
             }
 
-            await user.ModifyAsync(x => x.Deaf = muteDeaf);
-            await user.ModifyAsync(x => x.Mute = muteDeaf);
+            //await user.ModifyAsync(x => x.Deaf = muteDeaf);
+            //await user.ModifyAsync(x => x.Mute = muteDeaf);
             if (muteDeaf)
                 Console.WriteLine("Fui tirado os ouvidos e a voz ao user " + userNameToMuteDeaf);
             else
