@@ -22,12 +22,14 @@ namespace DiscordControler
         private readonly ulong _defaultGuildId = 426423137073364993;
         private readonly ulong _userID = 414166532143316992;
         private readonly string _userNick = "IMStudent2018";
-        
+        private readonly string _botToken = "NDMxNTg4NTczMTI5NjA1MTIw.Dag8Yw.lW9VrG3H8cJLiFv8rg0eUBkvwBY";
+
         private DiscordSocketClient _client;
         private CommandService _commands;
         private IServiceProvider _service;
         private MmiCommunication _comModule;
         private Tts _tts;
+        private SpeechTemplates _speechTemplates;
         public async Task RunBotAsync() {
             _client = new DiscordSocketClient();
             _commands = new CommandService();
@@ -37,16 +39,15 @@ namespace DiscordControler
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
             _tts = new Tts();
-            _tts.Speak("otorrinolaringologista");
-            string botToken = "NDMxNTg4NTczMTI5NjA1MTIw.Dag8Yw.lW9VrG3H8cJLiFv8rg0eUBkvwBY";
-
+            _speechTemplates = new SpeechTemplates();
+            
             _client.Log += Log;
 
-            //await RegisterCommandsAsync(); // handle text commands
+            await RegisterCommandsAsync();
             _comModule.Message += MmiC_Message; // subscribe to the messages that come from the comMudole
             _comModule.Start();
 
-            await _client.LoginAsync(TokenType.Bot, botToken);
+            await _client.LoginAsync(TokenType.Bot, _botToken);
 
             
             await _client.StartAsync();
@@ -64,38 +65,18 @@ namespace DiscordControler
 
         public async Task RegisterCommandsAsync() {
 
-            _client.MessageReceived += HandleCommandAsync;
+            //_client.MessageReceived += HandleCommandAsync;
             _client.UserJoined += AnnouceUserJoined;
-            await _commands.AddModulesAsync(Assembly.GetEntryAssembly());
+            //await _commands.AddModulesAsync(Assembly.GetEntryAssembly());
         }
 
         private async Task AnnouceUserJoined(SocketGuildUser user)
         {
-            var guild = user.Guild;
-            var channel = guild.GetTextChannel(_defaultChannelId);
-            await channel.SendMessageAsync($"Seja bem vindo, {user.Mention}");
+            _tts.Speak(_speechTemplates.GetGreeting(user.Username));
         }
 
 
-        private async Task HandleCommandAsync(SocketMessage arg)
-        {
-            var message = arg as SocketUserMessage;
-
-            if (message == null || message.Author.IsBot) return;
-
-            int argumentPosition = 0;
-
-            if (message.HasStringPrefix("amb!", ref argumentPosition) || message.HasMentionPrefix(_client.CurrentUser, ref argumentPosition)) {
-                var context = new SocketCommandContext(_client, message);
-                var result = await _commands.ExecuteAsync(context, argumentPosition, _service);
-
-                if (!result.IsSuccess)
-                    Console.WriteLine(result.ErrorReason);
-                
-            }
-
-        }
-
+        
         private async void MmiC_Message(object sender, MmiEventArgs e)
         {
             Console.WriteLine(e.Message);
@@ -145,33 +126,33 @@ namespace DiscordControler
                     UserStatus(userNameToKnowStatus, guildNameToKnowStatus);
                     break;
                 case "MUTE_USER":
-                    var userNameToMute = json.recognized.userName.toString() as String;
+                    var userNameToMute = json.recognized.userName.ToString() as String;
                     var guildNameToMuteUser = json["guildName"] == null ? null : json.recognized.guildName as String;
                     await ChangeMuteUser(userNameToMute, guildNameToMuteUser, true);
                     break;
                 case "DEAF_USER":
-                    var userNameToDeaf = json.recognized.userName.toString() as String;
+                    var userNameToDeaf = json.recognized.userName.ToString() as String;
                     var guildNameToDeafUser = json["guildName"] == null ? null : json.recognized.guildName as String;
                     await ChangeDeafUser(userNameToDeaf, guildNameToDeafUser, true);
                     break;
                 case "UNMUTE_USER":
-                    var userNameToUnMute = json.recognized.userName.toString() as String;
+                    var userNameToUnMute = json.recognized.userName.ToString() as String;
                     var guildNameToUnMuteUser = json["guildName"] == null ? null : json.recognized.guildName as String;
                     await ChangeMuteUser(userNameToUnMute, guildNameToUnMuteUser, false);
                     break;
                 case "UNDEAF_USER":
-                    var userNameToUnDeaf = json.recognized.userName.toString() as String;
+                    var userNameToUnDeaf = json.recognized.userName.ToString() as String;
                     var guildNameToUnDeafUser = json["guildName"] == null ? null : json.recognized.guildName as String;
                     await ChangeDeafUser(userNameToUnDeaf, guildNameToUnDeafUser, false);
                     break;
                 case "UNMUTE_UNDEAF_USER":
-                    var userNameToUnMuteUnDeaf = json.recognized.userName.toString() as String;
+                    var userNameToUnMuteUnDeaf = json.recognized.userName.ToString() as String;
                     var guildNameToUnMuteUnDeafUser = json["guildName"] == null ? null : json.recognized.guildName as String;
                     await ChangeMuteUser(userNameToUnMuteUnDeaf, guildNameToUnMuteUnDeafUser, false);
                     await ChangeDeafUser(userNameToUnMuteUnDeaf, guildNameToUnMuteUnDeafUser, false);
                     break;
                 case "MUTE_DEAF_USER":
-                    var userNameToMuteDeaf = json.recognized.userName.toString() as String;
+                    var userNameToMuteDeaf = json.recognized.userName.ToString() as String;
                     var guildNameToMuteDeafUser = json["guildName"] == null ? null : json.recognized.guildName as String;
                     await ChangeMuteUser(userNameToMuteDeaf, guildNameToMuteDeafUser, true);
                     await ChangeDeafUser(userNameToMuteDeaf, guildNameToMuteDeafUser, true);
@@ -186,7 +167,7 @@ namespace DiscordControler
 
             if (user == null)
             {
-                Console.WriteLine("Não sei de quem falas!");
+                _tts.Speak(_speechTemplates.GetUnkownUser());
                 return;
             }
 
@@ -201,7 +182,7 @@ namespace DiscordControler
 
             if (user == null)
             {
-                Console.WriteLine("O utilizador não existe!");
+                _tts.Speak(_speechTemplates.GetUnkownUser());
                 return;
             }
             await guild.AddBanAsync(user.Id, reason: banReason);
@@ -358,5 +339,25 @@ namespace DiscordControler
             }
             return null;
         }
+        /*private async Task HandleCommandAsync(SocketMessage arg)
+        {
+            var message = arg as SocketUserMessage;
+
+            if (message == null || message.Author.IsBot) return;
+
+            int argumentPosition = 0;
+
+            if (message.HasStringPrefix("amb!", ref argumentPosition) || message.HasMentionPrefix(_client.CurrentUser, ref argumentPosition))
+            {
+                var context = new SocketCommandContext(_client, message);
+                var result = await _commands.ExecuteAsync(context, argumentPosition, _service);
+
+                if (!result.IsSuccess)
+                    Console.WriteLine(result.ErrorReason);
+
+            }
+
+        }*/
+
     }
 }
