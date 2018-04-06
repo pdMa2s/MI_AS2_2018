@@ -33,7 +33,32 @@ namespace DiscordControler.Modules
                                                        "Não estás nesse servidor",
                                                         "Não o servidor {0}."};
             string speech = unkownGuild[randomGen.Next(unkownGuild.Count)];
-            return HasPlaceholder(speech) ? string.Format(speech, guildName) : speech;
+            return (HasPlaceholder(speech) && guildName.Length != 0) ? string.Format(speech, guildName) : speech;
+
+        }
+        public string GetLeaveGuild(string guildName = "") {
+            List<string> leaveGuild = new List<string> {"De certeza que eles vão ter saudades tuas.",
+                                                       "O pessoal do {0} manda abraços."};
+            string speech = leaveGuild[randomGen.Next(leaveGuild.Count)];
+            return HasPlaceholder(speech) && guildName.Length != 0 ? string.Format(speech, guildName) : speech;
+
+        }
+
+        public string GetDeleteChannel (string channelName = "")
+        {
+            List<string> deleteChannelSpeech = new List<string> {"Canal {0} apagado!",
+                                                       "O canal {0} deixou de existir."};
+            string speech = deleteChannelSpeech[randomGen.Next(deleteChannelSpeech.Count)];
+            return HasPlaceholder(speech) && channelName.Length != 0 ? string.Format(speech, channelName) : speech;
+
+        }
+
+        public string GetKickUser(string userName = "")
+        {
+            List<string> kickUserlSpeech = new List<string> {"Canal {0} apagado!",
+                                                       "O canal {0} deixou de existir."};
+            string speech = kickUserlSpeech[randomGen.Next(kickUserlSpeech.Count)];
+            return HasPlaceholder(speech) && userName.Length != 0 ? string.Format(speech, userName) : speech;
 
         }
 

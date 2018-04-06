@@ -16,7 +16,7 @@
         <one-of>
           <item>tira</item>
           <item>remove</item>
-          <item>kika</item>
+          <item>quica</item>
           <item>dá kick</item>
         </one-of>
         <tag>out="REMOVE_USER";</tag>
