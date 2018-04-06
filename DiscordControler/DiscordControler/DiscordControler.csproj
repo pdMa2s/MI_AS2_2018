@@ -142,6 +142,7 @@
     <Compile Include="Modules\Coms.cs" />
     <Compile Include="Modules\Ping.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Modules\SpeechTemplates.cs" />
     <Compile Include="Modules\Tts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
