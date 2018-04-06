@@ -187,7 +187,7 @@ namespace DiscordControler
             }
 
             await user.KickAsync(reason: kickReason);
-            Console.WriteLine($"O {userName} vai lá fora apanhar ar.");
+            _tts.Speak(_speechTemplates.GetKickUser(userName));
         }
 
         private async Task BanUser(string userName, string guildName, string banReason, string confidence)
@@ -225,7 +225,17 @@ namespace DiscordControler
             var guild = FindGuild(guildName);
             var channel = FindChannel(guild, channelName);
             await channel.DeleteAsync();
-            Console.WriteLine("Canal apagado!");
+
+            if (guild is null)
+            {
+                _tts.Speak(_speechTemplates.GetUnkownGuild(guildName));
+                return;
+            }
+            if (channel is null) {
+                _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guildName));
+                return;
+            }
+            _tts.Speak(_speechTemplates.GetDeleteChannel(channelName));
         }
 
         private async Task LeaveGuild(string guildName, string confidence)
@@ -235,7 +245,7 @@ namespace DiscordControler
 
             if (user == null)
             {
-                Console.WriteLine("Não estás nessa guild!");
+                _tts.Speak(_speechTemplates.GetUnkownGuild(guildName));
                 return;
             }
 
@@ -247,7 +257,7 @@ namespace DiscordControler
 
             await user.KickAsync();
 
-            Console.WriteLine("O pessoal da guild manda abraços.");
+            _tts.Speak(_speechTemplates.GetLeaveGuild(guildName));
         }
 
         private async Task RemoveBan(string userNameToRemBan, string guildNameToRemBan, string confidence)
