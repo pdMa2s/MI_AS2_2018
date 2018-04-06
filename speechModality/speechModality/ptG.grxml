@@ -227,6 +227,7 @@
       <item>yes</item>
       <item>oui</item>
       <item>claro</item>
+      <item>yap</item>
     </one-of>
   </rule>
 </grammar>

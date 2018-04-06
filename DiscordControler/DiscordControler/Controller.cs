@@ -91,7 +91,7 @@ namespace DiscordControler
             Console.WriteLine(action);
 
             if (confidence.Equals("low confidence"))
-                _tts.Speak("Desculpa, não percebi! Podes repetir se faz favor?");
+                _tts.Speak(_speechTemplates.GetLowConfidence());
             else if (confidence.Equals("explicit confimation"))
                 lastJsonMessage = json;
             else
@@ -179,6 +179,12 @@ namespace DiscordControler
                 return;
             }
 
+
+            if (confidence.Equals("explicit confimation"))
+            {
+                _tts.Speak(_speechTemplates.GetKickUserConfirmation(userName, guildName));
+            }
+
             await user.KickAsync(reason: kickReason);
             Console.WriteLine($"O {userName} vai lá fora apanhar ar.");
         }
@@ -193,6 +199,12 @@ namespace DiscordControler
                 _tts.Speak(_speechTemplates.GetUnkownUser());
                 return;
             }
+
+            if (confidence.Equals("explicit confimation"))
+            {
+                _tts.Speak(_speechTemplates.GetBanUserConfirmation(userName, guildName));
+            }
+
             await guild.AddBanAsync(user.Id, reason: banReason);
 
             Console.WriteLine($"Já podes dizer adeus ao {userName}!");
