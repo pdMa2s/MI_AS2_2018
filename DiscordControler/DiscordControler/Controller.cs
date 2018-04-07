@@ -78,7 +78,7 @@ namespace DiscordControler
         }
 
 
-        
+
         private void MmiC_Message(object sender, MmiEventArgs e)
         {
             Console.WriteLine(e.Message);
@@ -89,7 +89,7 @@ namespace DiscordControler
             var action = json.recognized["action"] == null ? null : json.recognized.action.ToString() as String;
             var confirmation = json.recognized["confirmation"] == null ? null : json.recognized.confirmation.ToString() as String;
             var confidence = json.recognized.confidence.ToString() as String;
-            
+            Console.WriteLine(action);
             if (confidence.Equals("low confidence"))
                 _tts.Speak(_speechTemplates.GetLowConfidence());
             else if (confidence.Equals("explicit confirmation") && confirmation == null)
@@ -199,7 +199,6 @@ namespace DiscordControler
                 return;
             }
 
-
             if (confidence.Equals("explicit confirmation"))
             {
                 _tts.Speak(_speechTemplates.GetKickUserExplicit(userName, guild.Name));
@@ -236,7 +235,7 @@ namespace DiscordControler
             var guild = FindGuild(guildNameToDeleteMsg);
             var channel = (SocketTextChannel)FindChannel(guild, channelName);
             
-            if (channel is null) {
+            if (channel == null) {
                 _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guildNameToDeleteMsg));
                 return;
             }

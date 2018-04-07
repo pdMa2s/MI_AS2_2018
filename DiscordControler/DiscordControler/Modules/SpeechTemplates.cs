@@ -22,7 +22,7 @@ namespace DiscordControler.Modules
 
         public string GetUnkownUser()
         {
-            List<string> unkownUsers = new List<string> {"Não sei de quem  falas!",
+            List<string> unkownUsers = new List<string> {"Não sei de quem falas!",
                                                        "Esse utilizador não existe.",
                                                         "Esse utilizador não esta cá."};
             return unkownUsers[randomGen.Next(unkownUsers.Count)];
@@ -31,7 +31,7 @@ namespace DiscordControler.Modules
         public string GetUnkownGuild(string guildName = "") {
             List<string> unkownGuild = new List<string> {"Desconheço esse servidor.",
                                                        "Não estás nesse servidor",
-                                                        "Não o encontro servidor {0}."};
+                                                        "Não encontro o servidor {0}."};
             string speech = unkownGuild[randomGen.Next(unkownGuild.Count)];
             return (HasPlaceholder(speech) && guildName.Length != 0) ? string.Format(speech, guildName) : speech;
 
@@ -79,97 +79,97 @@ namespace DiscordControler.Modules
 
         public string GetKickUserExplicit (string username, string guildName)
         {
-            List<string> kickUserExplicit = new List<string> {$"Então, queres que tire o utilizador {username} do servidor {guildName}, correto?",
-                                                       $"Eu percebi que queres dar kick ao utilizador {username} no servidor {guildName}. Estou correto?",
-                                                        $"Penso que dizestes que queres kikar o utilizador {username} do servidor {guildName}. Verdade?"};
+            List<string> kickUserExplicit = new List<string> {$"Então, queres que tire o utilizador {username} do servidor {guildName}, correcto?",
+                                                       $"Eu percebi que queres dar kick ao utilizador {username} no servidor {guildName}. Estou correcto?",
+                                                        $"Penso que dissestes que queres kikar o utilizador {username} do servidor {guildName}. Verdade?"};
             return kickUserExplicit[randomGen.Next(kickUserExplicit.Count)];
         }
 
         public string GetBanUserExplicit(string username, string guildName)
         {
-            List<string> banUserExplicit = new List<string> {$"Então, queres que bane o utilizador {username} do servidor {guildName}, correto?",
-                                                       $"Eu percebi que queres que o utilizador {username} não volte por uns tempos ao servidor {guildName}. Estou correto?",
+            List<string> banUserExplicit = new List<string> {$"Então, queres que bane o utilizador {username} do servidor {guildName}, correcto?",
+                                                       $"Eu percebi que queres que o utilizador {username} não volte por uns tempos ao servidor {guildName}. Estou correcto?",
                                                         $"Acho que ouvi que queres expulsar o utilizador {username} do servidor {guildName}. Verdade?"};
             return banUserExplicit[randomGen.Next(banUserExplicit.Count)];
         }
 
         public string GetDeleteMessageExplicit(string channelName, string guildName)
         {
-            List<string> deleteMessageExplicit = new List<string> {$"Então, queres que elimine a ultima mensagem do canal {channelName} do servidor {guildName}, correto?",
-                                                       $"Tens a certeza que queres apagar a ultima mensagem do canal {channelName} do servidor {guildName}?",
-                                                        $"Percebi que queres remover a ultima mensagem do canal {channelName} do servidor {guildName}. Estou correto?"};
+            List<string> deleteMessageExplicit = new List<string> {$"Então, queres que elimine a última mensagem do canal {channelName} do servidor {guildName}, correcto?",
+                                                       $"Tens a certeza que queres apagar a última mensagem do canal {channelName} do servidor {guildName}?",
+                                                        $"Percebi que queres remover a última mensagem do canal {channelName} do servidor {guildName}. Estou correcto?"};
             return deleteMessageExplicit[randomGen.Next(deleteMessageExplicit.Count)];
         }
 
         public string GetDeleteChannelExplicit(string channelName, string guildName)
         {
-            List<string> deleteChannelExplicit = new List<string> {$"Então, queres que elimine o canal {channelName} do servidor {guildName}, correto?",
+            List<string> deleteChannelExplicit = new List<string> {$"Então, queres que elimine o canal {channelName} do servidor {guildName}, correcto?",
                                                        $"Tens a certeza que queres apagar o canal {channelName} do servidor {guildName}?",
-                                                        $"Percebi que queres remover o canal {channelName} do servidor {guildName}. Estou correto?"};
+                                                        $"Percebi que queres remover o canal {channelName} do servidor {guildName}. Estou correcto?"};
             return deleteChannelExplicit[randomGen.Next(deleteChannelExplicit.Count)];
         }
 
         public string GetLeaveGuildExplicit(string guildName)
         {
-            List<string> leaveGuildExplicit = new List<string> {$"Então, queres que te tira do servidor {guildName}, correto?",
-                                                       $"Percebi que queres sair do servidor {guildName}. Estou correto?",
+            List<string> leaveGuildExplicit = new List<string> {$"Então, queres que te tira do servidor {guildName}, correcto?",
+                                                       $"Percebi que queres sair do servidor {guildName}. Estou correcto?",
                                                         $"Penso que queres sair do servidor {guildName}. Verdade?"};
             return leaveGuildExplicit[randomGen.Next(leaveGuildExplicit.Count)];
         }
 
         public string GetRemoveBanExplicit(string username, string guildName)
         {
-            List<string> removeBanExplicit = new List<string> {$"Então, queres remover o bane que foi colocado ao utilizador {username} no servidor {guildName}, correto?",
-                                                       $"Acho que ouvi que queres tirar o bane colocado ao utilizador {username} no servidor {guildName}. Estou correto?",
+            List<string> removeBanExplicit = new List<string> {$"Então, queres remover o bane que foi colocado ao utilizador {username} no servidor {guildName}, correcto?",
+                                                       $"Acho que ouvi que queres tirar o bane colocado ao utilizador {username} no servidor {guildName}. Estou correcto?",
                                                         $"Percebi que é para apagar o bane no utilizador {username} no servidor {guildName}. Verdade?"};
             return removeBanExplicit[randomGen.Next(removeBanExplicit.Count)];
         }
 
         public string GetMuteExplicit(string username, string guildName)
         {
-            List<string> muteExplicit = new List<string> {$"Então, queres calar o utilizador {username} no servidor {guildName}, correto?",
-                                                       $"Acho que ouvi que queres silenciar o utilizador {username} no servidor {guildName}. Estou correto?",
-                                                        $"Tens mesmo a certeza que queres desativar o microfone ao utilizador {username} no servidor {guildName}?"};
+            List<string> muteExplicit = new List<string> {$"Então, queres calar o utilizador {username} no servidor {guildName}, correcto?",
+                                                       $"Acho que ouvi que queres silenciar o utilizador {username} no servidor {guildName}. Estou correcto?",
+                                                        $"Tens mesmo a certeza que queres desactivar o microfone ao utilizador {username} no servidor {guildName}?"};
             return muteExplicit[randomGen.Next(muteExplicit.Count)];
         }
 
         public string GetUnMuteExplicit(string username, string guildName)
         {
-            List<string> unMuteExplicit = new List<string> {$"Então, queres dar voz o utilizador {username} no servidor {guildName}, correto?",
-                                                       $"Acho que ouvi que queres ativar o microfone do utilizador {username} no servidor {guildName}. Estou correto?",
+            List<string> unMuteExplicit = new List<string> {$"Então, queres dar voz ao utilizador {username} no servidor {guildName}, correcto?",
+                                                       $"Acho que ouvi que queres activar o microfone do utilizador {username} no servidor {guildName}. Estou correcto?",
                                                         $"Tens mesmo a certeza que queres ouvir o utilizador {username} no servidor {guildName}?"};
             return unMuteExplicit[randomGen.Next(unMuteExplicit.Count)];
         }
 
         public string GetDeafExplicit(string username, string guildName)
         {
-            List<string> deafExplicit = new List<string> {$"Então, queres bolquear o som ao utilizador {username} no servidor {guildName}, correto?",
-                                                       $"Penso que dizestes que queres tira a audição ao utilizador {username} no servidor {guildName}. Estou correto?",
-                                                        $"Tens mesmo a certeza que queres desativar o audio ao utilizador {username} no servidor {guildName}?"};
+            List<string> deafExplicit = new List<string> {$"Então, queres bloquear o som ao utilizador {username} no servidor {guildName}, correcto?",
+                                                       $"Penso que dissestes que queres tira a audição ao utilizador {username} no servidor {guildName}. Estou correcto?",
+                                                        $"Tens mesmo a certeza que queres desactivar o áudio ao utilizador {username} no servidor {guildName}?"};
             return deafExplicit[randomGen.Next(deafExplicit.Count)];
         }
 
         public string GetUnDeafExplicit(string username, string guildName)
         {
-            List<string> unMuteExplicit = new List<string> {$"Então, queres que o utilizador {username} oiça o pessoal do servidor {guildName}, correto?",
-                                                       $"Acho que ouvi que queres desbloquear o som ao utilizador {username} no servidor {guildName}. Estou correto?",
-                                                        $"Tens mesmo a certeza que queres ativar o audio ao utilizador {username} no servidor {guildName}?"};
+            List<string> unMuteExplicit = new List<string> {$"Então, queres que o utilizador {username} oiça o pessoal do servidor {guildName}, correcto?",
+                                                       $"Acho que ouvi que queres desbloquear o som ao utilizador {username} no servidor {guildName}. Estou correcto?",
+                                                        $"Tens mesmo a certeza que queres activar o áudio ao utilizador {username} no servidor {guildName}?"};
             return unMuteExplicit[randomGen.Next(unMuteExplicit.Count)];
         }
 
         public string GetMuteDeafExplicit(string username, string guildName)
         {
-            List<string> muteDeafExplicit = new List<string> {$"Então, queres tirar a voz e a audição ao utilizador {username} no servidor {guildName}, correto?",
-                                                       $"Penso que queres silenciar e bolquear o som do utilizador {username} no servidor {guildName}. Estou correto?",
-                                                        $"Percebi que queres calar e restingir a capacidade auditiva do utilizador {username} no servidor {guildName}. Estou correto?"};
+            List<string> muteDeafExplicit = new List<string> {$"Então, queres tirar a voz e a audição ao utilizador {username} no servidor {guildName}, correcto?",
+                                                       $"Penso que queres silenciar e bloquear o som do utilizador {username} no servidor {guildName}. Estou correcto?",
+                                                        $"Percebi que queres calar e restingir a capacidade auditiva do utilizador {username} no servidor {guildName}. Estou correcto?"};
             return muteDeafExplicit[randomGen.Next(muteDeafExplicit.Count)];
         }
 
         public string GetUnMuteUnDeafExplicit(string username, string guildName)
         {
-            List<string> unMuteUnDeafExplicit = new List<string> {$"Percebi que tens o desejo de dar voz e ouvidos ao utilizador {username} no servidor {guildName}, correto?",
-                                                       $"Acho que entendi que queres ouvir o utilizador {username} no servidor {guildName} e tambem queres ele te oiça. Estou correto?",
-                                                        $"Tens mesmo a certeza que queres ativar o microfone e o audio ao utilizador {username} no servidor {guildName}?"};
+            List<string> unMuteUnDeafExplicit = new List<string> {$"Percebi que tens o desejo de dar voz e ouvidos ao utilizador {username} no servidor {guildName}, correcto?",
+                                                       $"Acho que entendi que queres ouvir o utilizador {username} no servidor {guildName} e tambem queres que ele te oiça. Estou correcto?",
+                                                        $"Tens mesmo a certeza que queres activar o microfone e o áudio ao utilizador {username} no servidor {guildName}?"};
             return unMuteUnDeafExplicit[randomGen.Next(unMuteUnDeafExplicit.Count)];
         }
 
