@@ -59,7 +59,7 @@ namespace speechModality
 
             string json = "";
 
-            if (e.Result.Confidence < 0.30)
+            if (e.Result.Confidence <= 0.30)
                 return;
 
             json = "{ \"recognized\": {";
@@ -70,15 +70,15 @@ namespace speechModality
             }
             json = json.Substring(0, json.Length - 2);
 
-            if (e.Result.Confidence > 0.31 && e.Result.Confidence < 0.45)
+            if (e.Result.Confidence > 0.30 && e.Result.Confidence <= 0.45)
             {
                 json += ", \"confidence\":\"low confidence\" } }";
             }
-            else if (e.Result.Confidence > 0.46 && e.Result.Confidence < 0.79)
+            else if (e.Result.Confidence > 0.45 && e.Result.Confidence < 0.8)
             {
                 json += ", \"confidence\":\"explicit confirmation\" } }";
             }
-            else if (e.Result.Confidence > 0.8)
+            else if (e.Result.Confidence >= 0.8)
             {
                 json += ", \"confidence\":\"implicit confirmation\" } }";
             }

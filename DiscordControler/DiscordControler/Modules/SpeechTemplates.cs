@@ -173,11 +173,6 @@ namespace DiscordControler.Modules
             return unMuteUnDeafExplicit[randomGen.Next(unMuteUnDeafExplicit.Count)];
         }
 
-        public string GetDeleteLastMessageExplicit(string channelName, string guildName) {
-            List<string> deleteLastMessageExplicitSpeech = new List<string> {$"Queres pagar a última mensagem do {channelName} do servidor {guildName}?"};
-            return deleteLastMessageExplicitSpeech[randomGen.Next(deleteLastMessageExplicitSpeech.Count)];
-        }
-
         public string GetDeleteLastMessage(string channelName, string guildName){
             List<string> deleteLastMessageSpeech = new List<string> { $"Última mensagem do canal {channelName} apagada!",
                                                                              $"Mensagem apagada. Disseste alguma coisa embaraçosa?"};
@@ -207,11 +202,19 @@ namespace DiscordControler.Modules
         }
 
 
-        public string GetBanUSer(string userName, string guildName)
+        public string GetBanUser(string userName, string guildName)
         {
             List<string> banUserImplicit = new List<string> {$"Já podes dizer adeus ao {userName}!",
                                                        $"O utilizador {userName} está banido do servidor {guildName}."};
             return banUserImplicit[randomGen.Next(banUserImplicit.Count)];
+        }
+
+        public string GetNoConfirmation()
+        {
+            List<string> noConfirmation = new List<string> {"Ok, não o irei fazer.",
+                                                            "Como pareces arrependido, eu não irei fazer isso, por agora.",
+                                                            "Pronto, tu é que sabes. Pedido eliminado."};
+            return noConfirmation[randomGen.Next(noConfirmation.Count)];
         }
 
         private bool HasPlaceholder(string s)

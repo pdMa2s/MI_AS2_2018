@@ -99,7 +99,7 @@ namespace DiscordControler
             }
             else if (confidence.Equals("implicit confirmation") && confirmation == null)
                 executeCommand(json, action, confidence);
-            else if (confirmation != null)
+            else if (confirmation != null && lastJsonMessage != null)
             {
                 if (confirmation.Equals("yes"))
                 {
@@ -108,7 +108,10 @@ namespace DiscordControler
                     lastJsonMessage = null;
                 }
                 else
+                {
+                    _tts.Speak(_speechTemplates.GetNoConfirmation());
                     lastJsonMessage = null;
+                }
             }
         }
 
@@ -136,7 +139,7 @@ namespace DiscordControler
                 case "DELETE_CHANNEL":  //fica
                     var channelNameToDelete = json.recognized.channelName.ToString() as String;
                     var guildNameToDeleteChannel = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
-                    await DeleteChanel(channelNameToDelete, guildNameToDeleteChannel, confidence);
+                    await DeleteChannel(channelNameToDelete, guildNameToDeleteChannel, confidence);
                     break;
                 case "LEAVE_GUILD": //fica
                     var guildNameToLeave = json.recognized.guildName.ToString() as String;
@@ -227,7 +230,7 @@ namespace DiscordControler
             }
 
             await guild.AddBanAsync(user.Id, reason: banReason);
-            _tts.Speak(_speechTemplates.GetBanUSer(userName, guildName));
+            _tts.Speak(_speechTemplates.GetBanUser(userName, guild.Name));
         }
 
         private async Task DeleteLastMessage(string channelName, string guildNameToDeleteMsg, string confidence)
@@ -236,13 +239,13 @@ namespace DiscordControler
             var channel = (SocketTextChannel)FindChannel(guild, channelName);
             
             if (channel == null) {
-                _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guildNameToDeleteMsg));
+                _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guild.Name));
                 return;
             }
 
             if (confidence.Equals("explicit confirmation"))
             {
-                _tts.Speak(_speechTemplates.GetDeleteLastMessageExplicit(channelName, guild.Name));
+                _tts.Speak(_speechTemplates.GetDeleteMessageExplicit(channelName, guild.Name));
                 return;
             }
 
@@ -252,18 +255,18 @@ namespace DiscordControler
             _tts.Speak(_speechTemplates.GetDeleteLastMessage(channelName, guild.Name));
         }
 
-        private async Task DeleteChanel(string channelName, string guildName, string confidence)
+        private async Task DeleteChannel(string channelName, string guildName, string confidence)
         {
             var guild = FindGuild(guildName);
             if (guild == null)
             {
-                _tts.Speak(_speechTemplates.GetUnkownGuild(guildName));
+                _tts.Speak(_speechTemplates.GetUnkownGuild(guild.Name));
                 return;
             }
 
             var channel = FindChannel(guild, channelName);
             if (channel == null) {
-                _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guildName));
+                _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guild.Name));
                 return;
             }
 
@@ -285,7 +288,7 @@ namespace DiscordControler
 
             if (user == null)
             {
-                _tts.Speak(_speechTemplates.GetUnkownGuild(guildName));
+                _tts.Speak(_speechTemplates.GetUnkownGuild(guild.Name));
                 return;
             }
 
@@ -297,7 +300,7 @@ namespace DiscordControler
 
             await user.KickAsync();
 
-            _tts.Speak(_speechTemplates.GetLeaveGuild(guildName));
+            _tts.Speak(_speechTemplates.GetLeaveGuild(guild.Name));
         }
 
         private async Task RemoveBan(string userNameToRemBan, string guildNameToRemBan, string confidence)
@@ -329,11 +332,11 @@ namespace DiscordControler
 
             if (confidence.Equals("explicit confirmation"))
             {
-                _tts.Speak(_speechTemplates.GetRemoveBanExplicit(userNameToRemBan, guildNameToRemBan));
+                _tts.Speak(_speechTemplates.GetRemoveBanExplicit(userNameToRemBan, guild.Name));
                 return;
             }
 
-            _tts.Speak(_speechTemplates.GetRemoveBan(userNameToRemBan, guildNameToRemBan));
+            _tts.Speak(_speechTemplates.GetRemoveBan(userNameToRemBan, guild.Name));
             await guild.RemoveBanAsync(user.Id);
             
         }
@@ -386,7 +389,7 @@ namespace DiscordControler
 
             if (user == null)
             {
-                Console.WriteLine("Desconheço essa pessoa.");
+                _tts.Speak(_speechTemplates.GetUnkownUser());
                 return;
             }
 
@@ -413,7 +416,7 @@ namespace DiscordControler
 
             if (user == null)
             {
-                Console.WriteLine("Desconheço essa pessoa.");
+                _tts.Speak(_speechTemplates.GetUnkownUser());
                 return;
             }
 
