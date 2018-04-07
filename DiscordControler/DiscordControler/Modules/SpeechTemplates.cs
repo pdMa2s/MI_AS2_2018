@@ -185,6 +185,26 @@ namespace DiscordControler.Modules
 
         }
 
+        public string GetBanOnUnkwonUser(string userName)
+        {
+            List<string> banOnUnkownUserSpeech = new List<string> { $"Não há nenhum banimento no utilizador {userName}.",
+                                                                    $"Esse coitado não fez nada de mal, não tens nenhum banimento nesse utilizador."};
+            return banOnUnkownUserSpeech[randomGen.Next(banOnUnkownUserSpeech.Count)];
+
+        }
+        public string GetRemoveBan(string userName, string guildName)
+        {
+            List<string> removeBanImplicitSpeech = new List<string> {$"Volta {userName} estás perdoado.",
+                                                       $"A remover o banimento do utilizador {userName} do servidor {guildName}."};
+            return removeBanImplicitSpeech[randomGen.Next(removeBanImplicitSpeech.Count)];
+        }
+
+        public string GetUserStatus(string userName, string status)
+        {
+            string processedStatus = ProcessStatus(status);
+            List<string> statusSpeech = new List<string> {$"O {userName} está {processedStatus}."};
+            return statusSpeech[randomGen.Next(statusSpeech.Count)];
+        }
 
 
         public string GetBanUSer(string userName, string guildName)
@@ -199,5 +219,19 @@ namespace DiscordControler.Modules
             return Regex.IsMatch(s, ".*{.*}.*");
         }
 
+        private string ProcessStatus(string status) {
+            switch (status) {
+                case "AFK":
+                    return "aa,f,k";
+                case "DoNotDisturb":
+                    return "ocupado";
+                case "Idle":
+                    return "a dormir";
+                case "Invisible":
+                    return "em modo invisível, deve-se achar ninja";
+                default:
+                    return status;
+            }
+        }
     }
 }

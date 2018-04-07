@@ -103,6 +103,7 @@ namespace DiscordControler
             {
                 if (confirmation.Equals("yes"))
                 {
+                    //sometimes generates an error due to the var lastJsonMessage being null
                     executeCommand(lastJsonMessage, lastJsonMessage.recognized.action.ToString() as String, "implicit confirmation");
                     lastJsonMessage = null;
                 }
@@ -323,19 +324,19 @@ namespace DiscordControler
 
             if (banToRemove == null)
             {
-                Console.WriteLine($"Não existe nenhum ban ao utilizador {userNameToRemBan}");
+                _tts.Speak(_speechTemplates.GetBanOnUnkwonUser(userNameToRemBan));
                 return;
             }
 
             if (confidence.Equals("explicit confirmation"))
             {
-                _tts.Speak(_speechTemplates.GetRemoveBanExplicit(userNameToRemBan, guild.Name));
+                _tts.Speak(_speechTemplates.GetRemoveBanExplicit(userNameToRemBan, guildNameToRemBan));
                 return;
             }
 
+            _tts.Speak(_speechTemplates.GetRemoveBan(userNameToRemBan, guildNameToRemBan));
             await guild.RemoveBanAsync(user.Id);
-            Console.WriteLine($"Foi removido o ban ao utilizador {userNameToRemBan}");
-
+            
         }
 
         private void UserStatus(string userName, string guildName)
@@ -345,11 +346,11 @@ namespace DiscordControler
 
             if (user == null)
             {
-                Console.WriteLine("Desconheço essa pessoa.");
+                _tts.Speak(_speechTemplates.GetBanOnUnkwonUser(userName));
                 return;
             }
             var status = user.Status;
-            Console.WriteLine(status);
+            _tts.Speak(_speechTemplates.GetUserStatus(userName, status.ToString()));
         }
 
         private async Task ChangeMuteUser(string userNameToMute, string guildNameToMuteUser, bool mute, string confidence)
@@ -359,7 +360,7 @@ namespace DiscordControler
 
             if (user == null)
             {
-                Console.WriteLine("Desconheço essa pessoa.");
+                _tts.Speak(_speechTemplates.GetUnkownUser());
                 return;
             }
 
