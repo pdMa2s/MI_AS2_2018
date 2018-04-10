@@ -377,9 +377,9 @@ namespace DiscordControler
 
             await user.ModifyAsync(x => x.Mute = mute);
             if (mute)
-                Console.WriteLine("Fui tirada a voz ao user " + userNameToMute);
+                _tts.Speak(_speechTemplates.GetMuteUser(userNameToMute, guildNameToMuteUser));
             else
-                Console.WriteLine("Fui retomada a voz ao user "+userNameToMute);
+                _tts.Speak(_speechTemplates.GetUnMuteUser(userNameToMute, guildNameToMuteUser));
         }
 
         private async Task ChangeDeafUser(string userNameToDeaf, string guildNameToDeafUser, bool deaf, string confidence)
@@ -404,9 +404,9 @@ namespace DiscordControler
 
             await user.ModifyAsync(x => x.Deaf = deaf);
             if (deaf)
-                Console.WriteLine("Fui tirado os ouvidos ao user " + userNameToDeaf);
+                _tts.Speak(_speechTemplates.GetDeafUserImplicit(userNameToDeaf, guildNameToDeafUser));
             else
-                Console.WriteLine("Fui retomado os ouvidos ao user " + userNameToDeaf);
+                _tts.Speak(_speechTemplates.GetUnDeafUserImplicit(userNameToDeaf, guildNameToDeafUser));
         }
 
         private async Task ChangeMuteDeafUser(string userNameToMuteDeaf, string guildNameToMuteDeafUser, bool muteDeaf, string confidence)
@@ -432,9 +432,9 @@ namespace DiscordControler
             await user.ModifyAsync(x => x.Deaf = muteDeaf);
             await user.ModifyAsync(x => x.Mute = muteDeaf);
             if (muteDeaf)
-                Console.WriteLine("Fui tirado os ouvidos e a voz ao user " + userNameToMuteDeaf);
+                _tts.Speak(_speechTemplates.GetMuteDeafImplicit(userNameToMuteDeaf, guildNameToMuteDeafUser));
             else
-                Console.WriteLine("Fui retomado os ouvidos e a voz ao user " + userNameToMuteDeaf);
+                _tts.Speak(_speechTemplates.GetUnMuteDeafImplicit(userNameToMuteDeaf, guildNameToMuteDeafUser));
         }
 
         private SocketGuild FindGuild(string guildName) {

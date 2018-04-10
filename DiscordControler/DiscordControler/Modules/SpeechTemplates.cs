@@ -217,6 +217,47 @@ namespace DiscordControler.Modules
             return noConfirmation[randomGen.Next(noConfirmation.Count)];
         }
 
+        public string GetMuteUser(string userName, string guildName)
+        {
+            List<string> muteUserImplicitSpeech = new List<string> {$"O utilizador {userName} já não pode falar.",
+                                                       $"Já estava farto de ouvir o utilizador {userName}.",
+                                                        $"Provavelmente a guild {guildName} agradece."};
+            return muteUserImplicitSpeech[randomGen.Next(muteUserImplicitSpeech.Count)];
+        }
+
+        public string GetUnMuteUser(string userName, string guildName)
+        {
+            List<string> unMuteUserImplicitSpeech = new List<string> {$"O utilizador {userName} já pode falar.",
+                                                       $"Fala lá {userName} a guild {guildName} já sentia a falta da tua voz."};
+            return unMuteUserImplicitSpeech[randomGen.Next(unMuteUserImplicitSpeech.Count)];
+        }
+
+        public string GetDeafUserImplicit(string userName, string guildName)
+        {
+            List<string> deafImplicitSpeech = new List<string> {$"Já não ouves o {userName}.",
+                                                       $"Estava farto de ouvir o utilizador {userName}? Eu também."};
+            return deafImplicitSpeech[randomGen.Next(deafImplicitSpeech.Count)];
+        }
+        public string GetUnDeafUserImplicit(string userName, string guildName)
+        {
+            List<string> unDeafImplicitSpeech = new List<string> {$"Já podes ouvir o utilizador {userName}.",
+                                                       $"Prepara os ouvidos, já consegues ouvir o utlizador {userName}."};
+            return unDeafImplicitSpeech[randomGen.Next(unDeafImplicitSpeech.Count)];
+        }
+
+        public string GetMuteDeafImplicit(string userName, string guildName)
+        {
+            List<string> muteDeafImplicitSpeech = new List<string> {$"Comunicações cortadas com {userName}.",
+                                                       $"O utilizador {userName} já não te chateia mais."};
+            return muteDeafImplicitSpeech[randomGen.Next(muteDeafImplicitSpeech.Count)];
+        }
+
+        public string GetUnMuteDeafImplicit(string userName, string guildName)
+        {
+            List<string> unMuteDeafImplicitSpeech = new List<string> {$"Já podes voltar a comunicar com {userName}.",
+                                                       $"Já podes interagir com {userName}, estavam chateados?"};
+            return unMuteDeafImplicitSpeech[randomGen.Next(unMuteDeafImplicitSpeech.Count)];
+        }
         private bool HasPlaceholder(string s)
         {
             return Regex.IsMatch(s, ".*{.*}.*");
