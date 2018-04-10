@@ -12,7 +12,7 @@ namespace DiscordControler.Modules
     class Tts
     {
         SpeechSynthesizer tts = null;
-        static SoundPlayer player = new SoundPlayer();
+        //static SoundPlayer player = new SoundPlayer();
         private Coms _comModule;
         /*
          * Text to Speech
@@ -86,10 +86,9 @@ namespace DiscordControler.Modules
 
             tts.SelectVoice("Microsoft Server Speech Text to Speech Voice (pt-PT, Helia)");
 
-
+            tts.SetOutputToDefaultAudioDevice();
             //set function to play audio after synthesis is complete
             tts.SpeakCompleted += new EventHandler<SpeakCompletedEventArgs>(tts_SpeakCompleted);
-
 
         }
 
@@ -100,15 +99,15 @@ namespace DiscordControler.Modules
          */
         public void Speak(string text)
         {
-            while (player.Stream != null)
+            /*while (player.Stream != null)
             {
                 Console.WriteLine("Waiting...");
-            }
-
+            }*/
+            Console.WriteLine("tts speaking");
             _comModule.SendCommandToTts("ttsSpeaking");
             //create audio stream with speech
-            player.Stream = new System.IO.MemoryStream();
-            tts.SetOutputToWaveStream(player.Stream);
+            //player.Stream = new System.IO.MemoryStream();
+            //tts.SetOutputToWaveStream(player.Stream);
             tts.SpeakAsync(text);
         }
 
@@ -117,15 +116,14 @@ namespace DiscordControler.Modules
 
             Console.WriteLine("Speak method called , version with samplerate parameter");
 
-            while (player.Stream != null)
+            /*while (player.Stream != null)
             {
                 Console.WriteLine("Waiting...");
-            }
-
+            }*/
 
             //create audio stream with speech
-            player.Stream = new System.IO.MemoryStream();
-            tts.SetOutputToWaveStream(player.Stream);
+            //player.Stream = new System.IO.MemoryStream();
+            //tts.SetOutputToWaveStream(player.Stream);
             tts.Rate = rate;
             // tts.SpeakAsync(text);
 
@@ -143,14 +141,18 @@ namespace DiscordControler.Modules
          */
         void tts_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
-            if (player.Stream != null)
+
+            /*if (player.Stream != null)
             {
                 //play stream
                 player.Stream.Position = 0;
                 player.Play();
                 player.Stream = null;  //  NEW 2015
+                Console.WriteLine("tts not speaking");
                 _comModule.SendCommandToTts("ttsNotSpeaking");
-            }
+            }*/
+            Console.WriteLine("tts not speaking");
+            _comModule.SendCommandToTts("ttsNotSpeaking");
         }
     }   
 }

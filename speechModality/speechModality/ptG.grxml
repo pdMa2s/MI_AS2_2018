@@ -52,6 +52,15 @@
       </item>
       <item>
         <one-of>
+          <item>remove</item>
+          <item>tira</item>
+          <item>retira</item>
+          <item>apaga</item>
+        </one-of>
+        <ruleref uri="#eliminate"/>
+      </item>
+      <item>
+        <one-of>
           <item>quero sair</item>
           <item>tira me</item>
         </one-of>
@@ -78,6 +87,7 @@
           <item>silencia</item>  
           <item>mute</item>
           <item>tira a voz</item>
+          <item>desativa o microfone</item>
         </one-of>
         <tag>out="MUTE_USER";</tag>
         <ruleref uri="#userStatusMuteDeaf"/>
@@ -86,7 +96,8 @@
         <one-of>
           <item>desativa o audio</item>
           <item>bloquea o som</item>
-          <item>restringe o audio</item>
+          <item>retira o audio</item>
+          <item>tira o audio</item>
           <item>deaf</item>
         </one-of>
         <tag>out="DEAF_USER";</tag>
@@ -156,7 +167,10 @@
         <tag>out="DELETE_CHANNEL";</tag>
       </item>
       <item>
-        bane
+        <one-of>
+          <item>bane</item>
+          <item>banimento</item>
+        </one-of>
         <tag>out="REMOVE_BAN";</tag>
         <ruleref special="GARBAGE"/>
         <ruleref uri="#userNameRule"/>
@@ -226,7 +240,7 @@
     <one-of>
       <item>sim</item>
       <item>yes</item>
-      <item>oui</item>
+      <item>yeah</item>
       <item>claro</item>
       <item>yap</item>
       <item>ya</item>

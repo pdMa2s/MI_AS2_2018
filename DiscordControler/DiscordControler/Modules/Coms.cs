@@ -17,20 +17,21 @@ namespace DiscordControler
         private NamedPipeClientStream _speechmodalityPipeClient;
         private StreamWriter writer;
         public Coms() {
-            
             mmiC = new MmiCommunication("localhost", 8000, "User1", "GUI");
             //mmiC.Message += MmiC_Message;
             //mmiC.Start();
             _speechmodalityPipeClient = new NamedPipeClientStream("ttsCommands");
             _speechmodalityPipeClient.Connect();
             writer = new StreamWriter(_speechmodalityPipeClient);
-
+            writer.AutoFlush = true;
+            Console.WriteLine("conectado");
         }
         public MmiCommunication GetMmic() {
             return mmiC;
         }
 
         public void SendCommandToTts(string command) {
+            Console.WriteLine("enviado");
             writer.WriteLine(command);
         }
 

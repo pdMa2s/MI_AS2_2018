@@ -26,14 +26,11 @@ namespace speechModality
         private SpeechMod _sm;
         private NamedPipeServerStream _pipeServer;
         
-        private bool _isTtsSpeaking;
         public MainWindow()
         {
             InitializeComponent();
             _pipeServer = new NamedPipeServerStream("ttsCommands");
-            
-            
-            _isTtsSpeaking = false;
+            _listenTts();
 
             _sm = new SpeechMod();
             _sm.Recognized += _sm_Recognized;
@@ -41,13 +38,10 @@ namespace speechModality
 
         private void _sm_Recognized(object sender, SpeechEventArg e)
         {
-            if (!_isTtsSpeaking)
-            {
-                result.Text = e.Text;
-                confidence.Text = e.Confidence + "";
-                if (e.Final) result.FontWeight = FontWeights.Bold;
-                else result.FontWeight = FontWeights.Normal;
-            }
+            result.Text = e.Text;
+            confidence.Text = e.Confidence + "";
+            if (e.Final) result.FontWeight = FontWeights.Bold;
+            else result.FontWeight = FontWeights.Normal;
             
         }
 
@@ -55,24 +49,24 @@ namespace speechModality
             Task.Factory.StartNew(() =>
             {
                 _pipeServer.WaitForConnection();
+                Console.WriteLine("conectado");
                 StreamReader reader = new StreamReader(_pipeServer);
-                while (true)
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    var line = reader.ReadLine();
                     _processCommand(line);
                 }
             });
         }
 
         private void _processCommand(string command) {
+            Console.WriteLine("------------"+command+"------------------------");
             switch (command) {
                 case "ttsSpeaking":
-                    _isTtsSpeaking = true;
-                    _sm.listen = false;
+                    _sm.stopListening();
                     break;
                 case "ttsNotSpeaking":
-                    _isTtsSpeaking = false;
-                    _sm.listen = true;
+                    _sm.startListening();
                     break;
                 default:
                     Console.WriteLine("Invalid command!");
