@@ -27,7 +27,7 @@ namespace DiscordControler
         private DiscordSocketClient _client;
         private CommandService _commands;
         private IServiceProvider _service;
-        private MmiCommunication _comModule;
+        private MmiCommunication _mmiComms;
         private Tts _tts;
         private dynamic lastJsonMessage;
         private SpeechTemplates _speechTemplates;
@@ -35,19 +35,20 @@ namespace DiscordControler
         public async Task RunBotAsync() {
             _client = new DiscordSocketClient();
             _commands = new CommandService();
-            _comModule = new Coms().GetMmic();
+            var comModule = new Coms();
+            _mmiComms = comModule.GetMmic();
             _service = new ServiceCollection()
                 .AddSingleton(_client)
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
-            _tts = new Tts();
+            _tts = new Tts(comModule);
             _speechTemplates = new SpeechTemplates();
             
             _client.Log += Log;
 
             await RegisterCommandsAsync();
-            _comModule.Message += MmiC_Message; // subscribe to the messages that come from the comMudole
-            _comModule.Start();
+            _mmiComms.Message += MmiC_Message; // subscribe to the messages that come from the comMudole
+            _mmiComms.Start();
 
             await _client.LoginAsync(TokenType.Bot, _botToken);
 

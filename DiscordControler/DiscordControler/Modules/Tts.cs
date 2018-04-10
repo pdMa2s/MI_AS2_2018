@@ -13,14 +13,14 @@ namespace DiscordControler.Modules
     {
         SpeechSynthesizer tts = null;
         static SoundPlayer player = new SoundPlayer();
-
+        private Coms _comModule;
         /*
          * Text to Speech
          */
-        public Tts()
+        public Tts(Coms comModule)
         {
 
-
+            this._comModule = comModule;
             Console.WriteLine("TTS constructor called");
 
 
@@ -105,6 +105,7 @@ namespace DiscordControler.Modules
                 Console.WriteLine("Waiting...");
             }
 
+            _comModule.SendCommandToTts("ttsSpeaking");
             //create audio stream with speech
             player.Stream = new System.IO.MemoryStream();
             tts.SetOutputToWaveStream(player.Stream);
@@ -148,6 +149,7 @@ namespace DiscordControler.Modules
                 player.Stream.Position = 0;
                 player.Play();
                 player.Stream = null;  //  NEW 2015
+                _comModule.SendCommandToTts("ttsNotSpeaking");
             }
         }
     }   

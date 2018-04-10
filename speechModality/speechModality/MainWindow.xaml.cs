@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +24,16 @@ namespace speechModality
     {
 
         private SpeechMod _sm;
+        private NamedPipeServerStream _pipeServer;
+        
+        private bool _isTtsSpeaking;
         public MainWindow()
         {
             InitializeComponent();
+            _pipeServer = new NamedPipeServerStream("ttsCommands");
+            
+            
+            _isTtsSpeaking = false;
 
             _sm = new SpeechMod();
             _sm.Recognized += _sm_Recognized;
@@ -32,10 +41,43 @@ namespace speechModality
 
         private void _sm_Recognized(object sender, SpeechEventArg e)
         {
-            result.Text = e.Text;
-            confidence.Text = e.Confidence+"";
-            if (e.Final) result.FontWeight = FontWeights.Bold;
-            else result.FontWeight = FontWeights.Normal;
+            if (!_isTtsSpeaking)
+            {
+                result.Text = e.Text;
+                confidence.Text = e.Confidence + "";
+                if (e.Final) result.FontWeight = FontWeights.Bold;
+                else result.FontWeight = FontWeights.Normal;
+            }
+            
+        }
+
+        private void _listenTts() {
+            Task.Factory.StartNew(() =>
+            {
+                _pipeServer.WaitForConnection();
+                StreamReader reader = new StreamReader(_pipeServer);
+                while (true)
+                {
+                    var line = reader.ReadLine();
+                    _processCommand(line);
+                }
+            });
+        }
+
+        private void _processCommand(string command) {
+            switch (command) {
+                case "ttsSpeaking":
+                    _isTtsSpeaking = true;
+                    _sm.listen = false;
+                    break;
+                case "ttsNotSpeaking":
+                    _isTtsSpeaking = false;
+                    _sm.listen = true;
+                    break;
+                default:
+                    Console.WriteLine("Invalid command!");
+                    break;
+            }
         }
     }
 }
