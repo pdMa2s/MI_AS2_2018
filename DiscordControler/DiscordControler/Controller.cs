@@ -276,7 +276,7 @@ namespace DiscordControler
                 _tts.Speak(_speechTemplates.GetUnkownGuild(guild.Name));
                 return;
             }
-
+            
             var channel = FindChannel(guild, channelName);
             if (channel == null) {
                 _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guild.Name));
@@ -289,7 +289,7 @@ namespace DiscordControler
                 return;
             }
 
-           await channel.DeleteAsync();
+           //await channel.DeleteAsync();
 
             _tts.Speak(_speechTemplates.GetDeleteChannel(channelName));
         }
@@ -451,6 +451,7 @@ namespace DiscordControler
         }
 
         private SocketGuild FindGuild(string guildName) {
+            Console.WriteLine("guild to find" + guildName);
             if(guildName == null)
                 return _client.GetGuild(_defaultGuildId);
             var guildsOfClient = _client.Guilds;
