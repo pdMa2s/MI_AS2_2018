@@ -20,7 +20,7 @@ namespace DiscordControler.Modules
 
         public string GetToDo()
         {
-            return "Sou capaz de banir expulsar utilizadores, mais tarde posso remover esses banimentos, cortar as comunicações com certo utilizador, apagar canais e apagar as últimas mensagens dos canais.";
+            return "Sou capaz de banir expulsar utilizadores, mais tarde posso remover esses banimentos, cortar as comunicações com certo utilizador, apagar canais e apagar as últimas mensagens dos canais. Se quiseres também posso te tirar dos servidores que não queres mais estar.";
         }
         public string GetGreeting(string userName, string serverName) {
             List<string> greetings = new List<string> {$"Olá {userName}.",

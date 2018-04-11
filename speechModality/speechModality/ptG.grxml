@@ -242,9 +242,10 @@
       <item>por</item>
       <item>por causa</item>
     </one-of>
+    <ruleref special="GARBAGE"/>
     <one-of>
-      <item>tal<tag>out="tal";</tag></item>
-      <item>cenas<tag>out="cenas";</tag></item>
+      <item>já me esta a irritar<tag>out="já me esta a irritar";</tag></item>
+      <item>não quero mais ouvido<tag>out="não quero mais ouvido";</tag></item>
     </one-of>
   </rule>
   <rule id="yesOptions">
@@ -294,26 +295,12 @@
     </one-of>
   </rule>
   <rule id="sayWhatToDo">
+    <item repeat="0-1">diz</item>
+    <ruleref special="GARBAGE"/>
     <one-of>
-      <item>
-        <item>diz</item>
-        <ruleref special="GARBAGE"/>
-        <one-of>
-          <item>podes fazer</item>
-          <item>capaz de fazer</item>
-          <item>posso fazer</item>
-        </one-of>
-      </item>
-      <item>
-        <ruleref special="GARBAGE"/>
-        <one-of>
-          <item>podes fazer</item>
-          <item>capaz de fazer</item>
-          <item>posso fazer</item>
-        </one-of>
-      </item>
-      <item>
-      </item>
+      <item>podes fazer</item>
+      <item>capaz de fazer</item>
+      <item>posso fazer</item>
     </one-of>
   </rule>
 </grammar>
