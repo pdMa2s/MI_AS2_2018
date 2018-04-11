@@ -50,14 +50,17 @@ namespace DiscordControler
             _mmiComms.Message += MmiC_Message; // subscribe to the messages that come from the comMudole
             _mmiComms.Start();
 
-            //_tts.Speak("Wally tira o utilizador matos");
-
+            
             await _client.LoginAsync(TokenType.Bot, _botToken);
 
             
             await _client.StartAsync();
 
+            _tts.Speak("Olá eu sou o wally, se desejares podes-me perguntar o que é que eu sou capaz de fazer e que comandos estão disponíveis.");
+
             await Task.Delay(-1);
+
+            
         }
 
         
@@ -192,6 +195,8 @@ namespace DiscordControler
                 case "SAY_COMMANDS":
                     _tts.Speak(_speechTemplates.GetAvailableCommands());
                     break;
+                case "SAY_TODO":
+
                 default:
                     Console.WriteLine("Invalid action!");
                     break;
@@ -215,7 +220,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await user.KickAsync(reason: kickReason);
+            await user.KickAsync(reason: kickReason);
             _tts.Speak(_speechTemplates.GetKickUser(userName));
         }
 
@@ -236,7 +241,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await guild.AddBanAsync(user.Id, reason: banReason);
+            await guild.AddBanAsync(user.Id, reason: banReason);
             _tts.Speak(_speechTemplates.GetBanUser(userName, guild.Name));
         }
 
@@ -257,7 +262,7 @@ namespace DiscordControler
             }
 
             var message = await channel.GetMessagesAsync(1).Flatten();
-            //await channel.DeleteMessagesAsync(message);
+            await channel.DeleteMessagesAsync(message);
 
             _tts.Speak(_speechTemplates.GetDeleteLastMessage(channelName, guild.Name));
         }
@@ -283,7 +288,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await channel.DeleteAsync();
+           await channel.DeleteAsync();
 
             _tts.Speak(_speechTemplates.GetDeleteChannel(channelName));
         }
@@ -305,7 +310,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await user.KickAsync();
+            await user.KickAsync();
 
             _tts.Speak(_speechTemplates.GetLeaveGuild(guild.Name));
         }
@@ -344,7 +349,7 @@ namespace DiscordControler
             }
 
             _tts.Speak(_speechTemplates.GetRemoveBan(userNameToRemBan, guild.Name));
-            //await guild.RemoveBanAsync(user.Id);
+            await guild.RemoveBanAsync(user.Id);
             
         }
 
@@ -477,25 +482,7 @@ namespace DiscordControler
             }
             return null;
         }
-        /*private async Task HandleCommandAsync(SocketMessage arg)
-        {
-            var message = arg as SocketUserMessage;
-
-            if (message == null || message.Author.IsBot) return;
-
-            int argumentPosition = 0;
-
-            if (message.HasStringPrefix("amb!", ref argumentPosition) || message.HasMentionPrefix(_client.CurrentUser, ref argumentPosition))
-            {
-                var context = new SocketCommandContext(_client, message);
-                var result = await _commands.ExecuteAsync(context, argumentPosition, _service);
-
-                if (!result.IsSuccess)
-                    Console.WriteLine(result.ErrorReason);
-
-            }
-
-        }*/
+       
 
     }
 }

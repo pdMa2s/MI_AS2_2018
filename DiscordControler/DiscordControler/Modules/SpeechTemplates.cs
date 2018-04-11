@@ -15,7 +15,12 @@ namespace DiscordControler.Modules
         }
         public string GetAvailableCommands()
         {
-            return "Podes pedir commandos como: wally apaga a última mensagem do canal teste; wally expulsa o utilizador Matos.";
+            return "Podes pedir commandos do tipo. wally apaga a última mensagem do canal teste. wally expulsa o utilizador Matos.";
+        }
+
+        public string GetToDo()
+        {
+            return "Sou capaz de banir expulsar utilizadores, mais tarde posso remover esses banimentos, cortar as comunicações com certo utilizador, apagar canais e apagar as últimas mensagens dos canais.";
         }
         public string GetGreeting(string userName, string serverName) {
             List<string> greetings = new List<string> {$"Olá {userName}.",
