@@ -50,7 +50,7 @@ namespace DiscordControler
             _mmiComms.Message += MmiC_Message; // subscribe to the messages that come from the comMudole
             _mmiComms.Start();
 
-            _tts.Speak("Wally tira o utilizador matos");
+            //_tts.Speak("Wally tira o utilizador matos");
 
             await _client.LoginAsync(TokenType.Bot, _botToken);
 
@@ -120,6 +120,7 @@ namespace DiscordControler
 
         private async Task executeCommand(dynamic json, string action, string confidence)
         {
+            Console.WriteLine(action);
             switch (action)
             {
                 case "REMOVE_USER":

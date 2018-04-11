@@ -25,19 +25,27 @@ namespace speechModality
 
         private SpeechMod _sm;
         private NamedPipeServerStream _pipeServer;
-        
+        private bool serverThreadRunning;
         public MainWindow()
         {
             InitializeComponent();
             _pipeServer = new NamedPipeServerStream("ttsCommands");
-            _listenTts();
-
             _sm = new SpeechMod();
+            serverThreadRunning = true;
+            _listenTts();
             _sm.Recognized += _sm_Recognized;
         }
 
         private void _sm_Recognized(object sender, SpeechEventArg e)
         {
+            if (serverThreadRunning == false)
+            {
+                Console.WriteLine("server false");
+                _pipeServer = new NamedPipeServerStream("ttsCommands");
+
+                _listenTts();
+            }
+                
             result.Text = e.Text;
             confidence.Text = e.Confidence + "";
             if (e.Final) result.FontWeight = FontWeights.Bold;
@@ -46,16 +54,24 @@ namespace speechModality
         }
 
         private void _listenTts() {
+            
             Task.Factory.StartNew(() =>
             {
+                serverThreadRunning = true;
+
                 _pipeServer.WaitForConnection();
                 Console.WriteLine("conectado");
                 StreamReader reader = new StreamReader(_pipeServer);
+                
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
                     _processCommand(line);
                 }
+                Console.WriteLine("thread dead!!!!!!!!!!!!1");
+                _pipeServer.Close();
+                serverThreadRunning = false;
+
             });
         }
 
