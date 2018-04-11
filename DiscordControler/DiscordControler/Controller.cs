@@ -196,7 +196,8 @@ namespace DiscordControler
                     _tts.Speak(_speechTemplates.GetAvailableCommands());
                     break;
                 case "SAY_TODO":
-
+                    _tts.Speak(_speechTemplates.GetToDo());
+                    break;
                 default:
                     Console.WriteLine("Invalid action!");
                     break;
