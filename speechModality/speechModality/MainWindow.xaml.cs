@@ -61,6 +61,8 @@ namespace speechModality
 
         private void _processCommand(string command) {
             Console.WriteLine("------------"+command+"------------------------");
+            
+                
             switch (command) {
                 case "ttsSpeaking":
                     _sm.stopListening();

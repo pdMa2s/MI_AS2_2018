@@ -84,7 +84,7 @@ namespace DiscordControler.Modules
             //set voice
             //tts.SelectVoiceByHints(VoiceGender.Male, VoiceAge.NotSet, 0, new System.Globalization.CultureInfo("pt-PT"));
 
-            tts.SelectVoice("Microsoft Server Speech Text to Speech Voice (pt-PT, Helia)");
+            tts.SelectVoice("Microsoft Server Speech Text to Speech Voice (pt-PT, Nuno PTTS)");
 
             tts.SetOutputToDefaultAudioDevice();
             //set function to play audio after synthesis is complete

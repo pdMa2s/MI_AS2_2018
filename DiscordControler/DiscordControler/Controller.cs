@@ -378,7 +378,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await user.ModifyAsync(x => x.Mute = mute);
+            await user.ModifyAsync(x => x.Mute = mute);
             if (mute)
                 _tts.Speak(_speechTemplates.GetMuteUser(userNameToMute, guildNameToMuteUser));
             else
@@ -405,7 +405,7 @@ namespace DiscordControler
                 return;
             }
 
-            //await user.ModifyAsync(x => x.Deaf = deaf);
+            await user.ModifyAsync(x => x.Deaf = deaf);
             if (deaf)
                 _tts.Speak(_speechTemplates.GetDeafUserImplicit(userNameToDeaf, guildNameToDeafUser));
             else
@@ -432,8 +432,8 @@ namespace DiscordControler
                 return;
             }
 
-            //await user.ModifyAsync(x => x.Deaf = muteDeaf);
-            //await user.ModifyAsync(x => x.Mute = muteDeaf);
+            await user.ModifyAsync(x => x.Deaf = muteDeaf);
+            await user.ModifyAsync(x => x.Mute = muteDeaf);
             if (muteDeaf)
                 _tts.Speak(_speechTemplates.GetMuteDeafImplicit(userNameToMuteDeaf, guildNameToMuteDeafUser));
             else
