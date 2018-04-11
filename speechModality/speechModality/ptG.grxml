@@ -137,6 +137,10 @@
         <ruleref uri="#saycommands"/>
         <tag>out="SAY_COMMANDS";</tag>
       </item>
+      <item>
+        <ruleref uri="#sayWhatToDo"/>
+        <tag>out="SAY_TODO"</tag>
+      </item>
     </one-of>
   </rule>
   <rule id="userRemoveOrBan">
@@ -287,6 +291,29 @@
         <ruleref special="GARBAGE"/>
         <item>disponíveis</item>
         </item>
+    </one-of>
+  </rule>
+  <rule id="sayWhatToDo">
+    <one-of>
+      <item>
+        <item>diz</item>
+        <ruleref special="GARBAGE"/>
+        <one-of>
+          <item>podes fazer</item>
+          <item>capaz de fazer</item>
+          <item>posso fazer</item>
+        </one-of>
+      </item>
+      <item>
+        <ruleref special="GARBAGE"/>
+        <one-of>
+          <item>podes fazer</item>
+          <item>capaz de fazer</item>
+          <item>posso fazer</item>
+        </one-of>
+      </item>
+      <item>
+      </item>
     </one-of>
   </rule>
 </grammar>
