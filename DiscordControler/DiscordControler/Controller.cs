@@ -100,7 +100,8 @@ namespace DiscordControler
                 _tts.Speak(_speechTemplates.GetLowConfidence());
             else if (confidence.Equals("explicit confirmation") && confirmation == null)
             {
-                lastJsonMessage = json;
+                if (!action.Equals("USER_STATUS") && !action.Equals("SAY_COMMANDS") && !action.Equals("SAY_TODO"))
+                    lastJsonMessage = json;
                 executeCommand(json, action, confidence);
             }
             else if (confidence.Equals("implicit confirmation") && confirmation == null)
@@ -123,29 +124,28 @@ namespace DiscordControler
 
         private async Task executeCommand(dynamic json, string action, string confidence)
         {
-            Console.WriteLine(action);
             switch (action)
             {
                 case "REMOVE_USER":
                     var usernameToRemove = json.recognized.userName.ToString() as String;
-                    var guildNameToRemoveUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
-                    var kickReason = json["reason"] == null ? null : json.recognized.reason.ToString() as String;
+                    var guildNameToRemoveUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var kickReason = json.recognized["reason"] == null ? null : json.recognized.reason.ToString() as String;
                     await KickUser(usernameToRemove, guildNameToRemoveUser, kickReason, confidence);
                     break;
                 case "BAN_USER": //fica
                     var usernameToBan = json.recognized.userName.ToString() as String;
-                    var guildNameToBanUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
-                    var banReason = json["reason"] == null ? null : json.recognized.reason.ToString() as String;
+                    var guildNameToBanUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var banReason = json.recognized["reason"] == null ? null : json.recognized.reason.ToString() as String;
                     await BanUser(usernameToBan, guildNameToBanUser, banReason, confidence);
                     break;
                 case "DELETE_LAST_MESSAGE": //fica
                     var channelNameToDeleteMsg = json.recognized.channelName.ToString() as String;
-                    var guildNameToDeleteMsg = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var guildNameToDeleteMsg = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await DeleteLastMessage(channelNameToDeleteMsg, guildNameToDeleteMsg, confidence);
                     break;
                 case "DELETE_CHANNEL":  //fica
                     var channelNameToDelete = json.recognized.channelName.ToString() as String;
-                    var guildNameToDeleteChannel = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var guildNameToDeleteChannel = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await DeleteChannel(channelNameToDelete, guildNameToDeleteChannel, confidence);
                     break;
                 case "LEAVE_GUILD": //fica
@@ -154,42 +154,42 @@ namespace DiscordControler
                     break;
                 case "REMOVE_BAN": //fica
                     var userNameToRemBan = json.recognized.userName.ToString() as String;
-                    var guildNameToRemBan = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var guildNameToRemBan = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await RemoveBan(userNameToRemBan, guildNameToRemBan, confidence);
                     break;
                 case "USER_STATUS":
                     var userNameToKnowStatus = json.recognized.userName.ToString() as String;
-                    var guildNameToKnowStatus = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var guildNameToKnowStatus = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     UserStatus(userNameToKnowStatus, guildNameToKnowStatus);
                     break;
                 case "MUTE_USER":
                     var userNameToMute = json.recognized.userName.ToString() as String;
-                    var guildNameToMuteUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var guildNameToMuteUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await ChangeMuteUser(userNameToMute, guildNameToMuteUser, true, confidence);
                     break;
                 case "DEAF_USER":
                     var userNameToDeaf = json.recognized.userName.ToString() as String;
-                    var guildNameToDeafUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var guildNameToDeafUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await ChangeDeafUser(userNameToDeaf, guildNameToDeafUser, true, confidence);
                     break;
                 case "UNMUTE_USER":
                     var userNameToUnMute = json.recognized.userName.ToString() as String;
-                    var guildNameToUnMuteUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var guildNameToUnMuteUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await ChangeMuteUser(userNameToUnMute, guildNameToUnMuteUser, false, confidence);
                     break;
                 case "UNDEAF_USER":
                     var userNameToUnDeaf = json.recognized.userName.ToString() as String;
-                    var guildNameToUnDeafUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var guildNameToUnDeafUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await ChangeDeafUser(userNameToUnDeaf, guildNameToUnDeafUser, false, confidence);
                     break;
                 case "UNMUTE_UNDEAF_USER":
                     var userNameToUnMuteUnDeaf = json.recognized.userName.ToString() as String;
-                    var guildNameToUnMuteUnDeafUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var guildNameToUnMuteUnDeafUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await ChangeMuteDeafUser(userNameToUnMuteUnDeaf, guildNameToUnMuteUnDeafUser, false, confidence);
                     break;
                 case "MUTE_DEAF_USER":
                     var userNameToMuteDeaf = json.recognized.userName.ToString() as String;
-                    var guildNameToMuteDeafUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    var guildNameToMuteDeafUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await ChangeMuteDeafUser(userNameToMuteDeaf, guildNameToMuteDeafUser, true, confidence);
                     break;
                 case "SAY_COMMANDS":
@@ -250,7 +250,6 @@ namespace DiscordControler
         {
             var guild = FindGuild(guildNameToDeleteMsg);
             var channel = (SocketTextChannel)FindChannel(guild, channelName);
-            
             if (channel == null) {
                 _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guild.Name));
                 return;
@@ -277,11 +276,7 @@ namespace DiscordControler
                 return;
             }
             
-            var channel = FindChannel(guild, channelName);
-            if (channel == null) {
-                _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guild.Name));
-                return;
-            }
+            
 
             if (confidence.Equals("explicit confirmation"))
             {
@@ -289,8 +284,14 @@ namespace DiscordControler
                 return;
             }
 
-           //await channel.DeleteAsync();
+            var channel = FindChannel(guild, channelName);
+            if (channel == null)
+            {
+                _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guild.Name));
+                return;
+            }
 
+            await channel.DeleteAsync();
             _tts.Speak(_speechTemplates.GetDeleteChannel(channelName));
         }
 
@@ -451,7 +452,6 @@ namespace DiscordControler
         }
 
         private SocketGuild FindGuild(string guildName) {
-            Console.WriteLine("guild to find" + guildName);
             if(guildName == null)
                 return _client.GetGuild(_defaultGuildId);
             var guildsOfClient = _client.Guilds;
@@ -478,7 +478,9 @@ namespace DiscordControler
         }
 
         private SocketGuildChannel FindChannel(SocketGuild guild, string channelName) {
+            
             foreach (var c in guild.Channels) {
+                Console.WriteLine("channel: " + c.Name);
                 if (c.Name.Equals(channelName))
                     return c;
             }
