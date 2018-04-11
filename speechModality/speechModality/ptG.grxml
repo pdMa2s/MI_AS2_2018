@@ -19,12 +19,6 @@
         <ruleref uri="#noOptions"/>
         <tag>out.confirmation="no";</tag>
       </item>
-      <item>
-        <ruleref uri="#grettings"/>
-        <tag>out.gretting="hello";</tag>
-        <item repeat="0-1">Wally</item>
-        <item repeat="0-1">tudo bem</item>
-      </item>
     </one-of>
     <!--ruleref special="GARBAGE"/-->
   </rule>
@@ -275,14 +269,6 @@
       <item>errado</item>
       <item>não quero</item>
     </one-of>
-  </rule>
-  <rule id="grettings">
-      <one-of>
-        <item>ola</item>
-        <item>hello</item>
-        <item>hi</item>
-        <item>tudo bem</item>
-      </one-of>
   </rule>
   <rule id="saycommands">
     <one-of>
