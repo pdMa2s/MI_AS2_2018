@@ -77,7 +77,7 @@ namespace DiscordControler
 
         private async Task AnnouceUserJoined(SocketGuildUser user)
         {
-            _tts.Speak(_speechTemplates.GetGreeting(user.Username));
+            _tts.Speak(_speechTemplates.GetGreeting(user.Username, user.Guild.Name));
         }
 
 
@@ -188,6 +188,9 @@ namespace DiscordControler
                     var userNameToMuteDeaf = json.recognized.userName.ToString() as String;
                     var guildNameToMuteDeafUser = json["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await ChangeMuteDeafUser(userNameToMuteDeaf, guildNameToMuteDeafUser, true, confidence);
+                    break;
+                case "SAY_COMMANDS":
+                    _tts.Speak(_speechTemplates.GetAvailableCommands());
                     break;
                 default:
                     Console.WriteLine("Invalid action!");

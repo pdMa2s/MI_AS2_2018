@@ -13,10 +13,13 @@ namespace DiscordControler.Modules
         public SpeechTemplates() {
             randomGen = new Random();
         }
-
-        public string GetGreeting(string userName) {
+        public string GetAvailableCommands()
+        {
+            return "Podes pedir commandos como: wally apaga a última mensagem do canal teste; wally expulsa o utilizador Matos.";
+        }
+        public string GetGreeting(string userName, string serverName) {
             List<string> greetings = new List<string> {$"Olá {userName}.",
-                                                       $"O {userName} entrou no server."};
+                                                       $"O {userName} entrou no servidor {serverName}."};
             return greetings[randomGen.Next(greetings.Count)];
         }
 
