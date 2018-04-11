@@ -19,6 +19,12 @@
         <ruleref uri="#noOptions"/>
         <tag>out.confirmation="no";</tag>
       </item>
+      <item>
+        <ruleref uri="#grettings"/>
+        <tag>out.gretting="hello";</tag>
+        <item repeat="0-1">Wally</item>
+        <item repeat="0-1">tudo bem</item>
+      </item>
     </one-of>
     <!--ruleref special="GARBAGE"/-->
   </rule>
@@ -116,6 +122,7 @@
       <item>
         <one-of>
           <item>mete voz</item>
+          <item>da voz</item>
           <item>ativa o microfone</item>
           <item>quero ouvir</item>
         </one-of>
@@ -127,9 +134,14 @@
           <item>ativa o audio</item>
           <item>desbloquea o som</item>
           <item>undeaf</item>
+          <item>da ouvidos</item>
         </one-of>
         <tag>out="UNDEAF_USER";</tag>
         <ruleref uri="#userStatusMuteDeaf"/>
+      </item>
+      <item>
+        <ruleref uri="#saycommands"/>
+        <tag>out="SAY_COMMANDS";</tag>
       </item>
     </one-of>
   </rule>
@@ -199,7 +211,7 @@
     </one-of>
     <one-of>
       <item>IMServer<tag>out="IMServer";</tag></item>
-      <item>teste<tag>out="teste";</tag></item>
+      <item>Tópicos de Apicultura<tag>out="Tópicos de Apicultura";</tag></item>
     </one-of>
   </rule>
   <rule id="channelNameRule">
@@ -209,8 +221,8 @@
     </one-of>
     <one-of>
       <item>teste<tag>out="teste";</tag></item>
-      <item>general<tag>out="general";</tag></item>
-      <item>geral<tag>out="geral"</tag></item>
+      <item>geral<tag>out="geral";</tag></item>
+      <item>sueca<tag>out="sueca";</tag></item>
     </one-of>
   </rule>
   <rule id="userNameRule">
@@ -222,7 +234,8 @@
     </item>
     <one-of>
       <item>Matos<tag>out="Matos";</tag></item>
-      <item>cenas<tag>out="cenas";</tag></item>
+      <item>Ambrosio<tag>out="Ambrosio";</tag></item>
+      <item>Gustavo<tag>out="Gustavo";</tag></item>
     </one-of>
   </rule>
   <rule id="reasonRule">
@@ -247,6 +260,7 @@
       <item>tenho</item>
       <item>correto</item>
       <item>verdade</item>
+      <item>quero</item>
     </one-of>
   </rule>
   <rule id="noOptions">
@@ -259,6 +273,34 @@
       <item>negativo</item>
       <item>nada disso</item>
       <item>errado</item>
+      <item>não quero</item>
+    </one-of>
+  </rule>
+  <rule id="grettings">
+      <one-of>
+        <item>ola</item>
+        <item>hello</item>
+        <item>hi</item>
+        <item>tudo bem</item>
+      </one-of>
+  </rule>
+  <rule id="saycommands">
+    <one-of>
+      <item>
+        <ruleref special="GARBAGE"/>
+        <item>comandos</item>
+        <ruleref special="GARBAGE"/>
+      </item>
+      <item>
+        <one-of>
+          <item>diz</item>
+          <item>quais são</item>
+        </one-of>
+        <ruleref special="GARBAGE"/>
+        <item>comandos</item>
+        <ruleref special="GARBAGE"/>
+        <item>disponíveis</item>
+        </item>
     </one-of>
   </rule>
 </grammar>
