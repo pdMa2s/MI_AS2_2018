@@ -19,12 +19,6 @@
         <ruleref uri="#noOptions"/>
         <tag>out.confirmation="no";</tag>
       </item>
-      <item>
-        <ruleref uri="#grettings"/>
-        <tag>out.gretting="hello";</tag>
-        <item repeat="0-1">Wally</item>
-        <item repeat="0-1">tudo bem</item>
-      </item>
     </one-of>
     <!--ruleref special="GARBAGE"/-->
   </rule>
@@ -142,6 +136,10 @@
       <item>
         <ruleref uri="#saycommands"/>
         <tag>out="SAY_COMMANDS";</tag>
+      </item>
+      <item>
+        <ruleref uri="#sayWhatToDo"/>
+        <tag>out="SAY_TODO"</tag>
       </item>
     </one-of>
   </rule>
@@ -276,14 +274,6 @@
       <item>não quero</item>
     </one-of>
   </rule>
-  <rule id="grettings">
-      <one-of>
-        <item>ola</item>
-        <item>hello</item>
-        <item>hi</item>
-        <item>tudo bem</item>
-      </one-of>
-  </rule>
   <rule id="saycommands">
     <one-of>
       <item>
@@ -301,6 +291,29 @@
         <ruleref special="GARBAGE"/>
         <item>disponíveis</item>
         </item>
+    </one-of>
+  </rule>
+  <rule id="sayWhatToDo">
+    <one-of>
+      <item>
+        <item>diz</item>
+        <ruleref special="GARBAGE"/>
+        <one-of>
+          <item>podes fazer</item>
+          <item>capaz de fazer</item>
+          <item>posso fazer</item>
+        </one-of>
+      </item>
+      <item>
+        <ruleref special="GARBAGE"/>
+        <one-of>
+          <item>podes fazer</item>
+          <item>capaz de fazer</item>
+          <item>posso fazer</item>
+        </one-of>
+      </item>
+      <item>
+      </item>
     </one-of>
   </rule>
 </grammar>

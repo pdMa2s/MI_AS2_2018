@@ -96,7 +96,7 @@ namespace DiscordControler
             var confirmation = json.recognized["confirmation"] == null ? null : json.recognized.confirmation.ToString() as String;
             var confidence = json.recognized.confidence.ToString() as String;
             Console.WriteLine(action);
-            if (confidence.Equals("low confidence"))
+            if (confidence.Equals("low confidence") && confirmation == null)
                 _tts.Speak(_speechTemplates.GetLowConfidence());
             else if (confidence.Equals("explicit confirmation") && confirmation == null)
             {
