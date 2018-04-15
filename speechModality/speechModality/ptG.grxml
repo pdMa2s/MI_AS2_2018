@@ -285,6 +285,7 @@
       <item>
         <one-of>
           <item>diz</item>
+          <item>diz-me</item>
           <item>quais são</item>
         </one-of>
         <ruleref special="GARBAGE"/>
