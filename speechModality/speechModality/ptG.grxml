@@ -276,6 +276,8 @@
       <item>verdade</item>
       <item>quero</item>
       <item>estas</item>
+      <item>afirmativo</item>
+      <item>certo</item>
     </one-of>
   </rule>
   <rule id="noOptions">
@@ -290,6 +292,7 @@
       <item>errado</item>
       <item>não quero</item>
       <item>não estas</item>
+      <item>mentira</item>
     </one-of>
   </rule>
   <rule id="saycommands">
