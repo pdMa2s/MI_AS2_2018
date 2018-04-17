@@ -15,7 +15,26 @@ namespace DiscordControler.Modules
         }
         public string GetAvailableCommands()
         {
-            return "Podes pedir commandos do tipo. wally apaga a última mensagem do canal teste. wally expulsa o utilizador Matos.";
+            List<string> availableCommands = new List<string> { " Wally apaga a última mensagem do canal teste.",
+                                                       " Wally expulsa o utilizador Matos.",
+                                                       " Wally remove o utilizador Matos.",
+                                                       " Wally elimina o canal sueca.",
+                                                       " Wally tira o bane do utilizador Matos no servidor Tópicos de Apicultura.",
+                                                       " Wally quero sair do servidor Tópicos de Apicultura.",
+                                                       " Wally qual é o estado do Matos.",
+                                                       " Wally corta as comunicações com o Matos.",
+                                                       " Wally retoma as comunicações com o utilizador Matos no servidor IMServer.",
+                                                       " Wally desactiva o microfone do Matos.",
+                                                       " Wally activa o microfone do utilizador Ambrósio.",
+                                                       " Wally desactiva o áudio do Gustavo.",
+                                                       " Wally activa o áudio do utilizador Matos."};
+            string firstCommand = availableCommands[randomGen.Next(availableCommands.Count)];
+            string secondCommand = null;
+            do
+            {
+                secondCommand = availableCommands[randomGen.Next(availableCommands.Count)];
+            } while (firstCommand.Equals(secondCommand));
+            return "Podes pedir commandos do tipo."+firstCommand+secondCommand;
         }
 
         public string GetToDo()
@@ -219,9 +238,9 @@ namespace DiscordControler.Modules
 
         public string GetNoConfirmation()
         {
-            List<string> noConfirmation = new List<string> {"Ok, não o irei fazer.",
-                                                            "Como pareces arrependido, eu não irei fazer isso, por agora.",
-                                                            "Pronto, tu é que sabes. Pedido eliminado."};
+            List<string> noConfirmation = new List<string> {"Ok, não o irei fazer. A espera de novos comandos.",
+                                                            "Como pareces arrependido, eu não irei fazer isso, por agora. A espera de novos comandos.",
+                                                            "Pronto, tu é que sabes. Pedido eliminado. A espera de novos comandos."};
             return noConfirmation[randomGen.Next(noConfirmation.Count)];
         }
 
@@ -266,6 +285,15 @@ namespace DiscordControler.Modules
                                                        $"Já podes interagir com {userName}, estavam chateados?"};
             return unMuteDeafImplicitSpeech[randomGen.Next(unMuteDeafImplicitSpeech.Count)];
         }
+
+        public string GetDeleteMessageError(string channelName, string guildName)
+        {
+            List<string> deleteMessageError = new List<string> {$"Não existe qualquer mensagem no canal {channelName} do servidor {guildName}.",
+                                                       $"Creio que estas enganado, não existe mensagens no canal {channelName} do servidor {guildName}",
+                                                       $"Talvez estejas a ficar cego porque não existe neguma mensagem no canal {channelName} do servidor {guildName}."};
+            return deleteMessageError[randomGen.Next(deleteMessageError.Count)];
+        }
+
         private bool HasPlaceholder(string s)
         {
             return Regex.IsMatch(s, ".*{.*}.*");
