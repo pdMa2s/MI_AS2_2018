@@ -261,19 +261,19 @@ namespace DiscordControler
                 return;
             }
 
+            var message = await channel.GetMessagesAsync(1).Flatten();
+            if (message.Count() == 0)
+            {
+                _tts.Speak(_speechTemplates.GetDeleteMessageError(channelName, guild.Name));
+                return;
+            }
+
             if (confidence.Equals("explicit confirmation"))
             {
                 _tts.Speak(_speechTemplates.GetDeleteMessageExplicit(channelName, guild.Name));
                 return;
             }
 
-            var message = await channel.GetMessagesAsync(1).Flatten();
-            
-            if (message.Count() == 0)
-            {
-                _tts.Speak(_speechTemplates.GetDeleteMessageError(channelName, guild.Name));
-                return;
-            }
             await channel.DeleteMessagesAsync(message);
 
             _tts.Speak(_speechTemplates.GetDeleteLastMessage(channelName, guild.Name));
