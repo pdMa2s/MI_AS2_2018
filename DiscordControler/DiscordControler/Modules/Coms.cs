@@ -23,7 +23,7 @@ namespace DiscordControler
             return mmiC;
         }
 
-        public void SendCommandToTts(string command) {
+        public void SendCommandToSpeech(string command) {
             if (_speechmodalityPipeClient == null)
             {
                 _speechmodalityPipeClient = new NamedPipeClientStream("ttsCommands");
@@ -54,7 +54,7 @@ namespace DiscordControler
             _speechmodalityPipeClient.Connect();
             writer = new StreamWriter(_speechmodalityPipeClient);
             writer.AutoFlush = true;
-            SendCommandToTts(command);
+            SendCommandToSpeech(command);
         }
 
     }

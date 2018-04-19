@@ -3,6 +3,8 @@ using mmisharp;
 using Microsoft.Speech.Recognition;
 using System.Globalization;
 using Microsoft.Speech.Recognition.SrgsGrammar;
+using System.Xml;
+using System.IO;
 
 namespace speechModality
 {
@@ -35,13 +37,10 @@ namespace speechModality
             //load pt recognizer
             
             sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("pt-PT"));
-            GrammarBuilder grBuilder = new GrammarBuilder();
-            grBuilder.Culture = new CultureInfo("pt-PT");
-            grBuilder.AppendRuleReference(Environment.CurrentDirectory + "\\ptG.grxml", "rootRule");
-            SrgsDocument srgsDocument = new SrgsDocument(grBuilder);
-            Console.WriteLine("rot#############"+ srgsDocument.Rules.Count);
-            //gr = new Grammar(Environment.CurrentDirectory + "\\ptG.grxml", "rootRule");
-            gr = new Grammar(grBuilder);
+           
+            Stream xmlStream =  ModifyXMLGrammar();
+
+            gr = new Grammar(xmlStream, "rootRule");
 
             sre.LoadGrammar(gr);
 
@@ -102,6 +101,35 @@ namespace speechModality
         public void startListening()
         {
             sre.RecognizeAsync(RecognizeMode.Multiple);
+        }
+
+        private Stream ModifyXMLGrammar()
+        {
+            XmlDocument xmlGrammar = new XmlDocument();
+            xmlGrammar.Load(Environment.CurrentDirectory + "\\ptG.grxml");
+           
+            //Display all the book titles.
+            XmlNodeList elemList = xmlGrammar.GetElementsByTagName("rule");
+            for (int i = 0; i < elemList.Count; i++)
+            {
+                XmlAttributeCollection attrs = elemList[i].Attributes;
+                foreach (XmlAttribute at in attrs) {
+                    if (at.Name == "id" && at.Value == "guildNameRule") {
+                        XmlNode node =xmlGrammar.CreateNode("element", "item", "http://www.w3.org/2001/06/grammar");
+                        node.InnerXml = "Tópicos de Apicultura <tag>out=\"Tópicos de Apicultura\";</tag>";
+                       
+                        elemList[i].ChildNodes[1].AppendChild(node);
+                        
+                    }
+                }
+               
+            }
+            MemoryStream xmlStream = new MemoryStream();
+            xmlGrammar.Save(xmlStream);
+            xmlStream.Flush();
+            xmlStream.Position = 0;
+            return xmlStream;
+
         }
     }
 

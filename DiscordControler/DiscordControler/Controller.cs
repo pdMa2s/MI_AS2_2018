@@ -11,6 +11,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Discord.Rest;
 using DiscordControler.Modules;
+using System.Collections.Generic;
 
 namespace DiscordControler
 {
@@ -58,6 +59,11 @@ namespace DiscordControler
 
             _tts.Speak("Olá eu sou o wally, se desejares podes-me perguntar o que é que eu sou capaz de fazer e que comandos estão disponíveis.");
 
+            foreach(var g in _client.Guilds)
+            {
+                comModule.SendCommandToSpeech(g.Name);
+
+            }
             await Task.Delay(-1);
 
             

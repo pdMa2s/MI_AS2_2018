@@ -87,7 +87,7 @@ namespace DiscordControler.Modules
          */
         public void Speak(string text)
         {
-            _comModule.SendCommandToTts("ttsSpeaking");
+            _comModule.SendCommandToSpeech("ttsSpeaking");
             tts.SpeakAsync(text);
         }
 
@@ -112,7 +112,7 @@ namespace DiscordControler.Modules
          */
         void tts_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
-            _comModule.SendCommandToTts("ttsNotSpeaking");
+            _comModule.SendCommandToSpeech("ttsNotSpeaking");
         }
     }   
 }

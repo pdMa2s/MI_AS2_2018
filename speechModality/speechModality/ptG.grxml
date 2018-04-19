@@ -304,9 +304,11 @@
       <item>
         IMServer<tag>out="IMServer";</tag>
       </item>
+    </one-of>
+  </rule>
+  <!--
       <item>
         Tópicos de Apicultura<tag>out="Tópicos de Apicultura";</tag>
       </item>
-    </one-of>
-  </rule>
+      -->
 </grammar>

@@ -68,7 +68,7 @@ namespace speechModality
                 {
                     _processCommand(line);
                 }
-                Console.WriteLine("thread dead!!!!!!!!!!!!1");
+               
                 _pipeServer.Close();
                 serverThreadRunning = false;
 
