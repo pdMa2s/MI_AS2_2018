@@ -1,6 +1,8 @@
 ﻿using System;
 using mmisharp;
 using Microsoft.Speech.Recognition;
+using System.Globalization;
+using Microsoft.Speech.Recognition.SrgsGrammar;
 
 namespace speechModality
 {
@@ -31,8 +33,16 @@ namespace speechModality
             mmic.Send(lce.NewContextRequest());
 
             //load pt recognizer
+            
             sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("pt-PT"));
-            gr = new Grammar(Environment.CurrentDirectory + "\\ptG.grxml", "rootRule");
+            GrammarBuilder grBuilder = new GrammarBuilder();
+            grBuilder.Culture = new CultureInfo("pt-PT");
+            grBuilder.AppendRuleReference(Environment.CurrentDirectory + "\\ptG.grxml", "rootRule");
+            SrgsDocument srgsDocument = new SrgsDocument(grBuilder);
+            Console.WriteLine("rot#############"+ srgsDocument.Rules.Count);
+            //gr = new Grammar(Environment.CurrentDirectory + "\\ptG.grxml", "rootRule");
+            gr = new Grammar(grBuilder);
+
             sre.LoadGrammar(gr);
 
 

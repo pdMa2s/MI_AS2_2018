@@ -199,19 +199,7 @@
       <ruleref uri="#guildNameRule"/>
     </item>
   </rule>
-  <rule id="guildNameRule">
-    <one-of>
-        <item>server</item>
-        <item>servidor</item>
-        <item>grupo</item>
-        <item>comunidade</item>
-        <item>guild</item>
-    </one-of>
-    <one-of>
-      <item>IMServer<tag>out="IMServer";</tag></item>
-      <item>Tópicos de Apicultura<tag>out="Tópicos de Apicultura";</tag></item>
-    </one-of>
-  </rule>
+  
   <rule id="channelNameRule">
     <one-of>
       <item>channel</item>
@@ -302,6 +290,23 @@
       <item>podes fazer</item>
       <item>capaz de fazer</item>
       <item>posso fazer</item>
+    </one-of>
+  </rule>
+  <rule id="guildNameRule">
+    <one-of>
+      <item>server</item>
+      <item>servidor</item>
+      <item>grupo</item>
+      <item>comunidade</item>
+      <item>guild</item>
+    </one-of>
+    <one-of>
+      <item>
+        IMServer<tag>out="IMServer";</tag>
+      </item>
+      <item>
+        Tópicos de Apicultura<tag>out="Tópicos de Apicultura";</tag>
+      </item>
     </one-of>
   </rule>
 </grammar>
