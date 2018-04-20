@@ -40,7 +40,6 @@ namespace speechModality
         {
             if (serverThreadRunning == false)
             {
-                Console.WriteLine("server false");
                 _pipeServer = new NamedPipeServerStream("ttsCommands");
 
                 _listenTts();
@@ -60,7 +59,6 @@ namespace speechModality
                 serverThreadRunning = true;
 
                 _pipeServer.WaitForConnection();
-                Console.WriteLine("conectado");
                 StreamReader reader = new StreamReader(_pipeServer);
                 
                 string line;
@@ -68,7 +66,6 @@ namespace speechModality
                 {
                     _processCommand(line);
                 }
-                Console.WriteLine("thread dead!!!!!!!!!!!!1");
                 _pipeServer.Close();
                 serverThreadRunning = false;
 
