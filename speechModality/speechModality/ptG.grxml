@@ -27,6 +27,7 @@
       <item>
         <one-of>
           <item>tira</item>
+          <item>retira</item>
           <item>remove</item>
           <item>quica</item>
           <item>dá kick</item>
@@ -38,6 +39,7 @@
         <one-of>
           <item>bane</item>
           <item>expulsa</item>
+          <item>afasta</item>
         </one-of>
         <tag>out="BAN_USER";</tag>
         <ruleref uri="#userRemoveOrBan"/>
@@ -63,6 +65,9 @@
         <one-of>
           <item>quero sair</item>
           <item>tira me</item>
+          <item>retira me</item>
+          <item>quero que me tires</item>
+          <item>quero que me retires</item>
         </one-of>
         <tag>out="LEAVE_GUILD";</tag>
         <ruleref special="GARBAGE"/>
@@ -97,19 +102,29 @@
           <item>desativa o audio</item>
           <item>bloquea o som</item>
           <item>retira o audio</item>
+          <item>retira o som</item>
           <item>tira o audio</item>
+          <item>tira o som</item>
           <item>deaf</item>
         </one-of>
         <tag>out="DEAF_USER";</tag>
         <ruleref uri="#userStatusMuteDeaf"/>
       </item>
       <item>
-        <item>corta as comunicações</item>
+        <one-of>
+          <item>corta as comunicações</item>
+          <item>desativa o audio e o microfone</item>
+          <item>desativa o microfone e o audio</item>
+        </one-of>
         <tag>out="MUTE_DEAF_USER";</tag>
         <ruleref uri="#userStatusMuteDeaf"/>
       </item>
       <item>
-        <item>retoma as comunicações</item>
+        <one-of>
+          <item>retoma as comunicações</item>
+          <item>ativa o audio e o microfone</item>
+          <item>ativa o microfone e o audio</item>
+        </one-of>
         <tag>out="UNMUTE_UNDEAF_USER";</tag>
         <ruleref uri="#userStatusMuteDeaf"/>
       </item>
@@ -260,6 +275,9 @@
       <item>correto</item>
       <item>verdade</item>
       <item>quero</item>
+      <item>estas</item>
+      <item>afirmativo</item>
+      <item>certo</item>
     </one-of>
   </rule>
   <rule id="noOptions">
@@ -273,6 +291,8 @@
       <item>nada disso</item>
       <item>errado</item>
       <item>não quero</item>
+      <item>não estas</item>
+      <item>mentira</item>
     </one-of>
   </rule>
   <rule id="saycommands">
@@ -284,14 +304,16 @@
       </item>
       <item>
         <one-of>
-          <item>diz</item>
-          <item>diz-me</item>
+          <item>
+            <item>diz</item>
+            <item repeat="0-1">me</item>
+          </item>
           <item>quais são</item>
         </one-of>
         <ruleref special="GARBAGE"/>
         <item>comandos</item>
         <ruleref special="GARBAGE"/>
-        <item>disponíveis</item>
+        <item repeat="0-1">disponíveis</item>
         </item>
     </one-of>
   </rule>

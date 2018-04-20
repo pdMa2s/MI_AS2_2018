@@ -56,7 +56,7 @@ namespace DiscordControler
             
             await _client.StartAsync();
 
-            _tts.Speak("Olá eu sou o wally, se desejares podes-me perguntar o que é que eu sou capaz de fazer e que comandos estão disponíveis.");
+            _tts.Speak("Olá eu sou o wally, o teu bot do Discord! Se desejares podes-me perguntar o que é que eu sou capaz de fazer e que comandos estão disponíveis. So tenho um requisito, diz o meu nome antes de qualquer comando.");
 
             await Task.Delay(-1);
 
@@ -110,7 +110,6 @@ namespace DiscordControler
             {
                 if (confirmation.Equals("yes"))
                 {
-                    //sometimes generates an error due to the var lastJsonMessage being null
                     executeCommand(lastJsonMessage, lastJsonMessage.recognized.action.ToString() as String, "implicit confirmation");
                     lastJsonMessage = null;
                 }
@@ -132,27 +131,27 @@ namespace DiscordControler
                     var kickReason = json.recognized["reason"] == null ? null : json.recognized.reason.ToString() as String;
                     await KickUser(usernameToRemove, guildNameToRemoveUser, kickReason, confidence);
                     break;
-                case "BAN_USER": //fica
+                case "BAN_USER": 
                     var usernameToBan = json.recognized.userName.ToString() as String;
                     var guildNameToBanUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     var banReason = json.recognized["reason"] == null ? null : json.recognized.reason.ToString() as String;
                     await BanUser(usernameToBan, guildNameToBanUser, banReason, confidence);
                     break;
-                case "DELETE_LAST_MESSAGE": //fica
+                case "DELETE_LAST_MESSAGE": 
                     var channelNameToDeleteMsg = json.recognized.channelName.ToString() as String;
                     var guildNameToDeleteMsg = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await DeleteLastMessage(channelNameToDeleteMsg, guildNameToDeleteMsg, confidence);
                     break;
-                case "DELETE_CHANNEL":  //fica
+                case "DELETE_CHANNEL":  
                     var channelNameToDelete = json.recognized.channelName.ToString() as String;
                     var guildNameToDeleteChannel = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await DeleteChannel(channelNameToDelete, guildNameToDeleteChannel, confidence);
                     break;
-                case "LEAVE_GUILD": //fica
+                case "LEAVE_GUILD": 
                     var guildNameToLeave = json.recognized.guildName.ToString() as String;
                     await LeaveGuild(guildNameToLeave, confidence);
                     break;
-                case "REMOVE_BAN": //fica
+                case "REMOVE_BAN": 
                     var userNameToRemBan = json.recognized.userName.ToString() as String;
                     var guildNameToRemBan = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await RemoveBan(userNameToRemBan, guildNameToRemBan, confidence);
@@ -221,7 +220,10 @@ namespace DiscordControler
                 return;
             }
 
-            await user.KickAsync(reason: kickReason);
+            if (kickReason == null)
+                await user.KickAsync();
+            else
+                await user.KickAsync(reason: kickReason);
             _tts.Speak(_speechTemplates.GetKickUser(userName));
         }
 
@@ -242,7 +244,11 @@ namespace DiscordControler
                 return;
             }
 
-            await guild.AddBanAsync(user.Id, reason: banReason);
+            if (banReason == null)
+                await guild.AddBanAsync(user.Id);
+            else
+                await guild.AddBanAsync(user.Id, reason: banReason);
+
             _tts.Speak(_speechTemplates.GetBanUser(userName, guild.Name));
         }
 
@@ -255,13 +261,19 @@ namespace DiscordControler
                 return;
             }
 
+            var message = await channel.GetMessagesAsync(1).Flatten();
+            if (message.Count() == 0)
+            {
+                _tts.Speak(_speechTemplates.GetDeleteMessageError(channelName, guild.Name));
+                return;
+            }
+
             if (confidence.Equals("explicit confirmation"))
             {
                 _tts.Speak(_speechTemplates.GetDeleteMessageExplicit(channelName, guild.Name));
                 return;
             }
 
-            var message = await channel.GetMessagesAsync(1).Flatten();
             await channel.DeleteMessagesAsync(message);
 
             _tts.Speak(_speechTemplates.GetDeleteLastMessage(channelName, guild.Name));
@@ -275,19 +287,17 @@ namespace DiscordControler
                 _tts.Speak(_speechTemplates.GetUnkownGuild(guild.Name));
                 return;
             }
-            
-            
-
-            if (confidence.Equals("explicit confirmation"))
-            {
-                _tts.Speak(_speechTemplates.GetDeleteChannelExplicit(channelName, guild.Name));
-                return;
-            }
 
             var channel = FindChannel(guild, channelName);
             if (channel == null)
             {
                 _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guild.Name));
+                return;
+            }
+
+            if (confidence.Equals("explicit confirmation"))
+            {
+                _tts.Speak(_speechTemplates.GetDeleteChannelExplicit(channelName, guild.Name));
                 return;
             }
 
@@ -478,10 +488,8 @@ namespace DiscordControler
         }
 
         private SocketGuildChannel FindChannel(SocketGuild guild, string channelName) {
-            
             foreach (var c in guild.Channels) {
-                Console.WriteLine("channel: " + c.Name);
-                if (c.Name.Equals(channelName))
+                if (c.Name != null && c.Name.Equals(channelName))
                     return c;
             }
             return null;
