@@ -1,5 +1,6 @@
 ﻿using Microsoft.Kinect;
 using Microsoft.Kinect.VisualGestureBuilder;
+using mmisharp;
 using System;
 using System.Collections.Generic;
 
@@ -7,12 +8,13 @@ namespace GestureModality
 {
     class GestureDetector : IDisposable
     {
-        private readonly string gestureDatabase = @"C:\Users\pedro\Documents\IM\MI_AS1_2018\GestureModality\GestureModality\DiscordGestures.gbd";
+        private readonly string gestureDatabasePath = Environment.CurrentDirectory + "\\DiscordGestures.gbd";
         private VisualGestureBuilderFrameSource vgbFrameSource;
         private VisualGestureBuilderFrameReader vgbFrameReader;
         private readonly string muteGestureName = "mute";
         private readonly string deafGestureName = "deaf";
         private readonly string deleteMessageGestureName = "deleteMessage";
+        private MmiCommunication mmic;
 
         public GestureDetector(KinectSensor kinectSensor)
         {
@@ -29,7 +31,7 @@ namespace GestureModality
                 this.vgbFrameReader.IsPaused = true;
                 this.vgbFrameReader.FrameArrived += this.Reader_GestureFrameArrived;
             }
-            VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(Environment.CurrentDirectory + "\\DiscordGestures.gbd");
+            VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(gestureDatabasePath);
 
             if(database == null)
             {
@@ -37,15 +39,9 @@ namespace GestureModality
                 Environment.Exit(1);
             }
 
+            mmic = new MmiCommunication("localhost", 8000, "User1", "GES"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
 
-            // para fazer disable de gestos que não queremos
-            foreach (Gesture gesture in this.vgbFrameSource.Gestures)
-            {
-                if (gesture.Name.Equals(this.deleteMessageGestureName))
-                {
-                    this.vgbFrameSource.SetIsEnabled(gesture, false);
-                }
-            }
+
         }
 
         private void Reader_GestureFrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
@@ -71,8 +67,9 @@ namespace GestureModality
                             DiscreteGestureResult result = null;
                             discreteResults.TryGetValue(gesture, out result);
 
-                            if (result != null)
+                            if (result != null && result.Detected)
                             {
+                                SendDetectedGesture(gesture);
                                 if (gesture.Name.Equals(this.muteGestureName))
                                 {
                                     muteGesture = result.Detected;
@@ -88,14 +85,38 @@ namespace GestureModality
                                     deleteMessageGesture = result.Detected;
                                     deleteMessageGestureConfidence = result.Confidence;
                                 }
+
                             }
                         }
+
                         Console.WriteLine("Mute: "+muteGesture + " "+ muteGestureConfidence);
                         Console.WriteLine("Deaf: " + deafGesture + " " + deafGestureConfidence);
                         Console.WriteLine("Delete Message: " + deleteMessageGesture + " " + deleteMessageGestureConfidence);
+                        
                     }
                 }
             }
+        }
+
+        private void SendDetectedGesture(Gesture gesture)
+        {
+            string json = "{ \"recognized\": {";
+
+            switch (gesture.Name)
+            {
+                case "deaf":
+                    json += "SELF_DEAF";
+                    break;
+                case "mute":
+                    json += "SELF_MUTE";
+                    break;
+                case "deleteMessage":
+                    json += "DELETE_LAST_MESSAGE";
+                    break;
+                        
+            }
+            json += ", \"confidence\":\"implicit confirmation\" } }";
+
         }
 
         public ulong TrackingId

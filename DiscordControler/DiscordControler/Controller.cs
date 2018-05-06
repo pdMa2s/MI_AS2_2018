@@ -191,6 +191,9 @@ namespace DiscordControler
                     var guildNameToMuteDeafUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await ChangeMuteDeafUser(userNameToMuteDeaf, guildNameToMuteDeafUser, true, confidence);
                     break;
+                case "SELF_DEAF":
+                    await SelfDeaf(confidence);
+                    break;
                 case "SAY_COMMANDS":
                     _tts.Speak(_speechTemplates.GetAvailableCommands());
                     break;
@@ -432,7 +435,24 @@ namespace DiscordControler
             else
                 _tts.Speak(_speechTemplates.GetUnDeafUserImplicit(userNameToDeaf, guildNameToDeafUser));
         }
+        private async Task SelfDeaf(string confidence)
+        {
+            var guild = FindGuild("");
+            var user = FindUser(guild,_client.CurrentUser.Username);
 
+            if (user.IsDeafened)
+            {
+                await user.ModifyAsync(x => x.Deaf = true);
+                _tts.Speak(_speechTemplates.GetSelfDeafImplicit());
+            }
+
+            else
+            {
+                await user.ModifyAsync(x => x.Deaf = false);
+                _tts.Speak(_speechTemplates.GetSelfDeafImplicit());
+
+            }
+        }
         private async Task ChangeMuteDeafUser(string userNameToMuteDeaf, string guildNameToMuteDeafUser, bool muteDeaf, string confidence)
         {
             var guild = FindGuild(guildNameToMuteDeafUser);

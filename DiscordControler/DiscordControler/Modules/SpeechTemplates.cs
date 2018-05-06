@@ -259,6 +259,21 @@ namespace DiscordControler.Modules
             return unMuteUserImplicitSpeech[randomGen.Next(unMuteUserImplicitSpeech.Count)];
         }
 
+        public string GetSelfDeafImplicit() {
+            List<string> deafImplicitSpeech = new List<string> {$"Eu entendo, também já estava farto dos ouvir.",
+                                                       $"Ahhh finalmente! Silêncio."};
+            return deafImplicitSpeech[randomGen.Next(deafImplicitSpeech.Count)];
+
+        }
+
+        public string GetSelfUnDeafImplicit()
+        {
+            List<string> unDeafImplicitSpeech = new List<string> {$"Já não estás surdo!",
+                                                       $"Já podes ouvir mas se calhar devias meter uns auriculares."};
+            return unDeafImplicitSpeech[randomGen.Next(unDeafImplicitSpeech.Count)];
+
+        }
+
         public string GetDeafUserImplicit(string userName, string guildName)
         {
             List<string> deafImplicitSpeech = new List<string> {$"Já não ouves o {userName}.",
