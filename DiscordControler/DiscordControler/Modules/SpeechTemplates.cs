@@ -100,7 +100,7 @@ namespace DiscordControler.Modules
         {
             List<string> lowConfidence = new List<string> {"Desculpa, estava desatento! Podes repetir se faz favor?",
                                                        "Desculpa, não percebi. Achas que podes repetir?",
-                                                        "Desculpa, mas hoje estou um bocado para o surdo. Podes repetir novamente?"};
+                                                        "Desculpa, mas hoje estou um bocado para o surdo. Podes repetir novamente?"}; //cego
             return lowConfidence[randomGen.Next(lowConfidence.Count)];
         }
 
@@ -116,7 +116,7 @@ namespace DiscordControler.Modules
         {
             List<string> banUserExplicit = new List<string> {$"Então, queres que bane o utilizador {username} do servidor {guildName}, correcto?",
                                                        $"Eu percebi que queres que o utilizador {username} não volte por uns tempos ao servidor {guildName}. Estou correcto?",
-                                                        $"Acho que ouvi que queres expulsar o utilizador {username} do servidor {guildName}. Verdade?"};
+                                                        $"Acho que ouvi que queres expulsar o utilizador {username} do servidor {guildName}. Verdade?"}; //vi
             return banUserExplicit[randomGen.Next(banUserExplicit.Count)];
         }
 
@@ -147,7 +147,7 @@ namespace DiscordControler.Modules
         public string GetRemoveBanExplicit(string username, string guildName)
         {
             List<string> removeBanExplicit = new List<string> {$"Então, queres remover o bane que foi colocado ao utilizador {username} no servidor {guildName}, correcto?",
-                                                       $"Acho que ouvi que queres tirar o bane colocado ao utilizador {username} no servidor {guildName}. Estou correcto?",
+                                                       $"Acho que ouvi que queres tirar o bane colocado ao utilizador {username} no servidor {guildName}. Estou correcto?",//vi
                                                         $"Percebi que é para apagar o bane no utilizador {username} no servidor {guildName}. Verdade?"};
             return removeBanExplicit[randomGen.Next(removeBanExplicit.Count)];
         }
@@ -155,17 +155,33 @@ namespace DiscordControler.Modules
         public string GetMuteExplicit(string username, string guildName)
         {
             List<string> muteExplicit = new List<string> {$"Então, queres calar o utilizador {username} no servidor {guildName}, correcto?",
-                                                       $"Acho que ouvi que queres silenciar o utilizador {username} no servidor {guildName}. Estou correcto?",
+                                                       $"Acho que ouvi que queres silenciar o utilizador {username} no servidor {guildName}. Estou correcto?",//vi
                                                         $"Tens mesmo a certeza que queres desactivar o microfone ao utilizador {username} no servidor {guildName}?"};
             return muteExplicit[randomGen.Next(muteExplicit.Count)];
+        }
+
+        public string GetSelfMuteExplicit(string guildName)
+        {
+            List<string> selfMuteExplicit = new List<string> {$"Então, queres que te cale no servidor {guildName}, correcto?",
+                                                       $"Acho que percebi que queres desactivar o teu microfone no servidor {guildName}. Estou correcto?",
+                                                        $"Tens mesmo a certeza que queres desactivar o teu microfone no servidor {guildName}?"};
+            return selfMuteExplicit[randomGen.Next(selfMuteExplicit.Count)];
         }
 
         public string GetUnMuteExplicit(string username, string guildName)
         {
             List<string> unMuteExplicit = new List<string> {$"Então, queres dar voz ao utilizador {username} no servidor {guildName}, correcto?",
-                                                       $"Acho que ouvi que queres activar o microfone do utilizador {username} no servidor {guildName}. Estou correcto?",
+                                                       $"Acho que ouvi que queres activar o microfone do utilizador {username} no servidor {guildName}. Estou correcto?",//vi
                                                         $"Tens mesmo a certeza que queres ouvir o utilizador {username} no servidor {guildName}?"};
             return unMuteExplicit[randomGen.Next(unMuteExplicit.Count)];
+        }
+
+        public string GetSelfUnMuteExplicit(string guildName)
+        {
+            List<string> selfUnMuteExplicit = new List<string> {$"Então, queres os utilizados no servidor {guildName} te oiçam, correcto?",
+                                                       $"Acho que percebi que queres activar o teu microfone no servidor {guildName}. Estou correcto?",
+                                                        $"Tens mesmo a certeza que queres activar o teu microfone no servidor {guildName}?"};
+            return selfUnMuteExplicit[randomGen.Next(selfUnMuteExplicit.Count)];
         }
 
         public string GetDeafExplicit(string username, string guildName)
@@ -179,7 +195,7 @@ namespace DiscordControler.Modules
         public string GetUnDeafExplicit(string username, string guildName)
         {
             List<string> unMuteExplicit = new List<string> {$"Então, queres que o utilizador {username} oiça o pessoal do servidor {guildName}, correcto?",
-                                                       $"Acho que ouvi que queres desbloquear o som ao utilizador {username} no servidor {guildName}. Estou correcto?",
+                                                       $"Acho que ouvi que queres desbloquear o som ao utilizador {username} no servidor {guildName}. Estou correcto?",//vi
                                                         $"Tens mesmo a certeza que queres activar o áudio ao utilizador {username} no servidor {guildName}?"};
             return unMuteExplicit[randomGen.Next(unMuteExplicit.Count)];
         }
@@ -252,6 +268,13 @@ namespace DiscordControler.Modules
             return muteUserImplicitSpeech[randomGen.Next(muteUserImplicitSpeech.Count)];
         }
 
+        public string GetSelfMute(string guildName)
+        {
+            List<string> selfMuteImplicitSpeech = new List<string> {$"Os utilizadores do servidor {guildName} já não podem ouvir te.",
+                                                       $"Já estavas farto de falar?"};
+            return selfMuteImplicitSpeech[randomGen.Next(selfMuteImplicitSpeech.Count)];
+        }
+
         public string GetUnMuteUser(string userName, string guildName)
         {
             List<string> unMuteUserImplicitSpeech = new List<string> {$"O utilizador {userName} já pode falar.",
@@ -272,6 +295,12 @@ namespace DiscordControler.Modules
                                                        $"Já podes ouvir mas se calhar devias meter uns auriculares."};
             return unDeafImplicitSpeech[randomGen.Next(unDeafImplicitSpeech.Count)];
 
+        }
+         public string GetSelfUnMute(string guildName)
+        {
+            List<string> selfUnMuteImplicitSpeech = new List<string> {$"Os utilizadores do servidor {guildName} já podem ouvir te.",
+                                                       $"De certeza que os utilizadores do servidor {guildName} tinham saudades da tua voz."};
+            return selfUnMuteImplicitSpeech[randomGen.Next(selfUnMuteImplicitSpeech.Count)];
         }
 
         public string GetDeafUserImplicit(string userName, string guildName)

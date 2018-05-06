@@ -41,6 +41,7 @@ namespace GestureModality
 
             mmic = new MmiCommunication("localhost", 8000, "User1", "GES"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
 
+            this.vgbFrameSource.AddGestures(database.AvailableGestures);
 
         }
 
