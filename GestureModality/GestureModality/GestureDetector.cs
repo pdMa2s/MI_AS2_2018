@@ -7,12 +7,12 @@ namespace GestureModality
 {
     class GestureDetector : IDisposable
     {
-        private readonly string gestureDatabase = @"Database\cenas.gbd";
+        private readonly string gestureDatabase = @"gestureDB\DiscordGestures.gbd";
         private VisualGestureBuilderFrameSource vgbFrameSource;
         private VisualGestureBuilderFrameReader vgbFrameReader;
-        private readonly string muteGestureName = "";
-        private readonly string deafGestureName = "";
-        private readonly string deleteMessageGestureName = "";
+        private readonly string muteGestureName = "mute";
+        private readonly string deafGestureName = "deaf";
+        private readonly string deleteMessageGestureName = "deleteMessage";
 
         public GestureDetector(KinectSensor kinectSensor)
         {
