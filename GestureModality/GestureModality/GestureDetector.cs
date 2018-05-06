@@ -8,7 +8,7 @@ namespace GestureModality
 {
     class GestureDetector : IDisposable
     {
-        private readonly string gestureDatabasePath = Environment.CurrentDirectory + "\\DiscordGestures.gbd";
+        private readonly string gestureDatabasePath = "DiscordGestures.gbd";
         private VisualGestureBuilderFrameSource vgbFrameSource;
         private VisualGestureBuilderFrameReader vgbFrameReader;
         private readonly string muteGestureName = "mute";
@@ -70,7 +70,7 @@ namespace GestureModality
 
                             if (result != null && result.Detected)
                             {
-                                SendDetectedGesture(gesture);
+                                SendDetectedGesture(gesture, result.Confidence);
                                 if (gesture.Name.Equals(this.muteGestureName))
                                 {
                                     muteGesture = result.Detected;
@@ -99,9 +99,11 @@ namespace GestureModality
             }
         }
 
-        private void SendDetectedGesture(Gesture gesture)
+        private void SendDetectedGesture(Gesture gesture, double confidence)
         {
-            string json = "{ \"recognized\": {";
+            MainWindow.main.ChangeDetectedGesture = gesture.Name;
+            MainWindow.main.ChangeConfidence = confidence.ToString();
+            string json = "{ \"recognized\": { \"action\" : ";
 
             switch (gesture.Name)
             {
