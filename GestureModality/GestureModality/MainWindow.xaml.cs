@@ -25,17 +25,24 @@ namespace GestureModality
 
             this.kinectSensor = KinectSensor.GetDefault();
             this.kinectSensor.Open();
+            Console.WriteLine(kinectSensor.IsAvailable);
 
             this.bodyFrameReader = this.kinectSensor.BodyFrameSource.OpenReader();
             this.bodyFrameReader.FrameArrived += this.Reader_BodyFrameArrived;
 
             this.gestureDetector = new GestureDetector(kinectSensor);
             this.activeBodyIndex = -1;
+            if (!kinectSensor.IsAvailable)
+            {
+                Console.WriteLine("Kinect Sensor is not available!");
+                Environment.Exit(1);
+            }
 
         }
 
         private void Reader_BodyFrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
+            
             bool dataReceived = false;
 
             using (BodyFrame bodyFrame = e.FrameReference.AcquireFrame())
