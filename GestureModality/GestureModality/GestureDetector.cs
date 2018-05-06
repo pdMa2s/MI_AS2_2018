@@ -7,7 +7,7 @@ namespace GestureModality
 {
     class GestureDetector : IDisposable
     {
-        private readonly string gestureDatabase = @"C:\Users\pedro\Documents\IM\MI_AS1_2018\GestureModality\GestureModality\DiscordGestures.gbd";
+        private readonly string gestureDatabase = @"DiscordGestures.gbd";
         private VisualGestureBuilderFrameSource vgbFrameSource;
         private VisualGestureBuilderFrameReader vgbFrameReader;
         private readonly string muteGestureName = "mute";
@@ -29,7 +29,7 @@ namespace GestureModality
                 this.vgbFrameReader.IsPaused = true;
                 this.vgbFrameReader.FrameArrived += this.Reader_GestureFrameArrived;
             }
-            VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(Environment.CurrentDirectory + "\\DiscordGestures.gbd");
+            VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(gestureDatabase);
 
             if(database == null)
             {
@@ -37,15 +37,16 @@ namespace GestureModality
                 Environment.Exit(1);
             }
 
+            this.vgbFrameSource.AddGestures(database.AvailableGestures);
 
             // para fazer disable de gestos que não queremos
-            foreach (Gesture gesture in this.vgbFrameSource.Gestures)
+            /*foreach (Gesture gesture in this.vgbFrameSource.Gestures)
             {
                 if (gesture.Name.Equals(this.deleteMessageGestureName))
                 {
                     this.vgbFrameSource.SetIsEnabled(gesture, false);
                 }
-            }
+            }*/
         }
 
         private void Reader_GestureFrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
