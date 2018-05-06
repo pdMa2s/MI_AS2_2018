@@ -15,6 +15,7 @@ namespace GestureModality
         private int activeBodyIndex;
         private BodyFrameReader bodyFrameReader;
         private GestureDetector gestureDetector;
+        internal static MainWindow main;
 
         // INotifyPropertyChangedPropertyChanged event to allow window controls to bind to changeable data
         public event PropertyChangedEventHandler PropertyChanged;
@@ -22,6 +23,7 @@ namespace GestureModality
         public MainWindow()
         {
             InitializeComponent();
+            main = this;
 
             this.kinectSensor = KinectSensor.GetDefault();
             this.kinectSensor.Open();
@@ -32,12 +34,11 @@ namespace GestureModality
 
             this.gestureDetector = new GestureDetector(kinectSensor);
             this.activeBodyIndex = -1;
-            if (!kinectSensor.IsAvailable)
+            /*if (!kinectSensor.IsAvailable)
             {
                 Console.WriteLine("Kinect Sensor is not available!");
                 Environment.Exit(1);
-            }
-
+            }*/
         }
 
         private void Reader_BodyFrameArrived(object sender, BodyFrameArrivedEventArgs e)
@@ -58,7 +59,7 @@ namespace GestureModality
                     // As long as those body objects are not disposed and not set to null in the array,
                     // those body objects will be re-used.
                     bodyFrame.GetAndRefreshBodyData(this.bodies);
-                    verifyActiveBody();
+                    VerifyActiveBody();
                     dataReceived = true;
                 }
             }
@@ -78,7 +79,7 @@ namespace GestureModality
 
         }
 
-        private void verifyActiveBody()
+        private void VerifyActiveBody()
         {
             if (this.activeBodyIndex != -1)
             {
@@ -103,6 +104,18 @@ namespace GestureModality
                     }
                 }
             }
+        }
+
+        internal string ChangeDetectedGesture
+        {
+            get { return this.gestureDetected.Text.ToString(); }
+            set { Dispatcher.Invoke(new Action(() => { this.gestureDetected.Text = value; })); }
+        }
+
+        internal string ChangeConfidence
+        {
+            get { return this.confidence.Text.ToString(); }
+            set { Dispatcher.Invoke(new Action(() => { this.confidence.Text = value; })); }
         }
 
         public void Dispose()

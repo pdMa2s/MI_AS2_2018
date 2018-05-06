@@ -166,6 +166,9 @@ namespace DiscordControler
                     var guildNameToMuteUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await ChangeMuteUser(userNameToMute, guildNameToMuteUser, true, confidence);
                     break;
+                case "SELF_MUTE":
+                    await ChangeSelfMute(confidence);
+                    break;
                 case "DEAF_USER":
                     var userNameToDeaf = json.recognized.userName.ToString() as String;
                     var guildNameToDeafUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
@@ -401,9 +404,38 @@ namespace DiscordControler
 
             await user.ModifyAsync(x => x.Mute = mute);
             if (mute)
-                _tts.Speak(_speechTemplates.GetMuteUser(userNameToMute, guildNameToMuteUser));
+                _tts.Speak(_speechTemplates.GetMuteUser(userNameToMute, guild.Name));
             else
-                _tts.Speak(_speechTemplates.GetUnMuteUser(userNameToMute, guildNameToMuteUser));
+                _tts.Speak(_speechTemplates.GetUnMuteUser(userNameToMute, guild.Name));
+        }
+
+        private async Task ChangeSelfMute(string confidence)
+        {
+            var guild = _client.GetGuild(_defaultGuildId);
+            var user = FindUser(guild, _userNick);
+
+            if (user == null)
+            {
+                _tts.Speak(_speechTemplates.GetUnkownUser());
+                return;
+            }
+
+            var mute = !user.IsMuted;
+
+            if (confidence.Equals("explicit confirmation"))
+            {
+                if (mute)
+                    _tts.Speak(_speechTemplates.GetSelfMuteExplicit(guild.Name));
+                else
+                    _tts.Speak(_speechTemplates.GetSelfUnMuteExplicit(guild.Name));
+                return;
+            }
+
+            await user.ModifyAsync(x => x.Mute = mute);
+            if (mute)
+                _tts.Speak(_speechTemplates.GetSelfMute(guild.Name));
+            else
+                _tts.Speak(_speechTemplates.GetSelfUnMute(guild.Name));
         }
 
         private async Task ChangeDeafUser(string userNameToDeaf, string guildNameToDeafUser, bool deaf, string confidence)
@@ -428,9 +460,9 @@ namespace DiscordControler
 
             await user.ModifyAsync(x => x.Deaf = deaf);
             if (deaf)
-                _tts.Speak(_speechTemplates.GetDeafUserImplicit(userNameToDeaf, guildNameToDeafUser));
+                _tts.Speak(_speechTemplates.GetDeafUserImplicit(userNameToDeaf, guild.Name));
             else
-                _tts.Speak(_speechTemplates.GetUnDeafUserImplicit(userNameToDeaf, guildNameToDeafUser));
+                _tts.Speak(_speechTemplates.GetUnDeafUserImplicit(userNameToDeaf, guild.Name));
         }
 
         private async Task ChangeMuteDeafUser(string userNameToMuteDeaf, string guildNameToMuteDeafUser, bool muteDeaf, string confidence)
@@ -456,9 +488,9 @@ namespace DiscordControler
             await user.ModifyAsync(x => x.Deaf = muteDeaf);
             await user.ModifyAsync(x => x.Mute = muteDeaf);
             if (muteDeaf)
-                _tts.Speak(_speechTemplates.GetMuteDeafImplicit(userNameToMuteDeaf, guildNameToMuteDeafUser));
+                _tts.Speak(_speechTemplates.GetMuteDeafImplicit(userNameToMuteDeaf, guild.Name));
             else
-                _tts.Speak(_speechTemplates.GetUnMuteDeafImplicit(userNameToMuteDeaf, guildNameToMuteDeafUser));
+                _tts.Speak(_speechTemplates.GetUnMuteDeafImplicit(userNameToMuteDeaf, guild.Name));
         }
 
         private SocketGuild FindGuild(string guildName) {
