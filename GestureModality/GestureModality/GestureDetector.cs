@@ -14,6 +14,7 @@ namespace GestureModality
         private const string muteGestureName = "mute_Right";
         private const string deafGestureName = "deaf_Left";
         private const string deleteMessageGestureName = "deleteBothArms";
+        private LifeCycleEvents lce;
         private MmiCommunication mmic;
         private int fpsDelay = 60;
         private bool gestureWasDetected = false;
@@ -41,7 +42,9 @@ namespace GestureModality
                 Environment.Exit(1);
             }
 
-            mmic = new MmiCommunication("localhost", 8000, "User1", "GESTURE"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
+            lce = new LifeCycleEvents("GESTURES", "FUSION", "gesture-1", "acoustic", "command"); // LifeCycleEvents(string source, string target, string id, string medium, string mode)
+            mmic = new MmiCommunication("localhost", 8000, "User2", "GESTURES"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
+            mmic.Send(lce.NewContextRequest());
 
             this.vgbFrameSource.AddGestures(database.AvailableGestures);
 
@@ -107,6 +110,8 @@ namespace GestureModality
             }
             json += ", \"confidence\":\"implicit confirmation\" } }";
 
+            var exNot = lce.ExtensionNotification("", "", (float) confidence, json);
+            mmic.Send(exNot);
         }
 
         public ulong TrackingId
