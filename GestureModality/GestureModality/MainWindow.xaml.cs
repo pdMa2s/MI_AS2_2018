@@ -44,7 +44,7 @@ namespace GestureModality
         private void Reader_BodyFrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
             
-            bool dataReceived = false;
+            bool bodyInFrame = false;
 
             using (BodyFrame bodyFrame = e.FrameReference.AcquireFrame())
             {
@@ -60,12 +60,13 @@ namespace GestureModality
                     // those body objects will be re-used.
                     bodyFrame.GetAndRefreshBodyData(this.bodies);
                     VerifyActiveBody();
-                    dataReceived = true;
+                    bodyInFrame = this.activeBodyIndex != -1;
                 }
             }
 
-            if (dataReceived)
+            if (bodyInFrame)
             {
+                Console.WriteLine(this.activeBodyIndex);
                 Body body = this.bodies[this.activeBodyIndex];
 
                 // if the current body TrackingId changed, update the corresponding gesture detector with the new value
@@ -81,26 +82,21 @@ namespace GestureModality
 
         private void VerifyActiveBody()
         {
-            if (this.activeBodyIndex != -1)
-            {
-                Body body = this.bodies[this.activeBodyIndex];
-                if (!body.IsTracked)
-                {
-                    this.activeBodyIndex = -1;
-                }
-            }
+            this.activeBodyIndex = -1;
 
-            if (this.activeBodyIndex == -1)
-            {
-                int maxBodies = this.kinectSensor.BodyFrameSource.BodyCount;
+            int maxBodies = this.kinectSensor.BodyFrameSource.BodyCount;
 
-                for (int i=0; i < maxBodies; i++)
+            float minZPoint = float.MaxValue; // Default to impossible value
+            for (int i = 0; i < maxBodies; i++)
+            {
+                Body body = this.bodies[i];
+                if (body.IsTracked)
                 {
-                    // find the first tracked body
-                    if (this.bodies[i].IsTracked)
+                    float zMeters = body.Joints[JointType.SpineBase].Position.Z;
+                    if (zMeters < minZPoint)
                     {
+                        minZPoint = zMeters;
                         this.activeBodyIndex = i;
-                        break;
                     }
                 }
             }

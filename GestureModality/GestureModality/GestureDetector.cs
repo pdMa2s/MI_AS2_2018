@@ -11,13 +11,15 @@ namespace GestureModality
         private readonly string gestureDatabasePath = "DiscordGestures.gbd";
         private VisualGestureBuilderFrameSource vgbFrameSource;
         private VisualGestureBuilderFrameReader vgbFrameReader;
-        private readonly string muteGestureName = "mute";
-        private readonly string deafGestureName = "deaf";
-        private readonly string deleteMessageGestureName = "deleteMessage";
+        private const string muteGestureName = "mute_Right";
+        private const string deafGestureName = "deaf_Left";
+        private const string deleteMessageGestureName = "deleteBothArms";
         private MmiCommunication mmic;
-
+        private int fpsDelay = 60;
+        private bool gestureWasDetected = false;
         public GestureDetector(KinectSensor kinectSensor)
         {
+            
             if (kinectSensor == null)
             {
                 throw new ArgumentNullException("kinectSensor");
@@ -39,7 +41,7 @@ namespace GestureModality
                 Environment.Exit(1);
             }
 
-            mmic = new MmiCommunication("localhost", 8000, "User1", "GES"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
+            mmic = new MmiCommunication("localhost", 8000, "User1", "GESTURE"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
 
             this.vgbFrameSource.AddGestures(database.AvailableGestures);
 
@@ -56,49 +58,34 @@ namespace GestureModality
 
                     if (discreteResults != null)
                     {
-                        bool muteGesture = false;
-                        bool deafGesture = false;
-                        bool deleteMessageGesture = false;
-                        double muteGestureConfidence = 0;
-                        double deafGestureConfidence = 0;
-                        double deleteMessageGestureConfidence = 0;
+                        
+                        Gesture toSend = null;
+                        double toSendConfidence = -1;
 
                         foreach (Gesture gesture in this.vgbFrameSource.Gestures)
                         {
                             DiscreteGestureResult result = null;
                             discreteResults.TryGetValue(gesture, out result);
 
-                            if (result != null && result.Detected)
+                            if (result != null && result.Confidence > .70)// && result.Detected)
                             {
-                                SendDetectedGesture(gesture, result.Confidence);
-                                if (gesture.Name.Equals(this.muteGestureName))
-                                {
-                                    muteGesture = result.Detected;
-                                    muteGestureConfidence = result.Confidence;
-                                }
-                                else if (gesture.Name.Equals(this.deafGestureName))
-                                {
-                                    deafGesture = result.Detected;
-                                    deafGestureConfidence = result.Confidence;
-                                }
-                                else if (gesture.Name.Equals(this.deleteMessageGestureName))
-                                {
-                                    deleteMessageGesture = result.Detected;
-                                    deleteMessageGestureConfidence = result.Confidence;
-                                }
-
+                                toSend = gesture;
+                                toSendConfidence = result.Confidence;
                             }
                         }
 
-                        Console.WriteLine("Mute: "+muteGesture + " "+ muteGestureConfidence);
-                        Console.WriteLine("Deaf: " + deafGesture + " " + deafGestureConfidence);
-                        Console.WriteLine("Delete Message: " + deleteMessageGesture + " " + deleteMessageGestureConfidence);
-                        
+                        if(toSend != null)
+                        {
+                            SendDetectedGesture(toSend, toSendConfidence);
+
+                            Console.WriteLine("Detected: "+ toSend.Name + " " + toSendConfidence);
+                        }
+
                     }
                 }
             }
         }
-
+        
         private void SendDetectedGesture(Gesture gesture, double confidence)
         {
             MainWindow.main.ChangeDetectedGesture = gesture.Name;
@@ -107,13 +94,13 @@ namespace GestureModality
 
             switch (gesture.Name)
             {
-                case "deaf":
+                case deafGestureName:
                     json += "SELF_DEAF";
                     break;
-                case "mute":
+                case muteGestureName:
                     json += "SELF_MUTE";
                     break;
-                case "deleteMessage":
+                case deleteMessageGestureName:
                     json += "DELETE_LAST_MESSAGE";
                     break;
                         
