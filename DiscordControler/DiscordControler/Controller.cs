@@ -45,7 +45,6 @@ namespace DiscordControler
             _speechTemplates = new SpeechTemplates();
             
             _client.Log += Log;
-
             await RegisterCommandsAsync();
             _mmiComms.Message += MmiC_Message; // subscribe to the messages that come from the comMudole
             _mmiComms.Start();

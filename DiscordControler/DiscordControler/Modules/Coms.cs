@@ -24,11 +24,6 @@ namespace DiscordControler
             return mmiC;
         }
 
-        public string GetModalityType()
-        {
-            return mmiC.Modality;
-        }
-
         public void SendCommandToTts(string command) {
             if (_speechmodalityPipeClient == null)
             {
