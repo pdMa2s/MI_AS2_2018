@@ -16,8 +16,10 @@ namespace GestureModality
         private const string deleteMessageGestureName = "deleteBothArms";
         private LifeCycleEvents lce;
         private MmiCommunication mmic;
-        private int fpsDelay = 60;
-        private bool gestureWasDetected = false;
+        private const int fpsDelay = 60;
+        private int fpsCounter;
+        private bool gestureWasDetected;
+
         public GestureDetector(KinectSensor kinectSensor)
         {
             
@@ -47,11 +49,23 @@ namespace GestureModality
             mmic.Send(lce.NewContextRequest());
 
             this.vgbFrameSource.AddGestures(database.AvailableGestures);
-
+            fpsCounter = 0;
+            gestureWasDetected = false;
         }
 
         private void Reader_GestureFrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
         {
+            if (this.gestureWasDetected)
+            {
+                this.fpsCounter++;
+                if (fpsCounter == fpsDelay)
+                {
+                    this.fpsCounter = 0;
+                    this.gestureWasDetected = false;
+                }
+                return;
+            }
+
             VisualGestureBuilderFrameReference frameReference = e.FrameReference;
             using (VisualGestureBuilderFrame frame = frameReference.AcquireFrame())
             {
@@ -80,7 +94,7 @@ namespace GestureModality
                         if(toSend != null)
                         {
                             SendDetectedGesture(toSend, toSendConfidence);
-
+                            this.gestureWasDetected = true;
                             Console.WriteLine("Detected: "+ toSend.Name + " " + toSendConfidence);
                         }
 
@@ -91,8 +105,8 @@ namespace GestureModality
         
         private void SendDetectedGesture(Gesture gesture, double confidence)
         {
-            MainWindow.main.ChangeDetectedGesture = gesture.Name;
-            MainWindow.main.ChangeConfidence = confidence.ToString();
+            MainWindow.main.ChangeDetectedGesture = gesture.Name + "detected";
+            MainWindow.main.ChangeConfidence = "Confidence: "+confidence.ToString();
             string json = "{ \"recognized\": { \"action\" : ";
 
             switch (gesture.Name)

@@ -16,11 +16,17 @@ namespace DiscordControler
         private MmiCommunication mmiC;
         private NamedPipeClientStream _speechmodalityPipeClient;
         private StreamWriter writer;
+
         public Coms() {
             mmiC = new MmiCommunication("localhost", 8000, "User1", "GUI");
         }
         public MmiCommunication GetMmic() {
             return mmiC;
+        }
+
+        public string GetModalityType()
+        {
+            return mmiC.Modality;
         }
 
         public void SendCommandToTts(string command) {

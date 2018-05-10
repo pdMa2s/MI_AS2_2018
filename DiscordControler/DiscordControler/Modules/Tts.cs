@@ -87,7 +87,8 @@ namespace DiscordControler.Modules
          */
         public void Speak(string text)
         {
-            _comModule.SendCommandToTts("ttsSpeaking");
+            if (_comModule.GetModalityType().Equals("ASR"))
+                _comModule.SendCommandToTts("ttsSpeaking");
             tts.SpeakAsync(text);
         }
 
@@ -112,7 +113,8 @@ namespace DiscordControler.Modules
          */
         void tts_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
-            _comModule.SendCommandToTts("ttsNotSpeaking");
+            if (_comModule.GetModalityType().Equals("ASR"))
+                _comModule.SendCommandToTts("ttsNotSpeaking");
         }
     }   
 }
