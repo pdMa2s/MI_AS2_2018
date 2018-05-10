@@ -112,13 +112,13 @@ namespace GestureModality
             switch (gesture.Name)
             {
                 case deafGestureName:
-                    json += "SELF_DEAF";
+                    json += "\"SELF_DEAF\"";
                     break;
                 case muteGestureName:
-                    json += "SELF_MUTE";
+                    json += "\"SELF_MUTE\"";
                     break;
                 case deleteMessageGestureName:
-                    json += "DELETE_LAST_MESSAGE";
+                    json += "\"DELETE_LAST_MESSAGE\"";
                     break;
                         
             }

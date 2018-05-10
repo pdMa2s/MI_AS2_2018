@@ -18,7 +18,7 @@ namespace DiscordControler
         private StreamWriter writer;
 
         public Coms() {
-            mmiC = new MmiCommunication("localhost", 8000, "User1", "GUI");
+            mmiC = new MmiCommunication("localhost", 8000, "User2", "GUI");
         }
         public MmiCommunication GetMmic() {
             return mmiC;
