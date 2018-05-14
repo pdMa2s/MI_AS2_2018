@@ -19,10 +19,10 @@ namespace GestureModality
         private const int fpsDelay = 60;
         private int fpsCounter;
         private bool gestureWasDetected;
-
-        public GestureDetector(KinectSensor kinectSensor)
+        private ComModule coms;
+        public GestureDetector(KinectSensor kinectSensor, ComModule coms)
         {
-            
+            this.coms = coms;
             if (kinectSensor == null)
             {
                 throw new ArgumentNullException("kinectSensor");
@@ -53,8 +53,13 @@ namespace GestureModality
             gestureWasDetected = false;
         }
 
+
+
         private void Reader_GestureFrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
         {
+            if (coms.IsTtsSpeaking())
+                return;
+
             if (this.gestureWasDetected)
             {
                 this.fpsCounter++;
@@ -96,6 +101,7 @@ namespace GestureModality
                             SendDetectedGesture(toSend, toSendConfidence);
                             this.gestureWasDetected = true;
                             Console.WriteLine("Detected: "+ toSend.Name + " " + toSendConfidence);
+                            coms.KeepServerAlive();
                         }
 
                     }

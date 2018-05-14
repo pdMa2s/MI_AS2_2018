@@ -16,7 +16,7 @@ namespace GestureModality
         private BodyFrameReader bodyFrameReader;
         private GestureDetector gestureDetector;
         internal static MainWindow main;
-
+        private ComModule coms;
         // INotifyPropertyChangedPropertyChanged event to allow window controls to bind to changeable data
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,15 +24,16 @@ namespace GestureModality
         {
             InitializeComponent();
             main = this;
-
+            
             this.kinectSensor = KinectSensor.GetDefault();
             this.kinectSensor.Open();
             Console.WriteLine(kinectSensor.IsAvailable);
 
             this.bodyFrameReader = this.kinectSensor.BodyFrameSource.OpenReader();
             this.bodyFrameReader.FrameArrived += this.Reader_BodyFrameArrived;
+            coms = new ComModule();
 
-            this.gestureDetector = new GestureDetector(kinectSensor);
+            this.gestureDetector = new GestureDetector(kinectSensor,coms);
             this.activeBodyIndex = -1;
             /*if (!kinectSensor.IsAvailable)
             {
