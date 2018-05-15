@@ -4,12 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestureModality"
+        xmlns:k="http://schemas.microsoft.com/kinect/2014"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow" Height="446.826" Width="525"
         Closing="MainWindow_Closing">
-    <Grid>
+    <Grid RenderTransformOrigin="0.486,0.44">
         <TextBlock x:Name="gestureDetected" HorizontalAlignment="Left" Margin="94,73,0,0" TextWrapping="Wrap" Text="No gesture detected." VerticalAlignment="Top" Height="25" Width="116" FontSize="20"/>
         <TextBlock x:Name="confidence" HorizontalAlignment="Left" Margin="94,133,0,0" TextWrapping="Wrap" Text="Confidence: 0" VerticalAlignment="Top" Width="116" FontSize="20"/>
-
+        <k:KinectRegion x:Name="kinectRegion" Background="Red" Margin="0,219,0.4,-0.4">
+            <Grid>
+                <k:KinectUserViewer Height="148" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0.4,0.2" Width="164" />
+            </Grid>
+        </k:KinectRegion>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Kinect;
+using Microsoft.Kinect.Wpf.Controls;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -22,12 +23,19 @@ namespace GestureModality
 
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             main = this;
-            
+
+
+            KinectRegion.SetKinectRegion(this, kinectRegion);
+
+            App app = ((App)Application.Current);
+            app.KinectRegion = kinectRegion;
+
             this.kinectSensor = KinectSensor.GetDefault();
-            this.kinectSensor.Open();
-            Console.WriteLine(kinectSensor.IsAvailable);
+
+            // Use the default sensor
+            this.kinectRegion.KinectSensor = this.kinectSensor;
 
             this.bodyFrameReader = this.kinectSensor.BodyFrameSource.OpenReader();
             this.bodyFrameReader.FrameArrived += this.Reader_BodyFrameArrived;
