@@ -1,8 +1,11 @@
 ﻿using Microsoft.Kinect;
 using Microsoft.Kinect.Wpf.Controls;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace GestureModality
 {
@@ -121,6 +124,80 @@ namespace GestureModality
         {
             get { return this.confidence.Text.ToString(); }
             set { Dispatcher.Invoke(new Action(() => { this.confidence.Text = value; })); }
+        }
+
+        public void addChannelsToGUI(List<string> channelsName)
+        {
+            double marginWidth = 10;
+            double marginHeight = 10;
+            for (int i = 0; i < channelsName.Count; i++)
+            {
+                Button newButton = new Button();
+                newButton.Content = channelsName[i];
+                newButton.Name = channelsName[i] + "BTN";
+                newButton.Width = 100;
+                newButton.Height = 50;
+                newButton.HorizontalAlignment = HorizontalAlignment.Left;
+                newButton.VerticalAlignment = VerticalAlignment.Top;
+                newButton.Style = FindResource("buttonStyle") as Style;
+                newButton.Click += channelsButtonClicked;
+                Thickness margin = newButton.Margin;
+                Console.WriteLine(marginWidth);
+                margin.Left = marginWidth;
+                margin.Top = marginHeight;
+                newButton.Margin = margin;
+                gridChannels.Children.Add(newButton);
+                marginWidth += newButton.Width + 25;
+                if ((marginWidth+125) > gridChannels.Width)
+                {
+                    marginWidth = 10;
+                    marginHeight += 75;
+                }
+            }
+        }
+
+        private void channelsButtonClicked(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Console.WriteLine("click in "+button.Content+". Channel");
+            gestureDetector.SetChannelSelected(button.Content as string);
+        }
+
+        public void addUsersToGUI(List<string> usersName)
+        {
+            double marginWidth = 10;
+            double marginHeight = 10;
+            for (int i = 0; i < usersName.Count; i++)
+            {
+                Button newButton = new Button();
+                newButton.Content = usersName[i];
+                newButton.Name = usersName[i] + "BTN";
+                newButton.Width = 100;
+                newButton.Height = 50;
+                newButton.HorizontalAlignment = HorizontalAlignment.Left;
+                newButton.VerticalAlignment = VerticalAlignment.Top;
+                newButton.Style = FindResource("buttonStyle") as Style;
+                newButton.Click += usersButtonClicked;
+                Thickness margin = newButton.Margin;
+                Console.WriteLine(marginWidth);
+                margin.Left = marginWidth;
+                margin.Top = marginHeight;
+                newButton.Margin = margin;
+                gridUsers.Children.Add(newButton);
+                marginWidth += newButton.Width + 25;
+                if ((marginWidth + 125) > gridUsers.Width)
+                {
+                    marginWidth = 10;
+                    marginHeight += 75;
+                }
+            }
+        }
+
+        private void usersButtonClicked(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Console.WriteLine("click in " + button.Content+". User");
+            gestureDetector.SetUserSelected(button.Content as string);
         }
 
         public void Dispose()

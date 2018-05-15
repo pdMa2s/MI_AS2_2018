@@ -20,6 +20,9 @@ namespace GestureModality
         private int fpsCounter;
         private bool gestureWasDetected;
         private ComModule coms;
+        private String userSelected;
+        private String channelSelected;
+
         public GestureDetector(KinectSensor kinectSensor, ComModule coms)
         {
             this.coms = coms;
@@ -118,20 +121,28 @@ namespace GestureModality
             switch (gesture.Name)
             {
                 case deafGestureName:
-                    json += "\"SELF_DEAF\"";
+                    json += "\"SELF_DEAF\" ";
                     break;
                 case muteGestureName:
-                    json += "\"SELF_MUTE\"";
+                    json += "\"SELF_MUTE\" ";
                     break;
                 case deleteMessageGestureName:
-                    json += "\"DELETE_LAST_MESSAGE\"";
+                    json += "\"DELETE_LAST_MESSAGE\" ";
                     break;
                         
             }
+
+            if (channelSelected != null)
+                json += ", \"channelName\" : \""+channelSelected+"\" ";
+            if (userSelected != null)
+                json += ", \"userName\" : \""+userSelected+"\" ";
+
             json += ", \"confidence\":\"implicit confirmation\" } }";
 
             var exNot = lce.ExtensionNotification("", "", (float) confidence, json);
             mmic.Send(exNot);
+            channelSelected = null;
+            userSelected = null;
         }
 
         public ulong TrackingId
@@ -160,6 +171,16 @@ namespace GestureModality
                 if (this.vgbFrameReader.IsPaused != value)
                     this.vgbFrameReader.IsPaused = value;
             }
+        }
+
+        public void SetUserSelected(String userSelected)
+        {
+            this.userSelected = userSelected;
+        }
+
+        public void SetChannelSelected(String channelSelected)
+        {
+            this.channelSelected = channelSelected;
         }
 
         // Disposes the VisualGestureBuilderFrameSource and VisualGestureBuilderFrameReader objects
