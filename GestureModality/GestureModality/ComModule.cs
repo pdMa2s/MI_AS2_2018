@@ -10,21 +10,23 @@ namespace GestureModality
 {
     class ComModule
     {
-        private NamedPipeServerStream _pipeServer;
-        private bool serverRunning;
+        private NamedPipeServerStream _ttsPipeServer;
+        private NamedPipeServerStream _guildInfoServer;
+        private bool ttsServerRunning;
         private readonly string comChannel = "ttsCommands";
         private bool ttsSpeaking = true;
         public ComModule()
         {
-            this._pipeServer = new NamedPipeServerStream(comChannel);
-            serverRunning = false;
+            this._ttsPipeServer = new NamedPipeServerStream(comChannel);
+            ttsServerRunning = false;
+            _guildInfoServer = new NamedPipeServerStream("guildInfo");
             _listenCommands();
         }
 
         public void KeepServerAlive() {
-            if (!serverRunning)
+            if (!ttsServerRunning)
             {
-                _pipeServer = new NamedPipeServerStream(comChannel);
+                _ttsPipeServer = new NamedPipeServerStream(comChannel);
                 _listenCommands();
             }
         }
@@ -32,23 +34,43 @@ namespace GestureModality
             return ttsSpeaking;
         }
 
-        private void _listenCommands()
+        private void _listenGuildInfoCommands()
         {
 
             Task.Factory.StartNew(() =>
             {
-                serverRunning = true;
 
-                _pipeServer.WaitForConnection();
-                StreamReader reader = new StreamReader(_pipeServer);
+                _guildInfoServer.WaitForConnection();
+                StreamReader reader = new StreamReader(_guildInfoServer);
 
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
                     _processCommand(line);
                 }
-                _pipeServer.Close();
-                serverRunning = false;
+                _ttsPipeServer.Close();
+                ttsServerRunning = false;
+
+            });
+        }
+
+        private void _listenCommands()
+        {
+
+            Task.Factory.StartNew(() =>
+            {
+                ttsServerRunning = true;
+
+                _ttsPipeServer.WaitForConnection();
+                StreamReader reader = new StreamReader(_ttsPipeServer);
+
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    _processCommand(line);
+                }
+                _ttsPipeServer.Close();
+                ttsServerRunning = false;
 
             });
         }
@@ -70,6 +92,11 @@ namespace GestureModality
                     Console.WriteLine("Invalid command!");
                     break;
             }
+        }
+
+        private void _processGuildInfo(string channels)
+        {
+            string[] parsedChannels = channels.Split('|');
         }
     }
 }

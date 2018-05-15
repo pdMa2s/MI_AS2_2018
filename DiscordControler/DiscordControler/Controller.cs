@@ -57,9 +57,11 @@ namespace DiscordControler
 
             _tts.Speak("Olá eu sou o wally, o teu bot do Discord! Se desejares podes-me perguntar o que é que eu sou capaz de fazer e que comandos estão disponíveis. So tenho um requisito, diz o meu nome antes de qualquer comando.");
 
+            Console.WriteLine(_client.GetGuild(_defaultGuildId).Channels);
+            foreach (SocketChannel s in _client.GetGuild(_defaultGuildId).TextChannels) {
+                Console.WriteLine(s);
+            }
             await Task.Delay(-1);
-
-            
         }
 
         
