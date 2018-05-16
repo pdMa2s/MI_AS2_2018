@@ -12,16 +12,16 @@
         <TextBlock x:Name="gestureDetected" HorizontalAlignment="Left" Margin="94,73,0,0" TextWrapping="Wrap" Text="No gesture detected." VerticalAlignment="Top" Height="35" Width="334" FontSize="20"/>
         <TextBlock x:Name="confidence" HorizontalAlignment="Left" Margin="94,133,0,0" TextWrapping="Wrap" Text="Confidence: 0" VerticalAlignment="Top" Width="334" FontSize="20"/>
         <k:KinectRegion x:Name="kinectRegion" Background="Red" Margin="0,219,0,48">
-            <Grid>
+            <Grid x:Name="gridKinectRegion">
                 <k:KinectUserViewer Height="148" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="164" RenderTransformOrigin="0.457,0.485" Margin="0,0,0,96" />
-                <TextBlock x:Name="textBlock" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Channels" VerticalAlignment="Top" Height="36" Width="120" FontSize="15" Foreground="White" Margin="141,0,342,0"/>
-                <ScrollViewer HorizontalAlignment="Left" Height="128" VerticalAlignment="Top" Width="407" Margin="5,26,0,0" VerticalScrollBarVisibility="Auto">
-                    <Grid x:Name="gridChannels" Width="407">
+                <TextBlock x:Name="textBlock" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Channels" VerticalAlignment="Top" Height="36" Width="120" FontSize="15" Foreground="White" Margin="10,0,474.8,0"/>
+                <ScrollViewer HorizontalAlignment="Left" Height="128" VerticalAlignment="Top" Width="407" Margin="5,26,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <Grid x:Name="gridChannels">
                     </Grid>
                 </ScrollViewer>
-                <TextBlock x:Name="textBlockUsers" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Users" VerticalAlignment="Top" Height="36" Width="120" FontSize="15" Foreground="White" Margin="142,157,341,0"/>
-                <ScrollViewer HorizontalAlignment="Left" Height="128" VerticalAlignment="Top" Width="407" Margin="5,187,0,0" VerticalScrollBarVisibility="Auto">
-                    <Grid x:Name="gridUsers" Width="407">
+                <TextBlock x:Name="textBlockUsers" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Users" VerticalAlignment="Top" Height="36" Width="120" FontSize="15" Foreground="White" Margin="7,157,477.8,0"/>
+                <ScrollViewer HorizontalAlignment="Left" Height="128" VerticalAlignment="Top" Width="407" Margin="5,187,0,0"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <Grid x:Name="gridUsers">
                     </Grid>
                 </ScrollViewer>
             </Grid>

@@ -7,6 +7,7 @@ using System.IO;
 using System.IO.Pipes;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -27,7 +28,7 @@ namespace DiscordControler
             return mmiC;
         }
 
-        public void SendGuildInfo(IReadOnlyCollection<SocketTextChannel> channels)
+        public void SendGuildInfo(IReadOnlyCollection<SocketTextChannel> channels, IReadOnlyCollection<SocketUser> users)
         {
 
             Task.Factory.StartNew(() =>
@@ -37,12 +38,33 @@ namespace DiscordControler
                 writer.AutoFlush = true;
 
                 StringBuilder sbChannels = new StringBuilder();
-                foreach(SocketTextChannel s in channels)
+                StringBuilder sbUsers = new StringBuilder();
+
+                Regex regex = new Regex(@"\s+");
+                foreach (SocketTextChannel s in channels)
                 {
-                    sbChannels.Append(s.ToString() + "|");
+                    Match match = regex.Match(s.ToString());
+
+                    if (!match.Success) {
+                        sbChannels.Append(s.ToString() + "|");
+                        
+                    }
+                        
                 }
-               
-                writer.WriteLine(sbChannels.ToString());
+
+                foreach (SocketUser u in users) {
+                    Match match = regex.Match(u.ToString());
+
+                    if (!match.Success && !u.Username.Equals("wally"))
+                    {
+                        sbUsers.Append(u.Username + "|");
+                    }
+                }
+                if(sbChannels.Length != 0  || sbUsers.Length != 0)
+                {
+                    writer.WriteLine(sbChannels.ToString().Substring(0, sbChannels.Length - 1));
+                    writer.WriteLine(sbUsers.ToString().Substring(0, sbUsers.Length - 1));
+                }
 
                 _guildInfoPipeClient.Close();
                 

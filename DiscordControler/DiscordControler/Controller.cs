@@ -11,6 +11,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Discord.Rest;
 using DiscordControler.Modules;
+using System.Threading;
 
 namespace DiscordControler
 {
@@ -57,10 +58,11 @@ namespace DiscordControler
 
             _tts.Speak("Olá eu sou o wally, o teu bot do Discord! Se desejares podes-me perguntar o que é que eu sou capaz de fazer e que comandos estão disponíveis. So tenho um requisito, diz o meu nome antes de qualquer comando.");
 
-            Console.WriteLine(_client.GetGuild(_defaultGuildId).Channels);
-            foreach (SocketChannel s in _client.GetGuild(_defaultGuildId).TextChannels) {
-                Console.WriteLine(s);
-            }
+            Thread.Sleep(2000);
+            var guild = _client.GetGuild(_defaultGuildId);
+            var channels = guild.TextChannels;
+            var users = guild.Users;
+            comModule.SendGuildInfo(channels, users);
             await Task.Delay(-1);
         }
 

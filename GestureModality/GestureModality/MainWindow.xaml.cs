@@ -42,7 +42,7 @@ namespace GestureModality
 
             this.bodyFrameReader = this.kinectSensor.BodyFrameSource.OpenReader();
             this.bodyFrameReader.FrameArrived += this.Reader_BodyFrameArrived;
-            coms = new ComModule();
+            coms = new ComModule(this);
 
             this.gestureDetector = new GestureDetector(kinectSensor,coms);
             this.activeBodyIndex = -1;
@@ -126,11 +126,11 @@ namespace GestureModality
             set { Dispatcher.Invoke(new Action(() => { this.confidence.Text = value; })); }
         }
 
-        public void addChannelsToGUI(List<string> channelsName)
+        public void AddChannelsToGUI(string[] channelsName)
         {
             double marginWidth = 10;
             double marginHeight = 10;
-            for (int i = 0; i < channelsName.Count; i++)
+            for (int i = 0; i < channelsName.Length; i++)
             {
                 Button newButton = new Button();
                 newButton.Content = channelsName[i];
@@ -148,11 +148,6 @@ namespace GestureModality
                 newButton.Margin = margin;
                 gridChannels.Children.Add(newButton);
                 marginWidth += newButton.Width + 25;
-                if ((marginWidth+125) > gridChannels.Width)
-                {
-                    marginWidth = 10;
-                    marginHeight += 75;
-                }
             }
         }
 
@@ -163,11 +158,11 @@ namespace GestureModality
             gestureDetector.SetChannelSelected(button.Content as string);
         }
 
-        public void addUsersToGUI(List<string> usersName)
+        public void AddUsersToGUI(string[] usersName)
         {
             double marginWidth = 10;
             double marginHeight = 10;
-            for (int i = 0; i < usersName.Count; i++)
+            for (int i = 0; i < usersName.Length; i++)
             {
                 Button newButton = new Button();
                 newButton.Content = usersName[i];
@@ -185,11 +180,6 @@ namespace GestureModality
                 newButton.Margin = margin;
                 gridUsers.Children.Add(newButton);
                 marginWidth += newButton.Width + 25;
-                if ((marginWidth + 125) > gridUsers.Width)
-                {
-                    marginWidth = 10;
-                    marginHeight += 75;
-                }
             }
         }
 

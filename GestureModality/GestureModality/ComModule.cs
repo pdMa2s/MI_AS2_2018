@@ -5,6 +5,7 @@ using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GestureModality
 {
@@ -15,12 +16,15 @@ namespace GestureModality
         private bool ttsServerRunning;
         private readonly string comChannel = "ttsCommands";
         private bool ttsSpeaking = true;
-        public ComModule()
+        private MainWindow window;
+        public ComModule(MainWindow window)
         {
             this._ttsPipeServer = new NamedPipeServerStream(comChannel);
             ttsServerRunning = false;
             _guildInfoServer = new NamedPipeServerStream("guildInfo");
+            this.window = window;
             _listenCommands();
+            _listenGuildInfoCommands();
         }
 
         public void KeepServerAlive() {
@@ -43,14 +47,11 @@ namespace GestureModality
                 _guildInfoServer.WaitForConnection();
                 StreamReader reader = new StreamReader(_guildInfoServer);
 
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    _processCommand(line);
-                }
-                _ttsPipeServer.Close();
-                ttsServerRunning = false;
-
+                string channels = reader.ReadLine();
+                string users = reader.ReadLine();
+                _processGuildInfo(channels, users);
+                
+                _guildInfoServer.Close();
             });
         }
 
@@ -94,9 +95,18 @@ namespace GestureModality
             }
         }
 
-        private void _processGuildInfo(string channels)
+        private void _processGuildInfo(string channels, string users)
         {
+            Console.WriteLine(users);
             string[] parsedChannels = channels.Split('|');
+            string[] parsedUSers = users.Split('|');
+
+            Application.Current.Dispatcher.Invoke((Action)delegate {
+                // your code
+                window.AddChannelsToGUI(parsedChannels);
+                window.AddUsersToGUI(parsedUSers);
+            });
+            
         }
     }
 }
