@@ -141,6 +141,11 @@ namespace GestureModality
 
             var exNot = lce.ExtensionNotification("", "", (float) confidence, json);
             mmic.Send(exNot);
+            if (channelSelected != null)
+                MainWindow.main.ChangeColorBTNChannelSelected(channelSelected);
+            if (userSelected != null)
+                MainWindow.main.ChangeColorBTNUserSelected(userSelected);
+
             channelSelected = null;
             userSelected = null;
         }
@@ -173,15 +178,34 @@ namespace GestureModality
             }
         }
 
-        public void SetUserSelected(String userSelected)
+        public string ChannelName
         {
-            this.userSelected = userSelected;
+            get
+            {
+                return this.channelSelected;
+            }
+
+            set
+            {
+                if (this.channelSelected != value)
+                    this.channelSelected = value;
+            }
         }
 
-        public void SetChannelSelected(String channelSelected)
+        public string UserName
         {
-            this.channelSelected = channelSelected;
+            get
+            {
+                return this.userSelected;
+            }
+
+            set
+            {
+                if (this.userSelected != value)
+                    this.userSelected = value;
+            }
         }
+
 
         // Disposes the VisualGestureBuilderFrameSource and VisualGestureBuilderFrameReader objects
         public void Dispose()

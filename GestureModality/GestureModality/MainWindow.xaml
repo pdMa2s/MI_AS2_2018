@@ -1,4 +1,4 @@
-﻿    <Window x:Class="GestureModality.MainWindow"
+﻿<Window x:Class="GestureModality.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,22 +8,28 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="578.826" Width="613"
         Closing="MainWindow_Closing">
-    <Grid RenderTransformOrigin="0.486,0.44" Margin="0,0,2,-51">
-        <TextBlock x:Name="gestureDetected" HorizontalAlignment="Left" Margin="94,73,0,0" TextWrapping="Wrap" Text="No gesture detected." VerticalAlignment="Top" Height="35" Width="334" FontSize="20"/>
-        <TextBlock x:Name="confidence" HorizontalAlignment="Left" Margin="94,133,0,0" TextWrapping="Wrap" Text="Confidence: 0" VerticalAlignment="Top" Width="334" FontSize="20"/>
-        <k:KinectRegion x:Name="kinectRegion" Background="Red" Margin="0,219,0,48">
+    <Grid RenderTransformOrigin="0.486,0.44" Margin="0,0,0,-51">
+        <TextBlock x:Name="gestureDetected" HorizontalAlignment="Left" Margin="36,53,0,0" TextWrapping="Wrap" Text="No gesture detected." VerticalAlignment="Top" Height="35" Width="334" FontSize="20"/>
+        <TextBlock x:Name="confidence" HorizontalAlignment="Left" Margin="36,111,0,0" TextWrapping="Wrap" Text="Confidence: 0" VerticalAlignment="Top" Width="334" FontSize="20"/>
+        <k:KinectRegion x:Name="kinectRegion" Background="SkyBlue" Margin="0,219,0,48">
             <Grid x:Name="gridKinectRegion">
                 <k:KinectUserViewer Height="148" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="164" RenderTransformOrigin="0.457,0.485" Margin="0,0,0,96" />
-                <TextBlock x:Name="textBlock" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Channels" VerticalAlignment="Top" Height="36" Width="120" FontSize="15" Foreground="White" Margin="10,0,474.8,0"/>
+                <TextBlock x:Name="textBlock" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Channels" VerticalAlignment="Top" Height="36" Width="120" FontSize="18" Foreground="White" Margin="10,0,474.8,0"/>
                 <ScrollViewer HorizontalAlignment="Left" Height="128" VerticalAlignment="Top" Width="407" Margin="5,26,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                     <Grid x:Name="gridChannels">
                     </Grid>
                 </ScrollViewer>
-                <TextBlock x:Name="textBlockUsers" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Users" VerticalAlignment="Top" Height="36" Width="120" FontSize="15" Foreground="White" Margin="7,157,477.8,0"/>
-                <ScrollViewer HorizontalAlignment="Left" Height="128" VerticalAlignment="Top" Width="407" Margin="5,187,0,0"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <Separator Margin="0,154,185,169" Background="White"/>
+                <TextBlock x:Name="textBlockUsers" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Users" VerticalAlignment="Top" Height="36" Width="120" FontSize="18" Foreground="White" Margin="7,163,478,0"/>
+                <ScrollViewer HorizontalAlignment="Left" Height="128" VerticalAlignment="Top" Width="407" Margin="5,197,0,0"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                     <Grid x:Name="gridUsers">
                     </Grid>
                 </ScrollViewer>
+                <Separator HorizontalAlignment="Left" Height="26" Margin="400,-2,-145,0" VerticalAlignment="Top" Width="350" Background="White">
+                    <Separator.LayoutTransform>
+                        <RotateTransform Angle="90"/>
+                    </Separator.LayoutTransform>
+                </Separator>
             </Grid>
         </k:KinectRegion>
     </Grid>

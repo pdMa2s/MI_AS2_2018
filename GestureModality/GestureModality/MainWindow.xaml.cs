@@ -135,14 +135,13 @@ namespace GestureModality
                 Button newButton = new Button();
                 newButton.Content = channelsName[i];
                 newButton.Name = channelsName[i] + "BTN";
-                newButton.Width = 100;
+                newButton.Width = 15 * channelsName[i].Length;
                 newButton.Height = 50;
                 newButton.HorizontalAlignment = HorizontalAlignment.Left;
                 newButton.VerticalAlignment = VerticalAlignment.Top;
                 newButton.Style = FindResource("buttonStyle") as Style;
                 newButton.Click += channelsButtonClicked;
                 Thickness margin = newButton.Margin;
-                Console.WriteLine(marginWidth);
                 margin.Left = marginWidth;
                 margin.Top = marginHeight;
                 newButton.Margin = margin;
@@ -155,7 +154,32 @@ namespace GestureModality
         {
             Button button = sender as Button;
             Console.WriteLine("click in "+button.Content+". Channel");
-            gestureDetector.SetChannelSelected(button.Content as string);
+            string channelNameSelectedPrev = this.gestureDetector.ChannelName;
+            string channelNameSelectedNow = button.Content as string;
+            Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
+            if (channelNameSelectedNow.Equals(channelNameSelectedPrev))
+            {
+                button.Background = Brushes.DarkTurquoise;
+                this.gestureDetector.ChannelName = null;
+                Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
+                return;
+            }
+            this.gestureDetector.ChannelName = button.Content as string;
+            if (channelNameSelectedPrev != null)
+            {
+                for (int i = 0; i < gridChannels.Children.Count; i++)
+                {
+                    Button children = gridChannels.Children[i] as Button;
+                    string content = children.Content as string;
+                    if (content.Equals(channelNameSelectedPrev))
+                    {
+                        children.Background = Brushes.DarkTurquoise;
+                        break;
+                    }
+                }
+            }
+            button.Background = Brushes.LimeGreen;
+            Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
         }
 
         public void AddUsersToGUI(string[] usersName)
@@ -167,14 +191,13 @@ namespace GestureModality
                 Button newButton = new Button();
                 newButton.Content = usersName[i];
                 newButton.Name = usersName[i] + "BTN";
-                newButton.Width = 100;
+                newButton.Width = 15*usersName[i].Length;
                 newButton.Height = 50;
                 newButton.HorizontalAlignment = HorizontalAlignment.Left;
                 newButton.VerticalAlignment = VerticalAlignment.Top;
                 newButton.Style = FindResource("buttonStyle") as Style;
                 newButton.Click += usersButtonClicked;
                 Thickness margin = newButton.Margin;
-                Console.WriteLine(marginWidth);
                 margin.Left = marginWidth;
                 margin.Top = marginHeight;
                 newButton.Margin = margin;
@@ -186,8 +209,61 @@ namespace GestureModality
         private void usersButtonClicked(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-            Console.WriteLine("click in " + button.Content+". User");
-            gestureDetector.SetUserSelected(button.Content as string);
+            Console.WriteLine("click in " + button.Content + ". User");
+            string userNameSelectedPrev = this.gestureDetector.UserName;
+            string userNameSelectedNow = button.Content as string;
+            Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
+            if (userNameSelectedNow.Equals(userNameSelectedPrev))
+            {
+                button.Background = Brushes.DarkTurquoise;
+                this.gestureDetector.UserName = null;
+                Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
+                return;
+            }
+            this.gestureDetector.UserName = button.Content as string;
+            if (userNameSelectedPrev != null)
+            {
+                for (int i = 0; i < gridUsers.Children.Count; i++)
+                {
+                    Button children = gridUsers.Children[i] as Button;
+                    string content = children.Content as string;
+                    if (content.Equals(userNameSelectedPrev))
+                    {
+                        children.Background = Brushes.DarkTurquoise;
+                        break;
+                    }
+                }
+            }
+            button.Background = Brushes.LimeGreen;
+            Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
+        }
+
+        public void ChangeColorBTNUserSelected(string userName)
+        {
+            for (int i = 0; i < gridUsers.Children.Count; i++)
+            {
+                Button children = gridUsers.Children[i] as Button;
+                string content = children.Content as string;
+                if (content.Equals(userName))
+                {
+                    children.Background = Brushes.DarkTurquoise;
+                    break;
+                }
+            }
+        }
+
+        public void ChangeColorBTNChannelSelected(string channelName)
+        {
+            for (int i = 0; i < gridChannels.Children.Count; i++)
+            {
+                Button children = gridChannels.Children[i] as Button;
+                string content = children.Content as string;
+                if (content.Equals(channelName))
+                {
+                    children.Background = Brushes.DarkTurquoise;
+                    break;
+                }
+            }
         }
 
         public void Dispose()
