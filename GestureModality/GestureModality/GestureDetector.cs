@@ -140,6 +140,7 @@ namespace GestureModality
         }
 
         private Tuple<string, double> ProcessDiscreteGesture(DiscreteGestureResult detected, string gestureName) {
+            
             if ((gestureName.Equals(muteGestureName) && detected.Confidence > .35) || detected.Confidence > .70)
                 return Tuple.Create<string, double>(gestureName, detected.Confidence);
             return Tuple.Create<string, double>(null, -1);
@@ -155,13 +156,13 @@ namespace GestureModality
             {
                 case deafGestureName:
                     if (userSelected != null)
-                        json += "\"DEAF\" ";
+                        json += "\"DEAF_USER\" ";
                     else
                         json += "\"SELF_DEAF\" ";
                     break;
                 case muteGestureName:
                     if (userSelected != null)
-                        json += "\"MUTE\" ";
+                        json += "\"MUTE_USER\" ";
                     else
                         json += "\"SELF_MUTE\" ";
                     break;

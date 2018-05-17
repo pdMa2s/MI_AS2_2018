@@ -36,7 +36,10 @@ namespace DiscordControler.Modules
             } while (firstCommand.Equals(secondCommand));
             return "Podes pedir commandos do tipo."+firstCommand+secondCommand;
         }
-
+        public string GetInvalidAction() {
+            List<string> invalidActionSpeech = new List<string> {$"Bem! Isto não era suposto acontecer, essa ação não está disponível."};
+            return invalidActionSpeech[randomGen.Next(invalidActionSpeech.Count)];
+        }
         public string GetToDo()
         {
             return "Sou capaz de banir expulsar utilizadores, mais tarde posso remover esses banimentos, cortar as comunicações com certo utilizador, apagar canais e apagar as últimas mensagens dos canais. Se quiseres também posso te tirar dos servidores que não queres mais estar.";

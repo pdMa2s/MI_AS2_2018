@@ -167,7 +167,7 @@ namespace DiscordControler
                 case "MUTE_USER":
                     var userNameToMute = json.recognized.userName.ToString() as String;
                     var guildNameToMuteUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
-                    await ChangeMuteUser(userNameToMute, guildNameToMuteUser, true, confidence);
+                    await ChangeMuteUser(userNameToMute, guildNameToMuteUser, confidence);
                     break;
                 case "SELF_MUTE":
                     await ChangeSelfMute(confidence);
@@ -180,7 +180,7 @@ namespace DiscordControler
                 case "UNMUTE_USER":
                     var userNameToUnMute = json.recognized.userName.ToString() as String;
                     var guildNameToUnMuteUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
-                    await ChangeMuteUser(userNameToUnMute, guildNameToUnMuteUser, false, confidence);
+                    await ChangeMuteUser(userNameToUnMute, guildNameToUnMuteUser, confidence);
                     break;
                 case "UNDEAF_USER":
                     var userNameToUnDeaf = json.recognized.userName.ToString() as String;
@@ -388,7 +388,7 @@ namespace DiscordControler
             _tts.Speak(_speechTemplates.GetUserStatus(userName, status.ToString()));
         }
 
-        private async Task ChangeMuteUser(string userNameToMute, string guildNameToMuteUser, bool mute, string confidence)
+        private async Task ChangeMuteUser(string userNameToMute, string guildNameToMuteUser, string confidence)
         {
             var guild = FindGuild(guildNameToMuteUser);
             var user = FindUser(guild, userNameToMute);
@@ -401,15 +401,15 @@ namespace DiscordControler
 
             if (confidence.Equals("explicit confirmation"))
             {
-                if (mute)
+                if (!user.IsMuted)
                     _tts.Speak(_speechTemplates.GetMuteExplicit(userNameToMute, guild.Name));
                 else
                     _tts.Speak(_speechTemplates.GetUnMuteExplicit(userNameToMute, guild.Name));
                 return;
             }
-
-            await user.ModifyAsync(x => x.Mute = mute);
-            if (mute)
+            var muted = user.IsMuted;
+            await user.ModifyAsync(x => x.Mute = !muted);
+            if (!muted)
                 _tts.Speak(_speechTemplates.GetMuteUser(userNameToMute, guild.Name));
             else
                 _tts.Speak(_speechTemplates.GetUnMuteUser(userNameToMute, guild.Name));
