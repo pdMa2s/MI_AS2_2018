@@ -78,7 +78,6 @@ namespace GestureModality
 
             if (bodyInFrame)
             {
-                Console.WriteLine(this.activeBodyIndex);
                 Body body = this.bodies[this.activeBodyIndex];
 
                 // if the current body TrackingId changed, update the corresponding gesture detector with the new value
@@ -142,7 +141,6 @@ namespace GestureModality
                 newButton.Style = FindResource("buttonStyle") as Style;
                 newButton.Click += channelsButtonClicked;
                 Thickness margin = newButton.Margin;
-                Console.WriteLine(marginWidth);
                 margin.Left = marginWidth;
                 margin.Top = marginHeight;
                 newButton.Margin = margin;

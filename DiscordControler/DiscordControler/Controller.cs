@@ -472,18 +472,18 @@ namespace DiscordControler
         }
         private async Task SelfDeaf(string confidence)
         {
-            var guild = FindGuild("");
-            var user = FindUser(guild,_client.CurrentUser.Username);
-
+            var guild = _client.GetGuild(_defaultGuildId);
+            var user = FindUser(guild,_userNick);
+            Console.WriteLine("deaf user: " + user.Username);
             if (user.IsDeafened)
             {
-                await user.ModifyAsync(x => x.Deaf = true);
-                _tts.Speak(_speechTemplates.GetSelfDeafImplicit());
+                await user.ModifyAsync(x => x.Deaf = false);
+                _tts.Speak(_speechTemplates.GetSelfUnDeafImplicit());
             }
 
             else
             {
-                await user.ModifyAsync(x => x.Deaf = false);
+                await user.ModifyAsync(x => x.Deaf = true);
                 _tts.Speak(_speechTemplates.GetSelfDeafImplicit());
 
             }
