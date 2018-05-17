@@ -15,5 +15,6 @@ namespace GestureModality
     public partial class App : Application
     {
         internal KinectRegion KinectRegion { get; set; }
+        internal KinectRegion KinectRegionHelp { get; set; }
     }
 }

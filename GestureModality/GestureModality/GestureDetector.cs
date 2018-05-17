@@ -94,7 +94,7 @@ namespace GestureModality
                                 DiscreteGestureResult result = null;
                                 discreteResults.TryGetValue(gesture, out result);
 
-                                if (result != null)// && result.Detected)
+                                if (result != null)
                                 {
                                     
                                     Tuple<string, double> t = ProcessDiscreteGesture(result, gesture.Name);
@@ -154,10 +154,16 @@ namespace GestureModality
             switch (gesture)
             {
                 case deafGestureName:
-                    json += "\"SELF_DEAF\" ";
+                    if (userSelected != null)
+                        json += "\"DEAF\" ";
+                    else
+                        json += "\"SELF_DEAF\" ";
                     break;
                 case muteGestureName:
-                    json += "\"SELF_MUTE\" ";
+                    if (userSelected != null)
+                        json += "\"MUTE\" ";
+                    else
+                        json += "\"SELF_MUTE\" ";
                     break;
                 case deleteMessageGestureName:
                     json += "\"DELETE_LAST_MESSAGE\" ";

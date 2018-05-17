@@ -13,7 +13,7 @@
         <TextBlock x:Name="confidence" HorizontalAlignment="Left" Margin="36,111,0,0" TextWrapping="Wrap" Text="Confidence: 0" VerticalAlignment="Top" Width="334" FontSize="20"/>
         <k:KinectRegion x:Name="kinectRegion" Background="SkyBlue" Margin="0,219,0,48">
             <Grid x:Name="gridKinectRegion">
-                <k:KinectUserViewer Height="148" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="164" RenderTransformOrigin="0.457,0.485" Margin="0,0,0,96" />
+                <k:KinectUserViewer Height="148" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="164" RenderTransformOrigin="0.457,0.485" Margin="0,0,10,10" />
                 <TextBlock x:Name="textBlock" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Channels" VerticalAlignment="Top" Height="36" Width="120" FontSize="18" Foreground="White" Margin="10,0,474.8,0"/>
                 <ScrollViewer HorizontalAlignment="Left" Height="128" VerticalAlignment="Top" Width="407" Margin="5,26,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                     <Grid x:Name="gridChannels">
@@ -30,6 +30,9 @@
                         <RotateTransform Angle="90"/>
                     </Separator.LayoutTransform>
                 </Separator>
+                <Button x:Name="helpButton" Background="Transparent" Click="helpButtonClicked" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="441,38,0,0" VerticalAlignment="Top" Width="144" Height="100">
+                    <Image Source="images/HELP.jpg"></Image>
+                </Button>
             </Grid>
         </k:KinectRegion>
     </Grid>

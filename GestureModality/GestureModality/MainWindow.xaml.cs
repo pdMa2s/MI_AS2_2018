@@ -29,7 +29,6 @@ namespace GestureModality
             this.InitializeComponent();
             main = this;
 
-
             KinectRegion.SetKinectRegion(this, kinectRegion);
 
             App app = ((App)Application.Current);
@@ -152,7 +151,6 @@ namespace GestureModality
         private void channelsButtonClicked(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-            Console.WriteLine("click in "+button.Content+". Channel");
             string channelNameSelectedPrev = this.gestureDetector.ChannelName;
             string channelNameSelectedNow = button.Content as string;
             Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
@@ -208,7 +206,6 @@ namespace GestureModality
         private void usersButtonClicked(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-            Console.WriteLine("click in " + button.Content + ". User");
             string userNameSelectedPrev = this.gestureDetector.UserName;
             string userNameSelectedNow = button.Content as string;
             Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
@@ -263,6 +260,12 @@ namespace GestureModality
                     break;
                 }
             }
+        }
+
+        private void helpButtonClicked(object sender, RoutedEventArgs e)
+        {
+            HelpWindow helpWindow = new HelpWindow(kinectSensor);
+            helpWindow.Show();
         }
 
         public void Dispose()
