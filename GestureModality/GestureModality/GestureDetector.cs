@@ -13,7 +13,7 @@ namespace GestureModality
         private VisualGestureBuilderFrameReader vgbFrameReader;
         private const string muteGestureName = "mute_Right";
         private const string deafGestureName = "deaf_Left";
-        private const string deleteMessageGestureName = "deleteBothArms";
+        private const string deleteMessageGestureName = "deleteContinous";
         private LifeCycleEvents lce;
         private MmiCommunication mmic;
         private const int fpsDelay = 60;
@@ -80,30 +80,57 @@ namespace GestureModality
                 if (frame != null)
                 {
                     IReadOnlyDictionary<Gesture, DiscreteGestureResult> discreteResults = frame.DiscreteGestureResults;
+                    IReadOnlyDictionary<Gesture, ContinuousGestureResult> continousResults = frame.ContinuousGestureResults;
 
                     if (discreteResults != null)
                     {
                         
-                        Gesture toSend = null;
+                        string toSend = null;
                         double toSendConfidence = -1;
 
                         foreach (Gesture gesture in this.vgbFrameSource.Gestures)
                         {
-                            DiscreteGestureResult result = null;
-                            discreteResults.TryGetValue(gesture, out result);
+                            if (gesture.GestureType == GestureType.Discrete) {
+                                DiscreteGestureResult result = null;
+                                discreteResults.TryGetValue(gesture, out result);
 
-                            if (result != null && result.Confidence > .70)// && result.Detected)
-                            {
-                                toSend = gesture;
-                                toSendConfidence = result.Confidence;
+                                if (result != null)// && result.Detected)
+                                {
+                                    
+                                    Tuple<string, double> t = ProcessDiscreteGesture(result, gesture.Name);
+                                    double confidence = t.Item2;
+                                    if (confidence > toSendConfidence)
+                                    {
+                                        toSend = t.Item1;
+                                        toSendConfidence = t.Item2;
+                                    }
+                                }
                             }
+
+                            if (continousResults != null) {
+                                if (gesture.GestureType == GestureType.Continuous && gesture.Name.Equals(deleteMessageGestureName)) {
+                                    ContinuousGestureResult result = null;
+                                    continousResults.TryGetValue(gesture, out result);
+
+                                    if (result != null) {
+                                        var progress = result.Progress;
+                                        if (progress > .80 && progress > toSendConfidence) {
+                                            toSend = deleteMessageGestureName;
+                                            toSendConfidence = progress;
+                                        }
+                                    }
+                                }
+                            }
+                            
+
+
                         }
 
                         if(toSend != null)
                         {
                             SendDetectedGesture(toSend, toSendConfidence);
                             this.gestureWasDetected = true;
-                            Console.WriteLine("Detected: "+ toSend.Name + " " + toSendConfidence);
+                            Console.WriteLine("Detected: "+ toSend + " " + toSendConfidence);
                             coms.KeepServerAlive();
                         }
 
@@ -111,14 +138,20 @@ namespace GestureModality
                 }
             }
         }
+
+        private Tuple<string, double> ProcessDiscreteGesture(DiscreteGestureResult detected, string gestureName) {
+            if ((gestureName.Equals(muteGestureName) && detected.Confidence > .35) || detected.Confidence > .70)
+                return Tuple.Create<string, double>(gestureName, detected.Confidence);
+            return Tuple.Create<string, double>(null, -1);
+        }
         
-        private void SendDetectedGesture(Gesture gesture, double confidence)
+        private void SendDetectedGesture(string gesture, double confidence)
         {
-            MainWindow.main.ChangeDetectedGesture = gesture.Name + "detected";
+            MainWindow.main.ChangeDetectedGesture = gesture + "detected";
             MainWindow.main.ChangeConfidence = "Confidence: "+confidence.ToString();
             string json = "{ \"recognized\": { \"action\" : ";
 
-            switch (gesture.Name)
+            switch (gesture)
             {
                 case deafGestureName:
                     json += "\"SELF_DEAF\" ";

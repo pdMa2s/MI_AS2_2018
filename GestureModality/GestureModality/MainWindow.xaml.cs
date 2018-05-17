@@ -78,7 +78,6 @@ namespace GestureModality
 
             if (bodyInFrame)
             {
-                Console.WriteLine(this.activeBodyIndex);
                 Body body = this.bodies[this.activeBodyIndex];
 
                 // if the current body TrackingId changed, update the corresponding gesture detector with the new value
