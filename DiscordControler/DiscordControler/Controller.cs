@@ -175,7 +175,7 @@ namespace DiscordControler
                 case "DEAF_USER":
                     var userNameToDeaf = json.recognized.userName.ToString() as String;
                     var guildNameToDeafUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
-                    await ChangeDeafUser(userNameToDeaf, guildNameToDeafUser, true, confidence);
+                    await ChangeDeafUser(userNameToDeaf, guildNameToDeafUser, confidence);
                     break;
                 case "UNMUTE_USER":
                     var userNameToUnMute = json.recognized.userName.ToString() as String;
@@ -185,7 +185,7 @@ namespace DiscordControler
                 case "UNDEAF_USER":
                     var userNameToUnDeaf = json.recognized.userName.ToString() as String;
                     var guildNameToUnDeafUser = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
-                    await ChangeDeafUser(userNameToUnDeaf, guildNameToUnDeafUser, false, confidence);
+                    await ChangeDeafUser(userNameToUnDeaf, guildNameToUnDeafUser, confidence);
                     break;
                 case "UNMUTE_UNDEAF_USER":
                     var userNameToUnMuteUnDeaf = json.recognized.userName.ToString() as String;
@@ -444,7 +444,7 @@ namespace DiscordControler
                 _tts.Speak(_speechTemplates.GetSelfUnMute(guild.Name));
         }
 
-        private async Task ChangeDeafUser(string userNameToDeaf, string guildNameToDeafUser, bool deaf, string confidence)
+        private async Task ChangeDeafUser(string userNameToDeaf, string guildNameToDeafUser, string confidence)
         {
             var guild = FindGuild(guildNameToDeafUser);
             var user = FindUser(guild, userNameToDeaf);
@@ -454,6 +454,8 @@ namespace DiscordControler
                 _tts.Speak(_speechTemplates.GetUnkownUser());
                 return;
             }
+
+            var deaf = !user.IsDeafened;
 
             if (confidence.Equals("explicit confirmation"))
             {
