@@ -48,10 +48,10 @@ namespace GestureModality
             this.gestureDetector = new GestureDetector(kinectSensor,coms);
             this.activeBodyIndex = -1;
 
-            Guild guild = new Guild("IMServer");
-            //Guild guild2 = new Guild("Topicos de Apicultura");
-            //AddGuild(guild);
-            //AddGuild(guild2);
+            /*Guild guild = new Guild("IMServer");
+            Guild guild2 = new Guild("Topicos de Apicultura");
+            AddGuild(guild);
+            AddGuild(guild2);*/
             /*if (!kinectSensor.IsAvailable)
             {
                 Console.WriteLine("Kinect Sensor is not available!");
@@ -133,15 +133,16 @@ namespace GestureModality
 
         private Button CreateButton(string name, double marginWidth, double marginHeight)
         {
+            Console.WriteLine(name + " " +marginWidth +" "+ marginHeight);
             Button newButton = new Button();
             newButton.Content = name;
-            newButton.Name = name + "BTN";
-            newButton.Width = 15 * name.Length;
+            string nameButton = name.Replace(" ", "_");
+            newButton.Name = nameButton + "BTN";
+            newButton.Width = 14 * name.Length ;
             newButton.Height = 50;
             newButton.HorizontalAlignment = HorizontalAlignment.Left;
             newButton.VerticalAlignment = VerticalAlignment.Top;
             newButton.Style = FindResource("buttonStyle") as Style;
-            newButton.Click += channelsButtonClicked;
             Thickness margin = newButton.Margin;
             margin.Left = marginWidth;
             margin.Top = marginHeight;
@@ -156,6 +157,7 @@ namespace GestureModality
             for (int i = 0; i < channelsName.Length; i++)
             {
                 Button button = CreateButton(channelsName[i], marginWidth, marginHeight);
+                button.Click += channelsButtonClicked;
                 gridChannels.Children.Add(button);
                 marginWidth += button.Width + 25;
             }
@@ -199,6 +201,7 @@ namespace GestureModality
             for (int i = 0; i < usersName.Length; i++)
             {
                 Button newButton = CreateButton(usersName[i], marginWidth, marginHeight);
+                newButton.Click += usersButtonClicked;
                 gridUsers.Children.Add(newButton);
                 marginWidth += newButton.Width + 25;
             }
@@ -268,16 +271,26 @@ namespace GestureModality
             this.guildList.Add(guild);
             if (this.gridGuilds.Children.Count == 0)
             {
-                Button button = CreateButton(guild.Name, 10, 10);
+                Button button = CreateButton(guild.Name, 10.0, 10.0);
+                button.Click += guildsButtonClicked;
                 this.gridGuilds.Children.Add(button);
             }
             else
             {
                 int numChildren = this.gridGuilds.Children.Count;
                 Button button = this.gridGuilds.Children[numChildren-1] as Button;
-                Button newButton = CreateButton(guild.Name, button.Margin.Left+button.Width+25, button.Height);
+                Button newButton = CreateButton(guild.Name, button.Margin.Left+button.Width+25.0, button.Margin.Top*1.0);
+                newButton.Click += guildsButtonClicked;
                 this.gridGuilds.Children.Add(newButton);
             }
+        }
+
+        private void guildsButtonClicked(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            string guildName = button.Content.ToString();
+            Guild guild = guildList.Find(x => x.Name == guildName);
+            Console.WriteLine(guild.Name);
         }
 
         private void helpButtonClicked(object sender, RoutedEventArgs e)

@@ -17,9 +17,9 @@ namespace GestureModality
             this.name = name;
         }
 
-        public string Name { get; set; }
-        public string[] Channels { get; set; }
-        public string[] Users { get; set; }
+        public string Name { get { return name; } set { this.name = value; } }
+        public string[] Channels { get { return channels; } set { this.channels = value; } }
+        public string[] Users { get { return users; } set { this.users = value; } }
 
     }
 }
