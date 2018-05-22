@@ -51,9 +51,10 @@ namespace GestureModality
                 int.TryParse(reader.ReadLine(), out numberOfGuilds);
 
                 for (int i = 0; i < numberOfGuilds; i++) {
+                    string guild = reader.ReadLine();
                     string channels = reader.ReadLine();
                     string users = reader.ReadLine();
-                    _processGuildInfo(channels, users);
+                    _processGuildInfo(guild, channels, users);
 
                 }
                 _guildInfoServer.Close();
@@ -100,17 +101,15 @@ namespace GestureModality
             }
         }
 
-        private void _processGuildInfo(string channels, string users)
+        private void _processGuildInfo(string guildName, string channels, string users)
         {
-            Console.WriteLine(users);
+          
             string[] parsedChannels = channels.Split('|');
             string[] parsedUsers = users.Split('|');
 
             Application.Current.Dispatcher.Invoke((Action)delegate {
-                // your code
-                //window.AddChannelsToGUI(parsedChannels);
-                //window.AddUsersToGUI(parsedUsers);
-                Guild guild = new Guild("cenas");
+                
+                Guild guild = new Guild(guildName);
                 guild.Channels = parsedChannels;
                 guild.Users = parsedUsers;
                 window.AddGuild(guild);
