@@ -141,7 +141,7 @@ namespace GestureModality
 
         private Tuple<string, double> ProcessDiscreteGesture(DiscreteGestureResult detected, string gestureName) {
             
-            if ((gestureName.Equals(muteGestureName) && detected.Confidence > .35) || detected.Confidence > .70)
+            if ((gestureName.Equals(muteGestureName) && detected.Confidence > .30) || detected.Confidence > .70)
                 return Tuple.Create<string, double>(gestureName, detected.Confidence);
             return Tuple.Create<string, double>(null, -1);
         }
