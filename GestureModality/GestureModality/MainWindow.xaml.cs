@@ -21,6 +21,7 @@ namespace GestureModality
         private GestureDetector gestureDetector;
         internal static MainWindow main;
         private ComModule coms;
+        private List<Guild> guildList;
         // INotifyPropertyChangedPropertyChanged event to allow window controls to bind to changeable data
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -41,10 +42,16 @@ namespace GestureModality
 
             this.bodyFrameReader = this.kinectSensor.BodyFrameSource.OpenReader();
             this.bodyFrameReader.FrameArrived += this.Reader_BodyFrameArrived;
+            guildList = new List<Guild>();
             coms = new ComModule(this);
 
             this.gestureDetector = new GestureDetector(kinectSensor,coms);
             this.activeBodyIndex = -1;
+
+            Guild guild = new Guild("IMServer");
+            //Guild guild2 = new Guild("Topicos de Apicultura");
+            //AddGuild(guild);
+            //AddGuild(guild2);
             /*if (!kinectSensor.IsAvailable)
             {
                 Console.WriteLine("Kinect Sensor is not available!");
@@ -124,27 +131,33 @@ namespace GestureModality
             set { Dispatcher.Invoke(new Action(() => { this.confidence.Text = value; })); }
         }
 
+        private Button CreateButton(string name, double marginWidth, double marginHeight)
+        {
+            Button newButton = new Button();
+            newButton.Content = name;
+            newButton.Name = name + "BTN";
+            newButton.Width = 15 * name.Length;
+            newButton.Height = 50;
+            newButton.HorizontalAlignment = HorizontalAlignment.Left;
+            newButton.VerticalAlignment = VerticalAlignment.Top;
+            newButton.Style = FindResource("buttonStyle") as Style;
+            newButton.Click += channelsButtonClicked;
+            Thickness margin = newButton.Margin;
+            margin.Left = marginWidth;
+            margin.Top = marginHeight;
+            newButton.Margin = margin;
+            return newButton;
+        }
+
         public void AddChannelsToGUI(string[] channelsName)
         {
             double marginWidth = 10;
             double marginHeight = 10;
             for (int i = 0; i < channelsName.Length; i++)
             {
-                Button newButton = new Button();
-                newButton.Content = channelsName[i];
-                newButton.Name = channelsName[i] + "BTN";
-                newButton.Width = 15 * channelsName[i].Length;
-                newButton.Height = 50;
-                newButton.HorizontalAlignment = HorizontalAlignment.Left;
-                newButton.VerticalAlignment = VerticalAlignment.Top;
-                newButton.Style = FindResource("buttonStyle") as Style;
-                newButton.Click += channelsButtonClicked;
-                Thickness margin = newButton.Margin;
-                margin.Left = marginWidth;
-                margin.Top = marginHeight;
-                newButton.Margin = margin;
-                gridChannels.Children.Add(newButton);
-                marginWidth += newButton.Width + 25;
+                Button button = CreateButton(channelsName[i], marginWidth, marginHeight);
+                gridChannels.Children.Add(button);
+                marginWidth += button.Width + 25;
             }
         }
 
@@ -185,19 +198,7 @@ namespace GestureModality
             double marginHeight = 10;
             for (int i = 0; i < usersName.Length; i++)
             {
-                Button newButton = new Button();
-                newButton.Content = usersName[i];
-                newButton.Name = usersName[i] + "BTN";
-                newButton.Width = 15*usersName[i].Length;
-                newButton.Height = 50;
-                newButton.HorizontalAlignment = HorizontalAlignment.Left;
-                newButton.VerticalAlignment = VerticalAlignment.Top;
-                newButton.Style = FindResource("buttonStyle") as Style;
-                newButton.Click += usersButtonClicked;
-                Thickness margin = newButton.Margin;
-                margin.Left = marginWidth;
-                margin.Top = marginHeight;
-                newButton.Margin = margin;
+                Button newButton = CreateButton(usersName[i], marginWidth, marginHeight);
                 gridUsers.Children.Add(newButton);
                 marginWidth += newButton.Width + 25;
             }
@@ -259,6 +260,23 @@ namespace GestureModality
                     children.Background = Brushes.DarkTurquoise;
                     break;
                 }
+            }
+        }
+
+        public void AddGuild(Guild guild)
+        {
+            this.guildList.Add(guild);
+            if (this.gridGuilds.Children.Count == 0)
+            {
+                Button button = CreateButton(guild.Name, 10, 10);
+                this.gridGuilds.Children.Add(button);
+            }
+            else
+            {
+                int numChildren = this.gridGuilds.Children.Count;
+                Button button = this.gridGuilds.Children[numChildren-1] as Button;
+                Button newButton = CreateButton(guild.Name, button.Margin.Left+button.Width+25, button.Height);
+                this.gridGuilds.Children.Add(newButton);
             }
         }
 

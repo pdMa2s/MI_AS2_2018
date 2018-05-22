@@ -17,6 +17,7 @@ namespace GestureModality
         private readonly string comChannel = "ttsCommands";
         private bool ttsSpeaking = true;
         private MainWindow window;
+
         public ComModule(MainWindow window)
         {
             this._ttsPipeServer = new NamedPipeServerStream(comChannel);
@@ -99,12 +100,16 @@ namespace GestureModality
         {
             Console.WriteLine(users);
             string[] parsedChannels = channels.Split('|');
-            string[] parsedUSers = users.Split('|');
+            string[] parsedUsers = users.Split('|');
 
             Application.Current.Dispatcher.Invoke((Action)delegate {
                 // your code
-                window.AddChannelsToGUI(parsedChannels);
-                window.AddUsersToGUI(parsedUSers);
+                //window.AddChannelsToGUI(parsedChannels);
+                //window.AddUsersToGUI(parsedUsers);
+                Guild guild = new Guild("cenas");
+                guild.Channels = parsedChannels;
+                guild.Users = parsedUsers;
+                window.AddGuild(guild);
             });
             
         }

@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="ComModule.cs" />
     <Compile Include="GestureDetector.cs" />
+    <Compile Include="Guild.cs" />
     <Compile Include="HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
