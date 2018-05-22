@@ -37,14 +37,14 @@ namespace DiscordControler
                 StreamWriter writer = new StreamWriter(_guildInfoPipeClient);
                 writer.AutoFlush = true;
 
-                StringBuilder sbChannels = new StringBuilder();
-                StringBuilder sbUsers = new StringBuilder();
-
                 Regex regex = new Regex(@"\s+");
 
                 writer.WriteLine(guilds.Count);
 
                 foreach (SocketGuild g in guilds) {
+
+                    StringBuilder sbChannels = new StringBuilder();
+                    StringBuilder sbUsers = new StringBuilder();
 
                     foreach (SocketTextChannel s in g.TextChannels)
                     {

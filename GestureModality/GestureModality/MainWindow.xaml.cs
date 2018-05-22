@@ -48,10 +48,6 @@ namespace GestureModality
             this.gestureDetector = new GestureDetector(kinectSensor,coms);
             this.activeBodyIndex = -1;
 
-            /*Guild guild = new Guild("IMServer");
-            Guild guild2 = new Guild("Topicos de Apicultura");
-            AddGuild(guild);
-            AddGuild(guild2);*/
             /*if (!kinectSensor.IsAvailable)
             {
                 Console.WriteLine("Kinect Sensor is not available!");
@@ -133,12 +129,11 @@ namespace GestureModality
 
         private Button CreateButton(string name, double marginWidth, double marginHeight)
         {
-            Console.WriteLine(name + " " +marginWidth +" "+ marginHeight);
             Button newButton = new Button();
             newButton.Content = name;
             string nameButton = name.Replace(" ", "_");
             newButton.Name = nameButton + "BTN";
-            newButton.Width = 14 * name.Length ;
+            newButton.Width = 14 * name.Length;
             newButton.Height = 50;
             newButton.HorizontalAlignment = HorizontalAlignment.Left;
             newButton.VerticalAlignment = VerticalAlignment.Top;
@@ -150,7 +145,7 @@ namespace GestureModality
             return newButton;
         }
 
-        public void AddChannelsToGUI(string[] channelsName)
+        private void AddChannelsToGUI(string[] channelsName)
         {
             double marginWidth = 10;
             double marginHeight = 10;
@@ -194,7 +189,7 @@ namespace GestureModality
             Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
         }
 
-        public void AddUsersToGUI(string[] usersName)
+        private void AddUsersToGUI(string[] usersName)
         {
             double marginWidth = 10;
             double marginHeight = 10;
@@ -288,9 +283,28 @@ namespace GestureModality
         private void guildsButtonClicked(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
+            if (button.Background == Brushes.LimeGreen)
+                return;
             string guildName = button.Content.ToString();
             Guild guild = guildList.Find(x => x.Name == guildName);
-            Console.WriteLine(guild.Name);
+            this.gridChannels.Children.Clear();
+            Console.WriteLine(this.gridChannels.Children.Count);
+            this.gridUsers.Children.Clear();
+            AddChannelsToGUI(guild.Channels);
+            AddUsersToGUI(guild.Users);
+            button.Background = Brushes.LimeGreen;
+            string lastGuildNameSelected = this.gestureDetector.GuildName;
+            this.gestureDetector.GuildName = guild.Name;
+            for (int i = 0; i < gridGuilds.Children.Count; i++)
+            {
+                Button children = gridGuilds.Children[i] as Button;
+                string content = children.Content as string;
+                if (content.Equals(lastGuildNameSelected))
+                {
+                    children.Background = Brushes.DarkTurquoise;
+                    break;
+                }
+            }
         }
 
         private void helpButtonClicked(object sender, RoutedEventArgs e)

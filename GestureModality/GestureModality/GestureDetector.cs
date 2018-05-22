@@ -22,6 +22,7 @@ namespace GestureModality
         private ComModule coms;
         private String userSelected;
         private String channelSelected;
+        private String guildSelected;
 
         public GestureDetector(KinectSensor kinectSensor, ComModule coms)
         {
@@ -176,6 +177,8 @@ namespace GestureModality
                 json += ", \"channelName\" : \""+channelSelected+"\" ";
             if (userSelected != null)
                 json += ", \"userName\" : \""+userSelected+"\" ";
+            if (guildSelected != null)
+                json += ", \"guildName\" : \""+ guildSelected +"\" ";
 
             json += ", \"confidence\":\"implicit confirmation\" } }";
 
@@ -243,6 +246,20 @@ namespace GestureModality
             {
                 if (this.userSelected != value)
                     this.userSelected = value;
+            }
+        }
+
+        public string GuildName
+        {
+            get
+            {
+                return this.guildSelected;
+            }
+
+            set
+            {
+                if (this.guildSelected != value)
+                    this.guildSelected = value;
             }
         }
 
