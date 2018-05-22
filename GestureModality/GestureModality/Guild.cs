@@ -21,5 +21,20 @@ namespace GestureModality
         public string[] Channels { get { return channels; } set { this.channels = value; } }
         public string[] Users { get { return users; } set { this.users = value; } }
 
+
+        public override string ToString() {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(name + "\n");
+            for (int i = 0; i < channels.Length; i++) {
+                sb.Append(channels[i] + " ");
+            }
+            sb.Append("\n");
+            for (int i = 0; i < users.Length; i++)
+            {
+                sb.Append(users[i] + " ");
+            }
+            sb.Append("\n");
+            return sb.ToString();
+        }
     }
 }

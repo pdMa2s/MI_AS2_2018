@@ -112,6 +112,8 @@ namespace GestureModality
                 Guild guild = new Guild(guildName);
                 guild.Channels = parsedChannels;
                 guild.Users = parsedUsers;
+
+                Console.WriteLine(guild);
                 window.AddGuild(guild);
             });
             
