@@ -47,11 +47,15 @@ namespace GestureModality
 
                 _guildInfoServer.WaitForConnection();
                 StreamReader reader = new StreamReader(_guildInfoServer);
+                int numberOfGuilds = -1; 
+                int.TryParse(reader.ReadLine(), out numberOfGuilds);
 
-                string channels = reader.ReadLine();
-                string users = reader.ReadLine();
-                _processGuildInfo(channels, users);
-                
+                for (int i = 0; i < numberOfGuilds; i++) {
+                    string channels = reader.ReadLine();
+                    string users = reader.ReadLine();
+                    _processGuildInfo(channels, users);
+
+                }
                 _guildInfoServer.Close();
             });
         }

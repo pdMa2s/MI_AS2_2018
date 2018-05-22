@@ -28,7 +28,7 @@ namespace DiscordControler
             return mmiC;
         }
 
-        public void SendGuildInfo(IReadOnlyCollection<SocketTextChannel> channels, IReadOnlyCollection<SocketUser> users)
+        public void SendGuildInfo(IReadOnlyCollection<SocketGuild> guilds)
         {
 
             Task.Factory.StartNew(() =>
@@ -41,30 +41,41 @@ namespace DiscordControler
                 StringBuilder sbUsers = new StringBuilder();
 
                 Regex regex = new Regex(@"\s+");
-                foreach (SocketTextChannel s in channels)
-                {
-                    Match match = regex.Match(s.ToString());
 
-                    if (!match.Success) {
-                        sbChannels.Append(s.ToString() + "|");
-                        
-                    }
-                        
-                }
+                writer.WriteLine(guilds.Count);
 
-                foreach (SocketUser u in users) {
-                    Match match = regex.Match(u.ToString());
+                foreach (SocketGuild g in guilds) {
 
-                    if (!match.Success && !u.Username.Equals("wally"))
+                    foreach (SocketTextChannel s in g.TextChannels)
                     {
-                        sbUsers.Append(u.Username + "|");
+                        Match match = regex.Match(s.ToString());
+
+                        if (!match.Success)
+                        {
+                            sbChannels.Append(s.ToString() + "|");
+
+                        }
+
                     }
+
+                    foreach (SocketUser u in g.Users)
+                    {
+                        Match match = regex.Match(u.ToString());
+
+                        if (!match.Success && !u.Username.Equals("wally"))
+                        {
+                            sbUsers.Append(u.Username + "|");
+                        }
+                    }
+                    writer.WriteLine(g.Name);
+                    if (sbChannels.Length != 0 || sbUsers.Length != 0)
+                    {
+                        writer.WriteLine(sbChannels.ToString().Substring(0, sbChannels.Length - 1));
+                        writer.WriteLine(sbUsers.ToString().Substring(0, sbUsers.Length - 1));
+                    }
+
                 }
-                if(sbChannels.Length != 0  || sbUsers.Length != 0)
-                {
-                    writer.WriteLine(sbChannels.ToString().Substring(0, sbChannels.Length - 1));
-                    writer.WriteLine(sbUsers.ToString().Substring(0, sbUsers.Length - 1));
-                }
+
 
                 _guildInfoPipeClient.Close();
                 
