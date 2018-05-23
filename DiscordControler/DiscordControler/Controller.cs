@@ -267,8 +267,8 @@ namespace DiscordControler
                 _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guild.Name));
                 return;
             }
-
             var message = await channel.GetMessagesAsync(1).Flatten();
+            
             if (message.Count() == 0)
             {
                 _tts.Speak(_speechTemplates.GetDeleteMessageError(channelName, guild.Name));
@@ -280,9 +280,7 @@ namespace DiscordControler
                 _tts.Speak(_speechTemplates.GetDeleteMessageExplicit(channelName, guild.Name));
                 return;
             }
-
             await channel.DeleteMessagesAsync(message);
-
             _tts.Speak(_speechTemplates.GetDeleteLastMessage(channelName, guild.Name));
         }
 
