@@ -162,16 +162,20 @@ namespace GestureModality
         {
             Button button = sender as Button;
             string channelNameSelectedPrev = this.gestureDetector.ChannelName;
+            string userNameSelectedPrev = this.gestureDetector.UserName;
             string channelNameSelectedNow = button.Content as string;
             Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
+            Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
             if (channelNameSelectedNow.Equals(channelNameSelectedPrev))
             {
                 button.Background = Brushes.DarkTurquoise;
                 this.gestureDetector.ChannelName = null;
                 Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
+                Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
                 return;
             }
             this.gestureDetector.ChannelName = button.Content as string;
+            this.gestureDetector.UserName = null;
             if (channelNameSelectedPrev != null)
             {
                 for (int i = 0; i < gridChannels.Children.Count; i++)
@@ -185,8 +189,22 @@ namespace GestureModality
                     }
                 }
             }
+            if (userNameSelectedPrev != null)
+            {
+                for (int i = 0; i < gridUsers.Children.Count; i++)
+                {
+                    Button children = gridUsers.Children[i] as Button;
+                    string content = children.Content as string;
+                    if (content.Equals(userNameSelectedPrev))
+                    {
+                        children.Background = Brushes.DarkTurquoise;
+                        break;
+                    }
+                }
+            }
             button.Background = Brushes.LimeGreen;
             Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
+            Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
         }
 
         private void AddUsersToGUI(string[] usersName)
@@ -206,16 +224,20 @@ namespace GestureModality
         {
             Button button = sender as Button;
             string userNameSelectedPrev = this.gestureDetector.UserName;
+            string channelNameSelectedPrev = this.gestureDetector.ChannelName;
             string userNameSelectedNow = button.Content as string;
             Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
+            Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
             if (userNameSelectedNow.Equals(userNameSelectedPrev))
             {
                 button.Background = Brushes.DarkTurquoise;
                 this.gestureDetector.UserName = null;
                 Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
+                Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
                 return;
             }
             this.gestureDetector.UserName = button.Content as string;
+            this.gestureDetector.ChannelName = null;
             if (userNameSelectedPrev != null)
             {
                 for (int i = 0; i < gridUsers.Children.Count; i++)
@@ -229,8 +251,22 @@ namespace GestureModality
                     }
                 }
             }
+            if (channelNameSelectedPrev != null)
+            {
+                for (int i = 0; i < gridChannels.Children.Count; i++)
+                {
+                    Button children = gridChannels.Children[i] as Button;
+                    string content = children.Content as string;
+                    if (content.Equals(channelNameSelectedPrev))
+                    {
+                        children.Background = Brushes.DarkTurquoise;
+                        break;
+                    }
+                }
+            }
             button.Background = Brushes.LimeGreen;
             Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
+            Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
         }
 
         public void ChangeColorBTNUserSelected(string userName)
