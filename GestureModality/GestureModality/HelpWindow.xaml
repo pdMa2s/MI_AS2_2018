@@ -3,19 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:GestureModality"
         xmlns:k="http://schemas.microsoft.com/kinect/2014"
         mc:Ignorable="d"
         Title="HelpWindow" Height="507" Width="763.5">
     <Grid>
         <TextBlock x:Name="textBlockMute" HorizontalAlignment="Left" Margin="98,27,0,0" TextWrapping="Wrap" Text="Mute" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/mute.jpg" Margin="38,59,550,245" RenderTransformOrigin="-0.301,0.581"></Image>
+        <Image Source="images/mute.PNG" Margin="38,59,550,245" RenderTransformOrigin="-0.301,0.581"></Image>
         <TextBlock x:Name="textBlockRight" HorizontalAlignment="Left" Margin="92,234,0,0" TextWrapping="Wrap" Text="Right Hand" VerticalAlignment="Top" FontSize="13"/>
         <TextBlock x:Name="textBlockDeaf" HorizontalAlignment="Left" Margin="368,27,0,0" TextWrapping="Wrap" Text="Deaf" VerticalAlignment="Top" FontSize="20"/>
         <Image Source="images/deaf.png" Margin="286,59,283,245"></Image>
         <TextBlock x:Name="textBlockLeft" HorizontalAlignment="Left" Margin="366,234,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="13"/>
         <TextBlock x:Name="textBlockDelete" HorizontalAlignment="Left" Margin="556,27,0,0" TextWrapping="Wrap" Text="Delete Message" VerticalAlignment="Top" FontSize="20" Width="150"/>
-        <Image Source="images/ok.png" Margin="588,59,90,245"></Image>
+        <Image gif:ImageBehavior.AnimatedSource="images/deletegif.gif" Margin="531,59,9.8,244.6"></Image>
         <k:KinectRegion x:Name="kinectRegionHelp" Margin="10,303,10,0">
             <Grid x:Name="grid" Margin="0,10,0,0">
                 <Button x:Name="thankYouBTN" Click="closeHelpWindow" HorizontalAlignment="Left" Margin="265,21,0,0" VerticalAlignment="Top" Width="208" Height="124" Background="White">

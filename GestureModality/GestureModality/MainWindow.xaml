@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestureModality"
         xmlns:k="http://schemas.microsoft.com/kinect/2014"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="620.826" Width="613"
         Closing="MainWindow_Closing">
