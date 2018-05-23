@@ -7,19 +7,19 @@
         xmlns:local="clr-namespace:GestureModality"
         xmlns:k="http://schemas.microsoft.com/kinect/2014"
         mc:Ignorable="d"
-        Title="HelpWindow" Height="507" Width="763.5">
+        Title="HelpWindow" Height="621" Width="823.5">
     <Grid>
-        <TextBlock x:Name="textBlockMute" HorizontalAlignment="Left" Margin="98,27,0,0" TextWrapping="Wrap" Text="Mute" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/mute.PNG" Margin="38,59,550,245" RenderTransformOrigin="-0.301,0.581"></Image>
-        <TextBlock x:Name="textBlockRight" HorizontalAlignment="Left" Margin="92,234,0,0" TextWrapping="Wrap" Text="Right Hand" VerticalAlignment="Top" FontSize="13"/>
-        <TextBlock x:Name="textBlockDeaf" HorizontalAlignment="Left" Margin="368,27,0,0" TextWrapping="Wrap" Text="Deaf" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/deaf.png" Margin="286,59,283,245"></Image>
-        <TextBlock x:Name="textBlockLeft" HorizontalAlignment="Left" Margin="366,234,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="13"/>
+        <TextBlock x:Name="textBlockMute" HorizontalAlignment="Left" Margin="84,29,0,0" TextWrapping="Wrap" Text="Mute" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/mute.PNG" Margin="-13,68,579,272" Height="250" Width="250"></Image>
+        <TextBlock x:Name="textBlockRight" HorizontalAlignment="Left" Margin="78,326,0,0" TextWrapping="Wrap" Text="Right Hand" VerticalAlignment="Top" FontSize="15"/>
+        <TextBlock x:Name="textBlockDeaf" HorizontalAlignment="Left" Margin="320,31,0,0" TextWrapping="Wrap" Text="Deaf" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/deaf.png" Margin="218,68,348,272" Height="250" Width="250"></Image>
+        <TextBlock x:Name="textBlockLeft" HorizontalAlignment="Left" Margin="314,328,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
         <TextBlock x:Name="textBlockDelete" HorizontalAlignment="Left" Margin="556,27,0,0" TextWrapping="Wrap" Text="Delete Message" VerticalAlignment="Top" FontSize="20" Width="150"/>
-        <Image gif:ImageBehavior.AnimatedSource="images/deletegif.gif" Margin="531,59,9.8,244.6"></Image>
-        <k:KinectRegion x:Name="kinectRegionHelp" Margin="10,303,10,0">
+        <Image gif:ImageBehavior.AnimatedSource="images/deletegif.gif" Margin="491,39,25,251" Width="300" Height="300"></Image>
+        <k:KinectRegion x:Name="kinectRegionHelp" Margin="10,399,10,0">
             <Grid x:Name="grid" Margin="0,10,0,0">
-                <Button x:Name="thankYouBTN" Click="closeHelpWindow" HorizontalAlignment="Left" Margin="265,21,0,0" VerticalAlignment="Top" Width="208" Height="124" Background="White">
+                <Button x:Name="thankYouBTN" Click="closeHelpWindow" HorizontalAlignment="Left" Margin="307,30,0,0" VerticalAlignment="Top" Width="208" Height="124" Background="White">
                     <Image Source="images/ok.png"></Image>
                 </Button>
             </Grid>
