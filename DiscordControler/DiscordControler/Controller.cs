@@ -59,10 +59,8 @@ namespace DiscordControler
             _tts.Speak("Olá eu sou o wally, o teu bot do Discord! Se desejares podes-me perguntar o que é que eu sou capaz de fazer e que comandos estão disponíveis. So tenho um requisito, diz o meu nome antes de qualquer comando.");
 
             Thread.Sleep(2000);
-            var guild = _client.GetGuild(_defaultGuildId);
-            var channels = guild.TextChannels;
-            var users = guild.Users;
-            comModule.SendGuildInfo(channels, users);
+           
+            comModule.SendGuildInfo(_client.Guilds);
             await Task.Delay(-1);
         }
 
@@ -269,8 +267,8 @@ namespace DiscordControler
                 _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guild.Name));
                 return;
             }
-
             var message = await channel.GetMessagesAsync(1).Flatten();
+            
             if (message.Count() == 0)
             {
                 _tts.Speak(_speechTemplates.GetDeleteMessageError(channelName, guild.Name));
@@ -282,9 +280,7 @@ namespace DiscordControler
                 _tts.Speak(_speechTemplates.GetDeleteMessageExplicit(channelName, guild.Name));
                 return;
             }
-
             await channel.DeleteMessagesAsync(message);
-
             _tts.Speak(_speechTemplates.GetDeleteLastMessage(channelName, guild.Name));
         }
 

@@ -21,6 +21,7 @@ namespace GestureModality
         private GestureDetector gestureDetector;
         internal static MainWindow main;
         private ComModule coms;
+        private List<Guild> guildList;
         // INotifyPropertyChangedPropertyChanged event to allow window controls to bind to changeable data
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -41,10 +42,12 @@ namespace GestureModality
 
             this.bodyFrameReader = this.kinectSensor.BodyFrameSource.OpenReader();
             this.bodyFrameReader.FrameArrived += this.Reader_BodyFrameArrived;
+            guildList = new List<Guild>();
             coms = new ComModule(this);
 
             this.gestureDetector = new GestureDetector(kinectSensor,coms);
             this.activeBodyIndex = -1;
+
             /*if (!kinectSensor.IsAvailable)
             {
                 Console.WriteLine("Kinect Sensor is not available!");
@@ -124,27 +127,34 @@ namespace GestureModality
             set { Dispatcher.Invoke(new Action(() => { this.confidence.Text = value; })); }
         }
 
-        public void AddChannelsToGUI(string[] channelsName)
+        private Button CreateButton(string name, double marginWidth, double marginHeight)
+        {
+            Button newButton = new Button();
+            newButton.Content = name;
+            string nameButton = name.Replace(" ", "_");
+            newButton.Name = nameButton + "BTN";
+            newButton.Width = 14 * name.Length;
+            newButton.Height = 50;
+            newButton.HorizontalAlignment = HorizontalAlignment.Left;
+            newButton.VerticalAlignment = VerticalAlignment.Top;
+            newButton.Style = FindResource("buttonStyle") as Style;
+            Thickness margin = newButton.Margin;
+            margin.Left = marginWidth;
+            margin.Top = marginHeight;
+            newButton.Margin = margin;
+            return newButton;
+        }
+
+        private void AddChannelsToGUI(string[] channelsName)
         {
             double marginWidth = 10;
             double marginHeight = 10;
             for (int i = 0; i < channelsName.Length; i++)
             {
-                Button newButton = new Button();
-                newButton.Content = channelsName[i];
-                newButton.Name = channelsName[i] + "BTN";
-                newButton.Width = 15 * channelsName[i].Length;
-                newButton.Height = 50;
-                newButton.HorizontalAlignment = HorizontalAlignment.Left;
-                newButton.VerticalAlignment = VerticalAlignment.Top;
-                newButton.Style = FindResource("buttonStyle") as Style;
-                newButton.Click += channelsButtonClicked;
-                Thickness margin = newButton.Margin;
-                margin.Left = marginWidth;
-                margin.Top = marginHeight;
-                newButton.Margin = margin;
-                gridChannels.Children.Add(newButton);
-                marginWidth += newButton.Width + 25;
+                Button button = CreateButton(channelsName[i], marginWidth, marginHeight);
+                button.Click += channelsButtonClicked;
+                gridChannels.Children.Add(button);
+                marginWidth += button.Width + 25;
             }
         }
 
@@ -152,16 +162,20 @@ namespace GestureModality
         {
             Button button = sender as Button;
             string channelNameSelectedPrev = this.gestureDetector.ChannelName;
+            string userNameSelectedPrev = this.gestureDetector.UserName;
             string channelNameSelectedNow = button.Content as string;
             Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
+            Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
             if (channelNameSelectedNow.Equals(channelNameSelectedPrev))
             {
                 button.Background = Brushes.DarkTurquoise;
                 this.gestureDetector.ChannelName = null;
                 Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
+                Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
                 return;
             }
             this.gestureDetector.ChannelName = button.Content as string;
+            this.gestureDetector.UserName = null;
             if (channelNameSelectedPrev != null)
             {
                 for (int i = 0; i < gridChannels.Children.Count; i++)
@@ -175,48 +189,6 @@ namespace GestureModality
                     }
                 }
             }
-            button.Background = Brushes.LimeGreen;
-            Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
-        }
-
-        public void AddUsersToGUI(string[] usersName)
-        {
-            double marginWidth = 10;
-            double marginHeight = 10;
-            for (int i = 0; i < usersName.Length; i++)
-            {
-                Button newButton = new Button();
-                newButton.Content = usersName[i];
-                newButton.Name = usersName[i] + "BTN";
-                newButton.Width = 15*usersName[i].Length;
-                newButton.Height = 50;
-                newButton.HorizontalAlignment = HorizontalAlignment.Left;
-                newButton.VerticalAlignment = VerticalAlignment.Top;
-                newButton.Style = FindResource("buttonStyle") as Style;
-                newButton.Click += usersButtonClicked;
-                Thickness margin = newButton.Margin;
-                margin.Left = marginWidth;
-                margin.Top = marginHeight;
-                newButton.Margin = margin;
-                gridUsers.Children.Add(newButton);
-                marginWidth += newButton.Width + 25;
-            }
-        }
-
-        private void usersButtonClicked(object sender, RoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            string userNameSelectedPrev = this.gestureDetector.UserName;
-            string userNameSelectedNow = button.Content as string;
-            Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
-            if (userNameSelectedNow.Equals(userNameSelectedPrev))
-            {
-                button.Background = Brushes.DarkTurquoise;
-                this.gestureDetector.UserName = null;
-                Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
-                return;
-            }
-            this.gestureDetector.UserName = button.Content as string;
             if (userNameSelectedPrev != null)
             {
                 for (int i = 0; i < gridUsers.Children.Count; i++)
@@ -231,7 +203,70 @@ namespace GestureModality
                 }
             }
             button.Background = Brushes.LimeGreen;
+            Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
             Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
+        }
+
+        private void AddUsersToGUI(string[] usersName)
+        {
+            double marginWidth = 10;
+            double marginHeight = 10;
+            for (int i = 0; i < usersName.Length; i++)
+            {
+                Button newButton = CreateButton(usersName[i], marginWidth, marginHeight);
+                newButton.Click += usersButtonClicked;
+                gridUsers.Children.Add(newButton);
+                marginWidth += newButton.Width + 25;
+            }
+        }
+
+        private void usersButtonClicked(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            string userNameSelectedPrev = this.gestureDetector.UserName;
+            string channelNameSelectedPrev = this.gestureDetector.ChannelName;
+            string userNameSelectedNow = button.Content as string;
+            Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
+            Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
+            if (userNameSelectedNow.Equals(userNameSelectedPrev))
+            {
+                button.Background = Brushes.DarkTurquoise;
+                this.gestureDetector.UserName = null;
+                Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
+                Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
+                return;
+            }
+            this.gestureDetector.UserName = button.Content as string;
+            this.gestureDetector.ChannelName = null;
+            if (userNameSelectedPrev != null)
+            {
+                for (int i = 0; i < gridUsers.Children.Count; i++)
+                {
+                    Button children = gridUsers.Children[i] as Button;
+                    string content = children.Content as string;
+                    if (content.Equals(userNameSelectedPrev))
+                    {
+                        children.Background = Brushes.DarkTurquoise;
+                        break;
+                    }
+                }
+            }
+            if (channelNameSelectedPrev != null)
+            {
+                for (int i = 0; i < gridChannels.Children.Count; i++)
+                {
+                    Button children = gridChannels.Children[i] as Button;
+                    string content = children.Content as string;
+                    if (content.Equals(channelNameSelectedPrev))
+                    {
+                        children.Background = Brushes.DarkTurquoise;
+                        break;
+                    }
+                }
+            }
+            button.Background = Brushes.LimeGreen;
+            Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
+            Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
         }
 
         public void ChangeColorBTNUserSelected(string userName)
@@ -255,6 +290,52 @@ namespace GestureModality
                 Button children = gridChannels.Children[i] as Button;
                 string content = children.Content as string;
                 if (content.Equals(channelName))
+                {
+                    children.Background = Brushes.DarkTurquoise;
+                    break;
+                }
+            }
+        }
+
+        public void AddGuild(Guild guild)
+        {
+            this.guildList.Add(guild);
+            if (this.gridGuilds.Children.Count == 0)
+            {
+                Button button = CreateButton(guild.Name, 10.0, 10.0);
+                button.Click += guildsButtonClicked;
+                this.gridGuilds.Children.Add(button);
+            }
+            else
+            {
+                int numChildren = this.gridGuilds.Children.Count;
+                Button button = this.gridGuilds.Children[numChildren-1] as Button;
+                Button newButton = CreateButton(guild.Name, button.Margin.Left+button.Width+25.0, button.Margin.Top*1.0);
+                newButton.Click += guildsButtonClicked;
+                this.gridGuilds.Children.Add(newButton);
+            }
+        }
+
+        private void guildsButtonClicked(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button.Background == Brushes.LimeGreen)
+                return;
+            string guildName = button.Content.ToString();
+            Guild guild = guildList.Find(x => x.Name == guildName);
+            this.gridChannels.Children.Clear();
+            Console.WriteLine(this.gridChannels.Children.Count);
+            this.gridUsers.Children.Clear();
+            AddChannelsToGUI(guild.Channels);
+            AddUsersToGUI(guild.Users);
+            button.Background = Brushes.LimeGreen;
+            string lastGuildNameSelected = this.gestureDetector.GuildName;
+            this.gestureDetector.GuildName = guild.Name;
+            for (int i = 0; i < gridGuilds.Children.Count; i++)
+            {
+                Button children = gridGuilds.Children[i] as Button;
+                string content = children.Content as string;
+                if (content.Equals(lastGuildNameSelected))
                 {
                     children.Background = Brushes.DarkTurquoise;
                     break;

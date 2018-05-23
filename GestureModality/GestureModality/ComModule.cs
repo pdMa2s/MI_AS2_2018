@@ -17,6 +17,7 @@ namespace GestureModality
         private readonly string comChannel = "ttsCommands";
         private bool ttsSpeaking = true;
         private MainWindow window;
+
         public ComModule(MainWindow window)
         {
             this._ttsPipeServer = new NamedPipeServerStream(comChannel);
@@ -46,11 +47,16 @@ namespace GestureModality
 
                 _guildInfoServer.WaitForConnection();
                 StreamReader reader = new StreamReader(_guildInfoServer);
+                int numberOfGuilds = -1; 
+                int.TryParse(reader.ReadLine(), out numberOfGuilds);
 
-                string channels = reader.ReadLine();
-                string users = reader.ReadLine();
-                _processGuildInfo(channels, users);
-                
+                for (int i = 0; i < numberOfGuilds; i++) {
+                    string guild = reader.ReadLine();
+                    string channels = reader.ReadLine();
+                    string users = reader.ReadLine();
+                    _processGuildInfo(guild, channels, users);
+
+                }
                 _guildInfoServer.Close();
             });
         }
@@ -95,16 +101,20 @@ namespace GestureModality
             }
         }
 
-        private void _processGuildInfo(string channels, string users)
+        private void _processGuildInfo(string guildName, string channels, string users)
         {
-            Console.WriteLine(users);
+          
             string[] parsedChannels = channels.Split('|');
-            string[] parsedUSers = users.Split('|');
+            string[] parsedUsers = users.Split('|');
 
             Application.Current.Dispatcher.Invoke((Action)delegate {
-                // your code
-                window.AddChannelsToGUI(parsedChannels);
-                window.AddUsersToGUI(parsedUSers);
+                
+                Guild guild = new Guild(guildName);
+                guild.Channels = parsedChannels;
+                guild.Users = parsedUsers;
+
+                Console.WriteLine(guild);
+                window.AddGuild(guild);
             });
             
         }
