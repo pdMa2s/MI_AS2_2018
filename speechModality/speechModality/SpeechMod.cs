@@ -91,6 +91,8 @@ namespace speechModality
                 case "action":
                     json += "\"recognized\": [\"" +  resultKey + "\",\"" + resultValue + "\"], ";
                     break;
+                case "userName":
+                    break;
                 default:
                     json += "\"" + resultKey + "\"" + ":" + "\"" + resultValue + "\", ";
                     break;
