@@ -35,7 +35,7 @@
     <onentry>
       <log label="[sspeech[action][remove_user]-secondmod[username][matos]]" expr="READY" />
       <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][REMOVE_USER][user][Matos]')}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][REMOVE_USER][userName][Matos]')}" />
       <send event="REMOVE_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
@@ -46,17 +46,25 @@
       <assign name="data1" expr="${_eventdata.data}" />
       <send id="state1-timer-sspeech[action][user_status]" event="timeout-sspeech[action][user_status]" delay="1500" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="main" event="timeout-sspeech[action][user_status]" />
+    <transition target="speech[action][user_status]-final" event="timeout-sspeech[action][user_status]" />
     <transition target="sspeech[action][user_status]-secondmod[username][matos]" event="[userName][Matos]" />
     <onexit>
       <cancel sendid="state1-timer-sspeech[action][user_status]" />
     </onexit>
   </state>
+  <state id="speech[action][user_status]-final">
+    <onentry>
+      <log label="[speech[action][user_status]-final]" expr="READY" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[action][USER_STATUS][userName][Matos]')}" />
+      <send event="STATUS_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
   <state id="sspeech[action][user_status]-secondmod[username][matos]">
     <onentry>
       <log label="[sspeech[action][user_status]-secondmod[username][matos]]" expr="READY" />
       <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][USER_STATUS][user][Matos]')}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][USER_STATUS][userName][Matos]')}" />
       <send event="STATUS_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
@@ -68,6 +76,7 @@
       <send id="state1-timer-ssecondmod[username][matos]" event="timeout-ssecondmod[username][matos]" delay="1500" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[username][matos]-final" event="timeout-ssecondmod[username][matos]" />
+    <transition target="ssecondmod[username][matos]-speech[action][user_status]" event="[action][USER_STATUS]" />
     <transition target="ssecondmod[username][matos]-speech[action][remove_user]" event="[action][REMOVE_USER]" />
     <onexit>
       <cancel sendid="state1-timer-ssecondmod[username][matos]" />
@@ -76,8 +85,17 @@
   <state id="secondmod[username][matos]-final">
     <onentry>
       <log label="[secondmod[username][matos]-final]" expr="READY" />
-      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[action][DEAF_USER][user][Matos]')}" />
-      <send event="DEAF_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[action][USER_STATUS][userName][Matos]')}" />
+      <send event="STATUS_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[username][matos]-speech[action][user_status]">
+    <onentry>
+      <log label="[ssecondmod[username][matos]-speech[action][user_status]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][USER_STATUS][userName][Matos]')}" />
+      <send event="STATUS_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -85,7 +103,7 @@
     <onentry>
       <log label="[ssecondmod[username][matos]-speech[action][remove_user]]" expr="READY" />
       <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][REMOVE_USER][user][Matos]')}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][REMOVE_USER][userName][Matos]')}" />
       <send event="REMOVE_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
@@ -104,7 +122,7 @@
   <state id="speech[action][mute_user]-final">
     <onentry>
       <log label="[speech[action][mute_user]-final]" expr="READY" />
-      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[action][MUTE_USER][user][Matos]')}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[action][MUTE_USER][userName][Matos]')}" />
       <send event="MUTE_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
