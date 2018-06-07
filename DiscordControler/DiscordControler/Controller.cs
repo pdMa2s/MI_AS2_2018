@@ -90,10 +90,8 @@ namespace DiscordControler
         {
             Console.WriteLine(e.Message);
             var doc = XDocument.Parse(e.Message);
-            var com = doc.Descendants("command").FirstOrDefault().Value;
-            dynamic json = JsonConvert.DeserializeObject(com);
-            Console.WriteLine(json);
-            json = PreProcessing(json);
+            
+            var json = PreProcessing(doc);
             var action = json.recognized["action"] == null ? null : json.recognized.action.ToString() as String;
             var confirmation = json.recognized["confirmation"] == null ? null : json.recognized.confirmation.ToString() as String;
             var confidence = json.recognized.confidence.ToString() as String;
@@ -123,29 +121,47 @@ namespace DiscordControler
             }
         }
 
-        private dynamic PreProcessing(dynamic json)
+        private dynamic PreProcessing(XDocument xmlDoc)
         {
-
+            var commands = xmlDoc.Descendants("command");
             string newJson = "{ \"recognized\": { ";
-            var recognized = json.recognized ?? null;
-            if (recognized != null)
-                for (int i = 0; i < recognized.Count - 2 ; i += 2) {
-                    newJson += "\"" + recognized[i] + "\": \"" + recognized[i + 1] + "\", " ;
+
+            foreach (var c in commands) {
+                dynamic json = JsonConvert.DeserializeObject(c.Value);
+                string modality = json.modality ?? null;
+
+                if (modality != null && modality.Equals("speech"))
+                {
+                    var confidence = json.confidence;
+                    newJson += "\"confidence\":" + "\"" + confidence + "\", ";
+
                 }
-            var confidence = json.confidence;
-            newJson += "\"confidence\":" + "\"" + confidence + "\", ";
-            var confirmation = json.confirmation ?? null;
-            if(confirmation != null)
-                newJson += "\"confirmation\":" + "\"" + confirmation + "\", ";
-            var guildName = json.guildName ?? null;
-            if (guildName != null)
-                newJson += "\"guildName\":" + "\"" + guildName + "\", ";
-            var channelName = json.channelName ?? null;
-            if (channelName != null)
-                newJson += "\"channelName\":" + "\"" + channelName + "\", ";
-            var reason = json.reason ?? null;
-            if (reason != null)
-                newJson += "\"reason\":" + "\"" + reason + "\", ";
+                else {
+
+                    var recognized = json.recognized ?? null;
+
+                    if (recognized != null)
+                        for (int i = 0; i < recognized.Count - 1; i += 2)
+                        {
+                            newJson += "\"" + recognized[i] + "\": \"" + recognized[i + 1] + "\", ";
+                        }
+                    var confirmation = json.confirmation ?? null;
+                    if (confirmation != null)
+                        newJson += "\"confirmation\":" + "\"" + confirmation + "\", ";
+                    var guildName = json.guildName ?? null;
+                    if (guildName != null)
+                        newJson += "\"guildName\":" + "\"" + guildName + "\", ";
+                    var channelName = json.channelName ?? null;
+                    if (channelName != null)
+                        newJson += "\"channelName\":" + "\"" + channelName + "\", ";
+                    var reason = json.reason ?? null;
+                    if (reason != null)
+                        newJson += "\"reason\":" + "\"" + reason + "\", ";
+                }
+                
+            }
+
+            
 
             newJson = newJson.Substring(0, newJson.Length - 2);
 

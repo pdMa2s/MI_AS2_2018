@@ -21,7 +21,7 @@ namespace DiscordControler
         private StreamWriter writer;
 
         public Coms() {
-            mmiC = new MmiCommunication("localhost", 8000, "User2", "GUI");
+            mmiC = new MmiCommunication("localhost", 8000, "User1", "GUI");
             _guildInfoPipeClient = new NamedPipeClientStream("guildInfo");
         }
         public MmiCommunication GetMmic() {
