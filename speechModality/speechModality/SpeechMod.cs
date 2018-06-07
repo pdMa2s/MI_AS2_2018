@@ -25,8 +25,8 @@ namespace speechModality
         {
             //init LifeCycleEvents..
             lce = new LifeCycleEvents("ASR", "FUSION", "speech-1", "acoustic", "command"); // LifeCycleEvents(string source, string target, string id, string medium, string mode)
-            //mmic = new MmiCommunication("localhost",9876,"User1", "ASR");  //PORT TO FUSION - uncomment this line to work with fusion later
-            mmic = new MmiCommunication("localhost", 8000, "User1", "ASR"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
+            mmic = new MmiCommunication("localhost",9876,"User1", "ASR");  //PORT TO FUSION - uncomment this line to work with fusion later
+            //mmic = new MmiCommunication("localhost", 8000, "User1", "ASR"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
 
             mmic.Send(lce.NewContextRequest());
 
@@ -53,35 +53,49 @@ namespace speechModality
             /*foreach (var resultSemantic in e.Result.Semantics) 
                 Console.WriteLine(resultSemantic.Key+":"+resultSemantic.Value.Value);*/
 
-            string json = "";
+            string json = "{";
 
+            
             if (e.Result.Confidence <= 0.30)
                 return;
 
-            json = "{ \"recognized\": {";
             foreach (var resultSemantic in e.Result.Semantics)
             {
-                if (!resultSemantic.Value.Value.ToString().Equals(""))
-                    json += "\"" + resultSemantic.Key + "\": \"" + resultSemantic.Value.Value + "\", ";
+                if (!resultSemantic.Value.Value.ToString().Equals("")) {
+                    json = AddJsonTag(json,resultSemantic.Key, resultSemantic.Value.Value.ToString());
+                }
             }
-            json = json.Substring(0, json.Length - 2);
 
             if (e.Result.Confidence > 0.30 && e.Result.Confidence <= 0.45)
             {
-                json += ", \"confidence\":\"low confidence\" } }";
+                json = AddJsonTag(json, "confidence", "low confidence");
             }
             else if (e.Result.Confidence > 0.45 && e.Result.Confidence < 0.8)
             {
-                json += ", \"confidence\":\"explicit confirmation\" } }";
+                json = AddJsonTag(json, "confidence", "explicit confirmation");
             }
             else if (e.Result.Confidence >= 0.8)
             {
-                json += ", \"confidence\":\"implicit confirmation\" } }";
+                json = AddJsonTag(json, "confidence", "implicit confirmation");
             }
+            json = json.Substring(0, json.Length - 2);
+            json += "}";
             Console.WriteLine(json);
             //Console.WriteLine("--------"+e.Result.Semantics["action"].Value+"-------");
             var exNot = lce.ExtensionNotification(e.Result.Audio.StartTime + "", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration) + "", e.Result.Confidence, json);
             mmic.Send(exNot);
+        }
+
+        private string AddJsonTag(string json, string resultKey, string resultValue) {
+            switch (resultKey) {
+                case "action":
+                    json += "\"recognized\": [\"" +  resultKey + "\",\"" + resultValue + "\"], ";
+                    break;
+                default:
+                    json += "\"" + resultKey + "\"" + ":" + "\"" + resultValue + "\", ";
+                    break;
+            }
+            return json;
         }
 
         public void stopListening()
