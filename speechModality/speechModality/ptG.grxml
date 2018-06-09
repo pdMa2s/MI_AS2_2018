@@ -6,9 +6,9 @@
         Wally
         <ruleref uri="#action"/>
         <tag>out.action=rules.latest();</tag>
-        <tag>out.guildName=rules.guildNameRule;</tag>
-        <tag>out.channelName=rules.channelNameRule;</tag>
         <tag>out.userName=rules.userNameRule;</tag>
+        <tag>out.channelName=rules.channelNameRule;</tag>
+        <tag>out.guildName=rules.guildNameRule;</tag>
         <tag>out.reason=rules.reasonRule;</tag>
       </item>
       <item>
@@ -18,6 +18,31 @@
       <item>
         <ruleref uri="#noOptions"/>
         <tag>out.confirmation="no";</tag>
+      </item>
+      <item>
+        <ruleref uri="#userRemoveOrBan"/>
+        <tag>out.userName=rules.userNameRule;</tag>
+        <tag>out.guildName=rules.guildNameRule;</tag>
+        <tag>out.reason=rules.reasonRule;</tag>
+      </item>
+      <item>
+        última mensagem
+        <ruleref special="GARBAGE"/>
+        <ruleref uri="#channelNameRule"/>
+        <ruleref special="GARBAGE"/>
+        <item repeat="0-1">
+          <ruleref uri="#guildNameRule"/>
+        </item>
+        <tag>out.channelName=rules.channelNameRule;</tag>
+        <tag>out.guildName=rules.guildNameRule;</tag>
+      </item>
+      <item>
+        <ruleref uri="#userStatusMuteDeaf"/>
+        <tag>out.userName=rules.userNameRule;</tag>
+        <tag>out.guildName=rules.guildNameRule;</tag>
+      </item>
+      <item>
+        
       </item>
     </one-of>
     <!--ruleref special="GARBAGE"/-->
@@ -156,6 +181,39 @@
         <ruleref uri="#sayWhatToDo"/>
         <tag>out="SAY_TODO"</tag>
       </item>
+      <item>
+        <one-of>
+          <item>cala-me</item>
+          <item>silencia-me</item>  
+          <item>tira a minha voz</item>
+          <item>desativa o meu microfone</item>
+          <item>da-me voz</item>
+          <item>ativa o meu microfone</item>
+        </one-of>
+        <tag>out="SELF_MUTE";</tag>
+        <ruleref special="GARBAGE"/>
+        <item repeat="0-1">
+          <ruleref uri="#guildNameRule"/>
+        </item>
+      </item>
+      <item>
+        <one-of>
+          <item>desativa o meu audio</item>
+          <item>bloquea o meu som</item>
+          <item>retira o meu audio</item>
+          <item>retira o meu som</item>
+          <item>tira o meu audio</item>
+          <item>tira o meu som</item>
+          <item>ativa o meu audio</item>
+          <item>desbloquea o meu som</item>
+          <item>da me ouvidos</item>
+        </one-of>
+        <tag>out="SELF_DEAF";</tag>
+        <ruleref special="GARBAGE"/>
+        <item repeat="0-1">
+          <ruleref uri="#guildNameRule"/>
+        </item>
+      </item>
     </one-of>
   </rule>
   <rule id="userRemoveOrBan">
@@ -260,7 +318,7 @@
     <ruleref special="GARBAGE"/>
     <one-of>
       <item>já me esta a irritar<tag>out="já me esta a irritar";</tag></item>
-      <item>não quero mais ouvido<tag>out="não quero mais ouvido";</tag></item>
+      <item>não quero mais ouvi-lo<tag>out="não quero mais ouvi-lo";</tag></item>
     </one-of>
   </rule>
   <rule id="yesOptions">

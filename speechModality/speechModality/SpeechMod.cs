@@ -53,8 +53,8 @@ namespace speechModality
             /*foreach (var resultSemantic in e.Result.Semantics) 
                 Console.WriteLine(resultSemantic.Key+":"+resultSemantic.Value.Value);*/
 
-            string json = "{";
-
+            string json = "{ \"recognized\": [";
+            bool first = true;
             
             if (e.Result.Confidence <= 0.30)
                 return;
@@ -62,23 +62,26 @@ namespace speechModality
             foreach (var resultSemantic in e.Result.Semantics)
             {
                 if (!resultSemantic.Value.Value.ToString().Equals("")) {
-                    json = AddJsonTag(json,resultSemantic.Key, resultSemantic.Value.Value.ToString());
+                    json = AddJsonTag(json,resultSemantic.Key, resultSemantic.Value.Value.ToString(), first);
+                    first = resultSemantic.Key.Equals("confirmation") ? true : false;
                 }
             }
+            if (first)
+                json = "{ ";
 
             if (e.Result.Confidence > 0.30 && e.Result.Confidence <= 0.45)
             {
-                json = AddJsonTag(json, "confidence", "low confidence");
+                json = AddJsonTag(json, "confidence", "low confidence", false);
             }
             else if (e.Result.Confidence > 0.45 && e.Result.Confidence < 0.8)
             {
-                json = AddJsonTag(json, "confidence", "explicit confirmation");
+                json = AddJsonTag(json, "confidence", "explicit confirmation", false);
             }
             else if (e.Result.Confidence >= 0.8)
             {
-                json = AddJsonTag(json, "confidence", "implicit confirmation");
+                json = AddJsonTag(json, "confidence", "implicit confirmation", false);
             }
-            json = AddJsonTag(json, "modality", "speech");
+            json = AddJsonTag(json, "modality", "speech", false);
             json = json.Substring(0, json.Length - 2);
             json += "}";
             Console.WriteLine(json);
@@ -87,12 +90,22 @@ namespace speechModality
             mmic.Send(exNot);
         }
 
-        private string AddJsonTag(string json, string resultKey, string resultValue) {
+        private string AddJsonTag(string json, string resultKey, string resultValue, bool first) {
             switch (resultKey) {
                 case "action":
-                    json += "\"recognized\": [\"" +  resultKey + "\",\"" + resultValue + "\"], ";
-                    break;
                 case "userName":
+                case "channelName":
+                case "guildName":
+                case "reason":
+                    if (first)
+                    {
+                        json += "\"" +  resultKey + "\",\"" + resultValue + "\"], ";
+                    }
+                    else
+                    {
+                        json = json.Substring(0, json.Length - 3);
+                        json += ", \"" + resultKey + "\",\"" + resultValue + "\"], ";
+                    }
                     break;
                 default:
                     json += "\"" + resultKey + "\"" + ":" + "\"" + resultValue + "\", ";
