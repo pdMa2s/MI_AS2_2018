@@ -42,6 +42,21 @@ namespace GestureModality
         private void closeHelpWindow(object sender, RoutedEventArgs e)
         {
             this.Close();
+            MainWindow.main.AddDeactivatedHandler();
+        }
+
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+            Window window = (Window)sender;
+            window.Topmost = true;
+            this.Activate();
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            this.Topmost = true;
+            this.Top = SystemParameters.PrimaryScreenHeight - this.Height;
+            this.Left = SystemParameters.PrimaryScreenWidth - this.Width;
         }
     }
 }

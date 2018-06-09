@@ -72,7 +72,7 @@ namespace GestureModality
                     this.fpsCounter = 0;
                     this.gestureWasDetected = false;
                     MainWindow.main.ChangeDetectedGesture = "No gestures detected";
-                    MainWindow.main.ChangeConfidence = "Confidence: 0";
+                    MainWindow.main.ChangeConfidence = "0";
                 }
                 return;
             }
@@ -152,38 +152,47 @@ namespace GestureModality
         private void SendDetectedGesture(string gesture, double confidence)
         {
             MainWindow.main.ChangeDetectedGesture = gesture + " detected";
-            MainWindow.main.ChangeConfidence = "Confidence: "+confidence.ToString();
-            string json = "{ \"recognized\": { \"action\" : ";
+            MainWindow.main.ChangeConfidence = confidence.ToString();
+            string json = "{\"recognized\": [\"action\", ";
 
             switch (gesture)
             {
                 case deafGestureName:
                     if (userSelected != null)
-                        json += "\"DEAF_USER\" ";
+                        json += "\"DEAF_USER\"]";
                     else
-                        json += "\"SELF_DEAF\" ";
+                        json += "\"SELF_DEAF\"]";
                     break;
                 case muteGestureName:
                     if (userSelected != null)
-                        json += "\"MUTE_USER\" ";
+                        json += "\"MUTE_USER\"]";
                     else
-                        json += "\"SELF_MUTE\" ";
+                        json += "\"SELF_MUTE\"]";
                     break;
                 case deleteMessageGestureName:
-                    json += "\"DELETE_LAST_MESSAGE\" ";
+                    json += "\"DELETE_LAST_MESSAGE\"]";
                     break;
                         
             }
 
             if (channelSelected != null)
-                json += ", \"channelName\" : \""+channelSelected+"\" ";
+            {
+                json = json.Substring(0, json.Length - 1);
+                json += ", \"channelName\", \""+channelSelected+"\"]";
+            }
             if (userSelected != null)
-                json += ", \"userName\" : \""+userSelected+"\" ";
+            {
+                json = json.Substring(0, json.Length - 1);
+                json += ", \"userName\", \"" + userSelected + "\"]";
+            }
             if (guildSelected != null)
-                json += ", \"guildName\" : \""+ guildSelected +"\" ";
+            {
+                json = json.Substring(0, json.Length - 1);
+                json += ", \"guildName\", \"" + guildSelected + "\"]";
+            }
 
-            json += ", \"confidence\":\"implicit confirmation\" } }";
-
+            json += ", \"confidence\":\"implicit confirmation\", \"modality\":\"gesture\"}";
+            Console.WriteLine(json);
             var exNot = lce.ExtensionNotification("", "", (float) confidence, json);
             mmic.Send(exNot);
             if (channelSelected != null)
@@ -193,6 +202,7 @@ namespace GestureModality
 
             channelSelected = null;
             userSelected = null;
+            
         }
 
         public ulong TrackingId
