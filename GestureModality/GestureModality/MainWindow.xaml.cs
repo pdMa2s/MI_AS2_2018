@@ -123,8 +123,20 @@ namespace GestureModality
 
         internal string ChangeConfidence
         {
-            get { return this.confidence.Text.ToString(); }
-            set { Dispatcher.Invoke(new Action(() => { this.confidence.Text = value; })); }
+            get { return this.confidencePercentage.Text.ToString(); }
+            set { Dispatcher.Invoke(new Action(() => {
+                double confidenceValue = Convert.ToDouble(value);
+                this.confidencePercentage.Text = String.Format("{0:P2}", confidenceValue);
+                if (value.Equals("0"))
+                {
+                    this.confidencePercentage.Foreground = Brushes.Black;
+                }
+                else
+                {
+                    this.confidencePercentage.Foreground = Brushes.Green;
+                }
+                }));
+            }
         }
 
         private Button CreateButton(string name, double marginWidth, double marginHeight)
@@ -347,6 +359,12 @@ namespace GestureModality
         {
             HelpWindow helpWindow = new HelpWindow(kinectSensor);
             helpWindow.Show();
+            this.Deactivated -= Window_Deactivated;
+        }
+
+        public void AddDeactivatedHandler()
+        {
+            this.Deactivated += Window_Deactivated;
         }
 
         public void Dispose()
@@ -390,6 +408,21 @@ namespace GestureModality
                 this.kinectSensor = null;
             }
 
+        }
+
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+            Window window = (Window)sender;
+            window.Topmost = true;
+            this.Activate();
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            this.Topmost = true;
+            var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
+            this.Top = desktopWorkingArea.Bottom - this.Height;
+            this.Left = desktopWorkingArea.Right - this.Width;
         }
     }
 }
