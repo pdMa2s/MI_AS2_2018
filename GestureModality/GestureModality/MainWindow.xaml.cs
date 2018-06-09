@@ -182,8 +182,7 @@ namespace GestureModality
             {
                 button.Background = Brushes.DarkTurquoise;
                 this.gestureDetector.ChannelName = null;
-                Console.WriteLine("Channel Selected: " + this.gestureDetector.ChannelName);
-                Console.WriteLine("User Selected: " + this.gestureDetector.UserName);
+                
                 return;
             }
             this.gestureDetector.ChannelName = button.Content as string;

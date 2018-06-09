@@ -13,7 +13,10 @@ namespace GestureModality
         private VisualGestureBuilderFrameReader vgbFrameReader;
         private const string muteGestureName = "mute_Right";
         private const string deafGestureName = "deaf_Left";
-        private const string deleteMessageGestureName = "deleteContinous";
+        private const string deleteGestureName = "deleteContinous";
+        private const string kickGestureName = "kick";
+        private const string banGestureName = "ban";
+
         private LifeCycleEvents lce;
         private MmiCommunication mmic;
         private const int fpsDelay = 60;
@@ -99,7 +102,12 @@ namespace GestureModality
 
                                 if (result != null)
                                 {
-                                    
+                                    if(result.Confidence > .10)
+                                    {
+                                        Console.WriteLine(gesture.Name);
+                                        Console.WriteLine(result.Confidence);
+
+                                    }
                                     Tuple<string, double> t = ProcessDiscreteGesture(result, gesture.Name);
                                     double confidence = t.Item2;
                                     if (confidence > toSendConfidence)
@@ -111,14 +119,14 @@ namespace GestureModality
                             }
 
                             if (continousResults != null) {
-                                if (gesture.GestureType == GestureType.Continuous && gesture.Name.Equals(deleteMessageGestureName)) {
+                                if (gesture.GestureType == GestureType.Continuous && gesture.Name.Equals(deleteGestureName)) {
                                     ContinuousGestureResult result = null;
                                     continousResults.TryGetValue(gesture, out result);
 
                                     if (result != null) {
                                         var progress = result.Progress;
                                         if (progress > .80 && progress > toSendConfidence) {
-                                            toSend = deleteMessageGestureName;
+                                            toSend = deleteGestureName;
                                             toSendConfidence = progress;
                                         }
                                     }
@@ -144,7 +152,7 @@ namespace GestureModality
 
         private Tuple<string, double> ProcessDiscreteGesture(DiscreteGestureResult detected, string gestureName) {
             
-            if ((gestureName.Equals(muteGestureName) && detected.Confidence > .30) || detected.Confidence > .70)
+            if (((gestureName.Equals(muteGestureName) || gestureName.Equals(kickGestureName) || gestureName.Equals(banGestureName)) && detected.Confidence > .30) || detected.Confidence > .70)
                 return Tuple.Create<string, double>(gestureName, detected.Confidence);
             return Tuple.Create<string, double>(null, -1);
         }
@@ -169,10 +177,19 @@ namespace GestureModality
                     else
                         json += "\"SELF_MUTE\"]";
                     break;
-                case deleteMessageGestureName:
+                case deleteGestureName:
                     json += "\"DELETE_LAST_MESSAGE\"]";
                     break;
-                        
+                case kickGestureName:
+                    json += "\"REMOVE_USER\"]";
+                    break;
+                case banGestureName:
+                    json += "\"BAN_USER\"]";
+                    break;
+                default:
+                    Console.WriteLine("Invalid action");
+                    break;
+
             }
 
             if (channelSelected != null)
