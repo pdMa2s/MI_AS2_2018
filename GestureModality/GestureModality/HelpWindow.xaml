@@ -7,22 +7,28 @@
         xmlns:local="clr-namespace:GestureModality"
         xmlns:k="http://schemas.microsoft.com/kinect/2014"
         mc:Ignorable="d"
-        Title="HelpWindow" Height="621" Width="823.5" Activated="Window_Activated" Deactivated="Window_Deactivated">
+        ResizeMode="NoResize"
+        Title="HelpWindow" Height="700.5" Width="531" Activated="Window_Activated" Deactivated="Window_Deactivated">
     <Grid>
-        <TextBlock x:Name="textBlockMute" HorizontalAlignment="Left" Margin="84,29,0,0" TextWrapping="Wrap" Text="Mute" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/mute.PNG" Margin="-13,68,579,272" Height="250" Width="250"></Image>
-        <TextBlock x:Name="textBlockRight" HorizontalAlignment="Left" Margin="78,326,0,0" TextWrapping="Wrap" Text="Right Hand" VerticalAlignment="Top" FontSize="15"/>
-        <TextBlock x:Name="textBlockDeaf" HorizontalAlignment="Left" Margin="320,31,0,0" TextWrapping="Wrap" Text="Deaf" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/deaf.png" Margin="218,68,348,272" Height="250" Width="250"></Image>
-        <TextBlock x:Name="textBlockLeft" HorizontalAlignment="Left" Margin="314,328,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
-        <TextBlock x:Name="textBlockDelete" HorizontalAlignment="Left" Margin="556,27,0,0" TextWrapping="Wrap" Text="Delete Message" VerticalAlignment="Top" FontSize="20" Width="150"/>
-        <Image gif:ImageBehavior.AnimatedSource="images/deletegif.gif" Margin="491,39,25,251" Width="300" Height="300"></Image>
-        <k:KinectRegion x:Name="kinectRegionHelp" Margin="10,399,10,0">
+        <TextBlock x:Name="textBlockMute" HorizontalAlignment="Left" Margin="76,302,0,0" TextWrapping="Wrap" Text="Mute" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/mute.PNG" MaxHeight="230" MaxWidth="200" Margin="45,320,367,166"/>
+        <TextBlock x:Name="textBlockRight" HorizontalAlignment="Left" Margin="61,499,0,0" TextWrapping="Wrap" Text="Right Hand" VerticalAlignment="Top" FontSize="15"/>
+        <TextBlock x:Name="textBlockDeaf" HorizontalAlignment="Left" Margin="251,11,0,0" TextWrapping="Wrap" Text="Deaf" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/deaf.png" Margin="179,46,167,416"/>
+        <TextBlock x:Name="textBlockLeft" HorizontalAlignment="Left" Margin="237,260,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
+        <TextBlock x:Name="textBlockDelete" HorizontalAlignment="Left" Margin="284,302,0,0" TextWrapping="Wrap" Text="Delete Message" VerticalAlignment="Top" FontSize="20" Width="150"/>
+        <Image gif:ImageBehavior.AnimatedSource="images/deletegif.gif" MaxHeight="316" MaxWidth="308" Margin="255,329,70,171"/>
+        <k:KinectRegion x:Name="kinectRegionHelp" Margin="0,524,0,0" HorizontalAlignment="Left" Width="525">
             <Grid x:Name="grid" Margin="0,10,0,0">
-                <Button x:Name="thankYouBTN" Click="closeHelpWindow" HorizontalAlignment="Left" Margin="307,30,0,0" VerticalAlignment="Top" Width="208" Height="124" Background="White">
+                <Button x:Name="thankYouBTN" Click="closeHelpWindow" HorizontalAlignment="Left" Margin="154,10,0,0" VerticalAlignment="Top" Width="208" Height="124" Background="White">
                     <Image Source="images/ok.png"></Image>
                 </Button>
             </Grid>
         </k:KinectRegion>
+        <TextBlock x:Name="textBlockMute_Copy" HorizontalAlignment="Left" Margin="57,16,0,0" TextWrapping="Wrap" Text="Kick User" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/kick.png" Margin="20,38,346,408"/>
+        <TextBlock x:Name="textBlockLeft_Copy" HorizontalAlignment="Left" Margin="66,261,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
+        <TextBlock x:Name="textBlockMute_Copy1" HorizontalAlignment="Left" Margin="390,11,0,0" TextWrapping="Wrap" Text="Ban User" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/ban.PNG" Margin="319,46,-10,416"/>
     </Grid>
 </Window>

@@ -282,7 +282,7 @@
     </one-of>
     <one-of>
       <item>IMServer<tag>out="IMServer";</tag></item>
-      <item>Tópicos de Apicultura<tag>out="Tópicos de Apicultura";</tag></item>
+      <item>Topicos de Apicultura<tag>out="Topicos de Apicultura";</tag></item>
     </one-of>
   </rule>
   <rule id="channelNameRule">

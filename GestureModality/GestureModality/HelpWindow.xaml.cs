@@ -55,8 +55,9 @@ namespace GestureModality
         private void Window_Activated(object sender, EventArgs e)
         {
             this.Topmost = true;
-            this.Top = SystemParameters.PrimaryScreenHeight - this.Height;
-            this.Left = SystemParameters.PrimaryScreenWidth - this.Width;
+            var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
+            this.Top = desktopWorkingArea.Bottom - this.Height;
+            this.Left = desktopWorkingArea.Right - this.Width;
         }
     }
 }

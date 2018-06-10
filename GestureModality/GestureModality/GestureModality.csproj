@@ -121,10 +121,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="images\mute.PNG" />
     <Resource Include="images\ban.PNG" />
     <Resource Include="images\kick.PNG" />
     <Resource Include="images\deaf.png" />
-    <Resource Include="images\mute.PNG" />
     <Resource Include="images\deletegif.gif" />
     <Resource Include="images\ok.png" />
     <Resource Include="images\HELP.jpg" />

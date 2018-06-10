@@ -91,7 +91,8 @@ namespace DiscordControler
             Console.WriteLine(e.Message);
             var doc = XDocument.Parse(e.Message);
             
-            var json = PreProcessing(doc);
+            dynamic json = PreProcessing(doc);
+            Console.WriteLine(json);
             var action = json.recognized["action"] == null ? null : json.recognized.action.ToString() as String;
             var confirmation = json.recognized["confirmation"] == null ? null : json.recognized.confirmation.ToString() as String;
             var confidence = json.recognized.confidence.ToString() as String;
@@ -126,41 +127,51 @@ namespace DiscordControler
             var commands = xmlDoc.Descendants("command");
             string newJson = "{ \"recognized\": { ";
 
-            foreach (var c in commands) {
-                dynamic json = JsonConvert.DeserializeObject(c.Value);
+            if (commands.Count() == 1)
+            {
+                dynamic json = JsonConvert.DeserializeObject(commands.First().Value);
+                var recognized = json.recognized ?? null;
                 string modality = json.modality ?? null;
 
-                if (modality != null && modality.Equals("speech"))
+                if (recognized != null)
+                    for (int i = 0; i < recognized.Count - 1; i += 2)
+                    {
+                        newJson += "\"" + recognized[i] + "\": \"" + recognized[i + 1] + "\", ";
+                    }
+                if (modality != null)
                 {
                     var confidence = json.confidence;
                     newJson += "\"confidence\":" + "\"" + confidence + "\", ";
 
                 }
-                else {
-
-                    var recognized = json.recognized ?? null;
-
-                    if (recognized != null)
-                        for (int i = 0; i < recognized.Count - 1; i += 2)
-                        {
-                            newJson += "\"" + recognized[i] + "\": \"" + recognized[i + 1] + "\", ";
-                        }
-                    var confirmation = json.confirmation ?? null;
-                    if (confirmation != null)
-                        newJson += "\"confirmation\":" + "\"" + confirmation + "\", ";
-                    var guildName = json.guildName ?? null;
-                    if (guildName != null)
-                        newJson += "\"guildName\":" + "\"" + guildName + "\", ";
-                    var channelName = json.channelName ?? null;
-                    if (channelName != null)
-                        newJson += "\"channelName\":" + "\"" + channelName + "\", ";
-                    var reason = json.reason ?? null;
-                    if (reason != null)
-                        newJson += "\"reason\":" + "\"" + reason + "\", ";
-                }
-                
             }
+            else
+            {
+                foreach (var c in commands)
+                {
+                    dynamic json = JsonConvert.DeserializeObject(c.Value);
+                    string modality = json.modality ?? null;
 
+                    if (modality != null && modality.Equals("speech"))
+                    {
+                        var confidence = json.confidence;
+                        newJson += "\"confidence\":" + "\"" + confidence + "\", ";
+
+                    }
+                    else
+                    {
+
+                        var recognized = json.recognized ?? null;
+
+                        if (recognized != null)
+                            for (int i = 0; i < recognized.Count - 1; i += 2)
+                            {
+                                newJson += "\"" + recognized[i] + "\": \"" + recognized[i + 1] + "\", ";
+                            }
+                    }
+
+                }
+            }
             
 
             newJson = newJson.Substring(0, newJson.Length - 2);
@@ -202,7 +213,7 @@ namespace DiscordControler
                     var guildNameToLeave = json.recognized.guildName.ToString() as String;
                     await LeaveGuild(guildNameToLeave, confidence);
                     break;
-                case "REMOVE_BAN": 
+                case "REMOVE_BAN":
                     var userNameToRemBan = json.recognized.userName.ToString() as String;
                     var guildNameToRemBan = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
                     await RemoveBan(userNameToRemBan, guildNameToRemBan, confidence);

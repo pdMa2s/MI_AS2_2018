@@ -63,11 +63,12 @@ namespace speechModality
             {
                 if (!resultSemantic.Value.Value.ToString().Equals("")) {
                     json = AddJsonTag(json,resultSemantic.Key, resultSemantic.Value.Value.ToString(), first);
-                    first = resultSemantic.Key.Equals("confirmation") ? true : false;
+                    first = false;
                 }
             }
             if (first)
                 json = "{ ";
+
 
             if (e.Result.Confidence > 0.30 && e.Result.Confidence <= 0.45)
             {
@@ -97,6 +98,7 @@ namespace speechModality
                 case "channelName":
                 case "guildName":
                 case "reason":
+                case "confirmation":
                     if (first)
                     {
                         json += "\"" +  resultKey + "\",\"" + resultValue + "\"], ";
