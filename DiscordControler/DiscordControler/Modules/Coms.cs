@@ -19,10 +19,12 @@ namespace DiscordControler
         private NamedPipeClientStream _ttsPipeClient;
         private NamedPipeClientStream _guildInfoPipeClient;
         private StreamWriter writer;
+        private readonly string userNick;
 
-        public Coms() {
+        public Coms(string userNick) {
             mmiC = new MmiCommunication("localhost", 8000, "User1", "GUI");
             _guildInfoPipeClient = new NamedPipeClientStream("guildInfo");
+            this.userNick = userNick;
         }
         public MmiCommunication GetMmic() {
             return mmiC;
@@ -62,7 +64,7 @@ namespace DiscordControler
                     {
                         Match match = regex.Match(u.ToString());
 
-                        if (!match.Success && !u.Username.Equals("wally"))
+                        if (!match.Success && !u.Username.Equals("wally") && !u.Username.Equals(userNick))
                         {
                             sbUsers.Append(u.Username + "|");
                         }

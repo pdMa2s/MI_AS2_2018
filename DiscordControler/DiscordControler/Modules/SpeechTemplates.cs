@@ -50,11 +50,11 @@ namespace DiscordControler.Modules
             return greetings[randomGen.Next(greetings.Count)];
         }
 
-        public string GetUnkownUser()
+        public string GetUnkownUser(string username)
         {
             List<string> unkownUsers = new List<string> {"Não sei de quem falas!",
                                                        "Esse utilizador não existe.",
-                                                        "Esse utilizador não esta cá."};
+                                                        $"O utilizador {username} não esta cá."};
             return unkownUsers[randomGen.Next(unkownUsers.Count)];
         }
 

@@ -36,7 +36,7 @@ namespace DiscordControler
         public async Task RunBotAsync() {
             _client = new DiscordSocketClient();
             _commands = new CommandService();
-            var comModule = new Coms();
+            var comModule = new Coms(_userNick);
             _mmiComms = comModule.GetMmic();
             _service = new ServiceCollection()
                 .AddSingleton(_client)
@@ -229,7 +229,8 @@ namespace DiscordControler
                     await ChangeMuteUser(userNameToMute, guildNameToMuteUser, confidence);
                     break;
                 case "SELF_MUTE":
-                    await ChangeSelfMute(confidence);
+                    var guildNameToSelfMute = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    await ChangeSelfMute(guildNameToSelfMute, confidence);
                     break;
                 case "DEAF_USER":
                     var userNameToDeaf = json.recognized.userName.ToString() as String;
@@ -257,7 +258,8 @@ namespace DiscordControler
                     await ChangeMuteDeafUser(userNameToMuteDeaf, guildNameToMuteDeafUser, true, confidence);
                     break;
                 case "SELF_DEAF":
-                    await SelfDeaf(confidence);
+                    var guildNameToSelfDeaf = json.recognized["guildName"] == null ? null : json.recognized.guildName.ToString() as String;
+                    await SelfDeaf(guildNameToSelfDeaf, confidence);
                     break;
                 case "SAY_COMMANDS":
                     _tts.Speak(_speechTemplates.GetAvailableCommands());
@@ -275,10 +277,11 @@ namespace DiscordControler
         {
             var guild = FindGuild(guildName);
             var user = FindUser(guild, userName);
+            SocketTextChannel channel = FindChannel(guild, "geral") as SocketTextChannel;
 
             if (user == null)
             {
-                _tts.Speak(_speechTemplates.GetUnkownUser());
+                await channel.SendMessageAsync(_speechTemplates.GetUnkownUser(userName));
                 return;
             }
 
@@ -292,17 +295,18 @@ namespace DiscordControler
                 await user.KickAsync();
             else
                 await user.KickAsync(reason: kickReason);
-            _tts.Speak(_speechTemplates.GetKickUser(userName));
+            await channel.SendMessageAsync(_speechTemplates.GetKickUser(userName));
         }
 
         private async Task BanUser(string userName, string guildName, string banReason, string confidence)
         {
             var guild = FindGuild(guildName);
             var user = FindUser(guild, userName);
+            SocketTextChannel channel = FindChannel(guild, "geral") as SocketTextChannel;
 
             if (user == null)
             {
-                _tts.Speak(_speechTemplates.GetUnkownUser());
+                _tts.Speak(_speechTemplates.GetUnkownUser(userName));
                 return;
             }
 
@@ -317,7 +321,7 @@ namespace DiscordControler
             else
                 await guild.AddBanAsync(user.Id, reason: banReason);
 
-            _tts.Speak(_speechTemplates.GetBanUser(userName, guild.Name));
+            await channel.SendMessageAsync(_speechTemplates.GetBanUser(userName, guild.Name));
         }
 
         private async Task DeleteLastMessage(string channelName, string guildNameToDeleteMsg, string confidence)
@@ -325,7 +329,7 @@ namespace DiscordControler
             var guild = FindGuild(guildNameToDeleteMsg);
             var channel = (SocketTextChannel)FindChannel(guild, channelName);
             if (channel == null) {
-                _tts.Speak(_speechTemplates.GetUnkownChannel(channelName, guild.Name));
+                await channel.SendMessageAsync(_speechTemplates.GetUnkownChannel(channelName, guild.Name));
                 return;
             }
             var message = await channel.GetMessagesAsync(1).Flatten();
@@ -397,10 +401,11 @@ namespace DiscordControler
         {
             var guild = FindGuild(guildNameToRemBan);
             var user = FindUser(guild, userNameToRemBan);
+            SocketTextChannel channel = FindChannel(guild, "geral") as SocketTextChannel;
 
             if (user == null)
             {
-                _tts.Speak(_speechTemplates.GetUnkownUser());
+                await channel.SendMessageAsync(_speechTemplates.GetUnkownUser(userNameToRemBan));
                 return;
             }
             var bans = await guild.GetBansAsync();
@@ -426,19 +431,20 @@ namespace DiscordControler
                 return;
             }
 
-            _tts.Speak(_speechTemplates.GetRemoveBan(userNameToRemBan, guild.Name));
+            await channel.SendMessageAsync(_speechTemplates.GetRemoveBan(userNameToRemBan, guild.Name));
             await guild.RemoveBanAsync(user.Id);
             
         }
 
-        private void UserStatus(string userName, string guildName)
+        private async void UserStatus(string userName, string guildName)
         {
             var guild = FindGuild(guildName);
             var user = FindUser(guild, userName);
+            SocketTextChannel channel = FindChannel(guild, "geral") as SocketTextChannel;
 
             if (user == null)
             {
-                _tts.Speak(_speechTemplates.GetBanOnUnkwonUser(userName));
+                await channel.SendMessageAsync(_speechTemplates.GetUnkownUser(userName));
                 return;
             }
             var status = user.Status;
@@ -449,10 +455,10 @@ namespace DiscordControler
         {
             var guild = FindGuild(guildNameToMuteUser);
             var user = FindUser(guild, userNameToMute);
-
+            SocketTextChannel channel = FindChannel(guild, "geral") as SocketTextChannel;
             if (user == null)
             {
-                _tts.Speak(_speechTemplates.GetUnkownUser());
+                _tts.Speak(_speechTemplates.GetUnkownUser(userNameToMute));
                 return;
             }
 
@@ -469,19 +475,14 @@ namespace DiscordControler
             if (!muted)
                 _tts.Speak(_speechTemplates.GetMuteUser(userNameToMute, guild.Name));
             else
-                _tts.Speak(_speechTemplates.GetUnMuteUser(userNameToMute, guild.Name));
+                await channel.SendMessageAsync(_speechTemplates.GetUnMuteUser(userNameToMute, guild.Name));
         }
 
-        private async Task ChangeSelfMute(string confidence)
+        private async Task ChangeSelfMute(string guildName, string confidence)
         {
-            var guild = _client.GetGuild(_defaultGuildId);
+            var guild = FindGuild(guildName);
             var user = FindUser(guild, _userNick);
-
-            if (user == null)
-            {
-                _tts.Speak(_speechTemplates.GetUnkownUser());
-                return;
-            }
+            SocketTextChannel channel = FindChannel(guild, "geral") as SocketTextChannel;
 
             var mute = !user.IsMuted;
 
@@ -498,17 +499,18 @@ namespace DiscordControler
             if (mute)
                 _tts.Speak(_speechTemplates.GetSelfMute(guild.Name));
             else
-                _tts.Speak(_speechTemplates.GetSelfUnMute(guild.Name));
+                await channel.SendMessageAsync(_speechTemplates.GetSelfUnMute(guild.Name));
         }
 
         private async Task ChangeDeafUser(string userNameToDeaf, string guildNameToDeafUser, string confidence)
         {
             var guild = FindGuild(guildNameToDeafUser);
             var user = FindUser(guild, userNameToDeaf);
+            SocketTextChannel channel = FindChannel(guild, "geral") as SocketTextChannel;
 
             if (user == null)
             {
-                _tts.Speak(_speechTemplates.GetUnkownUser());
+                _tts.Speak(_speechTemplates.GetUnkownUser(userNameToDeaf));
                 return;
             }
 
@@ -527,17 +529,17 @@ namespace DiscordControler
             if (deaf)
                 _tts.Speak(_speechTemplates.GetDeafUserImplicit(userNameToDeaf, guild.Name));
             else
-                _tts.Speak(_speechTemplates.GetUnDeafUserImplicit(userNameToDeaf, guild.Name));
+                await channel.SendMessageAsync(_speechTemplates.GetUnDeafUserImplicit(userNameToDeaf, guild.Name));
         }
-        private async Task SelfDeaf(string confidence)
+        private async Task SelfDeaf(string guildName, string confidence)
         {
-            var guild = _client.GetGuild(_defaultGuildId);
+            var guild = FindGuild(guildName);
             var user = FindUser(guild,_userNick);
-            Console.WriteLine("deaf user: " + user.Username);
+            SocketTextChannel channel = FindChannel(guild, "geral") as SocketTextChannel;
             if (user.IsDeafened)
             {
                 await user.ModifyAsync(x => x.Deaf = false);
-                _tts.Speak(_speechTemplates.GetSelfUnDeafImplicit());
+                await channel.SendMessageAsync(_speechTemplates.GetSelfUnDeafImplicit());
             }
 
             else
@@ -551,10 +553,11 @@ namespace DiscordControler
         {
             var guild = FindGuild(guildNameToMuteDeafUser);
             var user = FindUser(guild, userNameToMuteDeaf);
+            SocketTextChannel channel = FindChannel(guild, "geral") as SocketTextChannel;
 
             if (user == null)
             {
-                _tts.Speak(_speechTemplates.GetUnkownUser());
+                _tts.Speak(_speechTemplates.GetUnkownUser(userNameToMuteDeaf));
                 return;
             }
 
@@ -572,7 +575,7 @@ namespace DiscordControler
             if (muteDeaf)
                 _tts.Speak(_speechTemplates.GetMuteDeafImplicit(userNameToMuteDeaf, guild.Name));
             else
-                _tts.Speak(_speechTemplates.GetUnMuteDeafImplicit(userNameToMuteDeaf, guild.Name));
+                await channel.SendMessageAsync(_speechTemplates.GetUnMuteDeafImplicit(userNameToMuteDeaf, guild.Name));
         }
 
         private SocketGuild FindGuild(string guildName) {
