@@ -26,8 +26,6 @@
         <tag>out.reason=rules.reasonRule;</tag>
       </item>
       <item>
-        última mensagem
-        <ruleref special="GARBAGE"/>
         <ruleref uri="#channelNameRule"/>
         <ruleref special="GARBAGE"/>
         <item repeat="0-1">
