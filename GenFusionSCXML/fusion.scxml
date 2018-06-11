@@ -329,6 +329,12 @@
     </onentry>
     <transition target="secondmod[action][self_mute][guildname][apicultura]-final" event="timeout-ssecondmod[action][self_mute][guildname][apicultura]" />
     <transition target="ssecondmod[action][self_mute][guildname][apicultura]-speech[action][self_mute][guildname][apicultura]" event="[action][SELF_MUTE][guildName][apicultura]" />
+    <transition target="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
+    <transition target="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][ambrosio][guildname][apicultura]" event="[userName][Ambrosio][guildName][apicultura]" />
+    <transition target="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][gustavo]" event="[userName][Gustavo]" />
+    <transition target="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][gustavo][guildname][apicultura]" event="[userName][Gustavo][guildName][apicultura]" />
+    <transition target="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][matos]" event="[userName][Matos]" />
+    <transition target="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][matos][guildname][apicultura]" event="[userName][Matos][guildName][apicultura]" />
     <onexit>
       <cancel sendid="state1-timer-ssecondmod[action][self_mute][guildname][apicultura]" />
     </onexit>
@@ -347,6 +353,60 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][SELF_MUTE][guildName][apicultura]')}" />
       <send event="SELF_MUTE_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][ambrosio]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][apicultura]-speech[username][ambrosio]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="MUTE_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][ambrosio][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][apicultura]-speech[username][ambrosio][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="MUTE_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][gustavo]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][apicultura]-speech[username][gustavo]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="MUTE_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][gustavo][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][apicultura]-speech[username][gustavo][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="MUTE_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][matos]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][apicultura]-speech[username][matos]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="MUTE_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][apicultura]-speech[username][matos][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][apicultura]-speech[username][matos][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="MUTE_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -382,6 +442,12 @@
     <transition target="sspeech[username][matos]-secondmod[action][ban_user]" event="[action][BAN_USER]" />
     <transition target="sspeech[username][matos]-secondmod[action][ban_user][guildname][imserver]" event="[action][BAN_USER][guildName][IMServer]" />
     <transition target="sspeech[username][matos]-secondmod[action][ban_user][guildname][apicultura]" event="[action][BAN_USER][guildName][apicultura]" />
+    <transition target="sspeech[username][matos]-secondmod[action][self_mute]" event="[action][SELF_MUTE]" />
+    <transition target="sspeech[username][matos]-secondmod[action][self_mute][guildname][imserver]" event="[action][SELF_MUTE][guildName][IMServer]" />
+    <transition target="sspeech[username][matos]-secondmod[action][self_mute][guildname][apicultura]" event="[action][SELF_MUTE][guildName][apicultura]" />
+    <transition target="sspeech[username][matos]-secondmod[action][self_deaf]" event="[action][SELF_DEAF]" />
+    <transition target="sspeech[username][matos]-secondmod[action][self_deaf][guildname][imserver]" event="[action][SELF_DEAF][guildName][IMServer]" />
+    <transition target="sspeech[username][matos]-secondmod[action][self_deaf][guildname][apicultura]" event="[action][SELF_DEAF][guildName][apicultura]" />
     <onexit>
       <cancel sendid="state1-timer-sspeech[username][matos]" />
     </onexit>
@@ -437,6 +503,60 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][BAN_USER][userName][Matos][guildName][apicultura]')}" />
       <send event="BAN_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos]-secondmod[action][self_mute]">
+    <onentry>
+      <log label="[sspeech[username][matos]-secondmod[action][self_mute]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos]')}" />
+      <send event="MUTE_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos]-secondmod[action][self_mute][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][matos]-secondmod[action][self_mute][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="MUTE_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos]-secondmod[action][self_mute][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][matos]-secondmod[action][self_mute][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="MUTE_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos]-secondmod[action][self_deaf]">
+    <onentry>
+      <log label="[sspeech[username][matos]-secondmod[action][self_deaf]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos]')}" />
+      <send event="DEAF_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos]-secondmod[action][self_deaf][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][matos]-secondmod[action][self_deaf][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="DEAF_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos]-secondmod[action][self_deaf][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][matos]-secondmod[action][self_deaf][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="DEAF_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -776,6 +896,10 @@
     <transition target="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][remove_user][guildname][imserver]" event="[action][REMOVE_USER][guildName][IMServer]" />
     <transition target="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][ban_user]" event="[action][BAN_USER]" />
     <transition target="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][ban_user][guildname][imserver]" event="[action][BAN_USER][guildName][IMServer]" />
+    <transition target="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_mute]" event="[action][SELF_MUTE]" />
+    <transition target="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_mute][guildname][imserver]" event="[action][SELF_MUTE][guildName][IMServer]" />
+    <transition target="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_deaf]" event="[action][SELF_DEAF]" />
+    <transition target="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_deaf][guildname][imserver]" event="[action][SELF_DEAF][guildName][IMServer]" />
     <onexit>
       <cancel sendid="state1-timer-sspeech[username][ambrosio][guildname][imserver]" />
     </onexit>
@@ -813,6 +937,42 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][BAN_USER][userName][Ambrosio][guildName][IMServer]')}" />
       <send event="BAN_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_mute]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_mute]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="MUTE_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_mute][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_mute][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="MUTE_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_deaf]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_deaf]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="DEAF_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_deaf][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio][guildname][imserver]-secondmod[action][self_deaf][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="DEAF_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -923,6 +1083,15 @@
     </onentry>
     <transition target="secondmod[action][self_mute]-final" event="timeout-ssecondmod[action][self_mute]" />
     <transition target="ssecondmod[action][self_mute]-speech[action][self_mute]" event="[action][SELF_MUTE]" />
+    <transition target="ssecondmod[action][self_mute]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
+    <transition target="ssecondmod[action][self_mute]-speech[username][ambrosio][guildname][imserver]" event="[userName][Ambrosio][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_mute]-speech[username][ambrosio][guildname][apicultura]" event="[userName][Ambrosio][guildName][apicultura]" />
+    <transition target="ssecondmod[action][self_mute]-speech[username][gustavo]" event="[userName][Gustavo]" />
+    <transition target="ssecondmod[action][self_mute]-speech[username][gustavo][guildname][imserver]" event="[userName][Gustavo][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_mute]-speech[username][gustavo][guildname][apicultura]" event="[userName][Gustavo][guildName][apicultura]" />
+    <transition target="ssecondmod[action][self_mute]-speech[username][matos]" event="[userName][Matos]" />
+    <transition target="ssecondmod[action][self_mute]-speech[username][matos][guildname][imserver]" event="[userName][Matos][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_mute]-speech[username][matos][guildname][apicultura]" event="[userName][Matos][guildName][apicultura]" />
     <onexit>
       <cancel sendid="state1-timer-ssecondmod[action][self_mute]" />
     </onexit>
@@ -941,6 +1110,87 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][SELF_MUTE]')}" />
       <send event="SELF_MUTE" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute]-speech[username][ambrosio]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute]-speech[username][ambrosio]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio]')}" />
+      <send event="MUTE_AMBROSIO" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute]-speech[username][ambrosio][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute]-speech[username][ambrosio][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="MUTE_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute]-speech[username][ambrosio][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute]-speech[username][ambrosio][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="MUTE_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute]-speech[username][gustavo]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute]-speech[username][gustavo]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo]')}" />
+      <send event="MUTE_GUSTAVO" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute]-speech[username][gustavo][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute]-speech[username][gustavo][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="MUTE_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute]-speech[username][gustavo][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute]-speech[username][gustavo][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="MUTE_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute]-speech[username][matos]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute]-speech[username][matos]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos]')}" />
+      <send event="MUTE_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute]-speech[username][matos][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute]-speech[username][matos][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="MUTE_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute]-speech[username][matos][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute]-speech[username][matos][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="MUTE_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -1202,6 +1452,10 @@
     <transition target="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][remove_user][guildname][apicultura]" event="[action][REMOVE_USER][guildName][apicultura]" />
     <transition target="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][ban_user]" event="[action][BAN_USER]" />
     <transition target="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][ban_user][guildname][apicultura]" event="[action][BAN_USER][guildName][apicultura]" />
+    <transition target="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_mute]" event="[action][SELF_MUTE]" />
+    <transition target="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_mute][guildname][apicultura]" event="[action][SELF_MUTE][guildName][apicultura]" />
+    <transition target="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_deaf]" event="[action][SELF_DEAF]" />
+    <transition target="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_deaf][guildname][apicultura]" event="[action][SELF_DEAF][guildName][apicultura]" />
     <onexit>
       <cancel sendid="state1-timer-sspeech[username][gustavo][guildname][apicultura]" />
     </onexit>
@@ -1239,6 +1493,42 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][BAN_USER][userName][Gustavo][guildName][apicultura]')}" />
       <send event="BAN_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_mute]">
+    <onentry>
+      <log label="[sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_mute]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="MUTE_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_mute][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_mute][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="MUTE_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_deaf]">
+    <onentry>
+      <log label="[sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_deaf]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="DEAF_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_deaf][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][gustavo][guildname][apicultura]-secondmod[action][self_deaf][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="DEAF_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -1303,6 +1593,12 @@
     <transition target="sspeech[username][ambrosio]-secondmod[action][ban_user]" event="[action][BAN_USER]" />
     <transition target="sspeech[username][ambrosio]-secondmod[action][ban_user][guildname][imserver]" event="[action][BAN_USER][guildName][IMServer]" />
     <transition target="sspeech[username][ambrosio]-secondmod[action][ban_user][guildname][apicultura]" event="[action][BAN_USER][guildName][apicultura]" />
+    <transition target="sspeech[username][ambrosio]-secondmod[action][self_mute]" event="[action][SELF_MUTE]" />
+    <transition target="sspeech[username][ambrosio]-secondmod[action][self_mute][guildname][imserver]" event="[action][SELF_MUTE][guildName][IMServer]" />
+    <transition target="sspeech[username][ambrosio]-secondmod[action][self_mute][guildname][apicultura]" event="[action][SELF_MUTE][guildName][apicultura]" />
+    <transition target="sspeech[username][ambrosio]-secondmod[action][self_deaf]" event="[action][SELF_DEAF]" />
+    <transition target="sspeech[username][ambrosio]-secondmod[action][self_deaf][guildname][imserver]" event="[action][SELF_DEAF][guildName][IMServer]" />
+    <transition target="sspeech[username][ambrosio]-secondmod[action][self_deaf][guildname][apicultura]" event="[action][SELF_DEAF][guildName][apicultura]" />
     <onexit>
       <cancel sendid="state1-timer-sspeech[username][ambrosio]" />
     </onexit>
@@ -1358,6 +1654,60 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][BAN_USER][userName][Ambrosio][guildName][apicultura]')}" />
       <send event="BAN_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio]-secondmod[action][self_mute]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio]-secondmod[action][self_mute]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio]')}" />
+      <send event="MUTE_AMBROSIO" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio]-secondmod[action][self_mute][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio]-secondmod[action][self_mute][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="MUTE_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio]-secondmod[action][self_mute][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio]-secondmod[action][self_mute][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="MUTE_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio]-secondmod[action][self_deaf]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio]-secondmod[action][self_deaf]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio]')}" />
+      <send event="DEAF_AMBROSIO" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio]-secondmod[action][self_deaf][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio]-secondmod[action][self_deaf][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="DEAF_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio]-secondmod[action][self_deaf][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio]-secondmod[action][self_deaf][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="DEAF_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -1791,6 +2141,12 @@
     </onentry>
     <transition target="secondmod[action][self_mute][guildname][imserver]-final" event="timeout-ssecondmod[action][self_mute][guildname][imserver]" />
     <transition target="ssecondmod[action][self_mute][guildname][imserver]-speech[action][self_mute][guildname][imserver]" event="[action][SELF_MUTE][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_mute][guildname][imserver]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
+    <transition target="ssecondmod[action][self_mute][guildname][imserver]-speech[username][ambrosio][guildname][imserver]" event="[userName][Ambrosio][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_mute][guildname][imserver]-speech[username][gustavo]" event="[userName][Gustavo]" />
+    <transition target="ssecondmod[action][self_mute][guildname][imserver]-speech[username][gustavo][guildname][imserver]" event="[userName][Gustavo][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_mute][guildname][imserver]-speech[username][matos]" event="[userName][Matos]" />
+    <transition target="ssecondmod[action][self_mute][guildname][imserver]-speech[username][matos][guildname][imserver]" event="[userName][Matos][guildName][IMServer]" />
     <onexit>
       <cancel sendid="state1-timer-ssecondmod[action][self_mute][guildname][imserver]" />
     </onexit>
@@ -1809,6 +2165,60 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][SELF_MUTE][guildName][IMServer]')}" />
       <send event="SELF_MUTE_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][imserver]-speech[username][ambrosio]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][imserver]-speech[username][ambrosio]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="MUTE_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][imserver]-speech[username][ambrosio][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][imserver]-speech[username][ambrosio][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="MUTE_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][imserver]-speech[username][gustavo]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][imserver]-speech[username][gustavo]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="MUTE_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][imserver]-speech[username][gustavo][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][imserver]-speech[username][gustavo][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="MUTE_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][imserver]-speech[username][matos]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][imserver]-speech[username][matos]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="MUTE_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_mute][guildname][imserver]-speech[username][matos][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_mute][guildname][imserver]-speech[username][matos][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="MUTE_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -2092,6 +2502,10 @@
     <transition target="sspeech[username][matos][guildname][imserver]-secondmod[action][remove_user][guildname][imserver]" event="[action][REMOVE_USER][guildName][IMServer]" />
     <transition target="sspeech[username][matos][guildname][imserver]-secondmod[action][ban_user]" event="[action][BAN_USER]" />
     <transition target="sspeech[username][matos][guildname][imserver]-secondmod[action][ban_user][guildname][imserver]" event="[action][BAN_USER][guildName][IMServer]" />
+    <transition target="sspeech[username][matos][guildname][imserver]-secondmod[action][self_mute]" event="[action][SELF_MUTE]" />
+    <transition target="sspeech[username][matos][guildname][imserver]-secondmod[action][self_mute][guildname][imserver]" event="[action][SELF_MUTE][guildName][IMServer]" />
+    <transition target="sspeech[username][matos][guildname][imserver]-secondmod[action][self_deaf]" event="[action][SELF_DEAF]" />
+    <transition target="sspeech[username][matos][guildname][imserver]-secondmod[action][self_deaf][guildname][imserver]" event="[action][SELF_DEAF][guildName][IMServer]" />
     <onexit>
       <cancel sendid="state1-timer-sspeech[username][matos][guildname][imserver]" />
     </onexit>
@@ -2129,6 +2543,42 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][BAN_USER][userName][Matos][guildName][IMServer]')}" />
       <send event="BAN_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos][guildname][imserver]-secondmod[action][self_mute]">
+    <onentry>
+      <log label="[sspeech[username][matos][guildname][imserver]-secondmod[action][self_mute]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="MUTE_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos][guildname][imserver]-secondmod[action][self_mute][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][matos][guildname][imserver]-secondmod[action][self_mute][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="MUTE_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos][guildname][imserver]-secondmod[action][self_deaf]">
+    <onentry>
+      <log label="[sspeech[username][matos][guildname][imserver]-secondmod[action][self_deaf]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="DEAF_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos][guildname][imserver]-secondmod[action][self_deaf][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][matos][guildname][imserver]-secondmod[action][self_deaf][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="DEAF_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -2432,6 +2882,10 @@
     <transition target="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][remove_user][guildname][apicultura]" event="[action][REMOVE_USER][guildName][apicultura]" />
     <transition target="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][ban_user]" event="[action][BAN_USER]" />
     <transition target="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][ban_user][guildname][apicultura]" event="[action][BAN_USER][guildName][apicultura]" />
+    <transition target="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_mute]" event="[action][SELF_MUTE]" />
+    <transition target="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_mute][guildname][apicultura]" event="[action][SELF_MUTE][guildName][apicultura]" />
+    <transition target="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_deaf]" event="[action][SELF_DEAF]" />
+    <transition target="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_deaf][guildname][apicultura]" event="[action][SELF_DEAF][guildName][apicultura]" />
     <onexit>
       <cancel sendid="state1-timer-sspeech[username][ambrosio][guildname][apicultura]" />
     </onexit>
@@ -2469,6 +2923,42 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][BAN_USER][userName][Ambrosio][guildName][apicultura]')}" />
       <send event="BAN_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_mute]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_mute]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="MUTE_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_mute][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_mute][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="MUTE_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_deaf]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_deaf]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="DEAF_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_deaf][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][self_deaf][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="DEAF_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -2512,6 +3002,10 @@
     <transition target="sspeech[username][matos][guildname][apicultura]-secondmod[action][remove_user][guildname][apicultura]" event="[action][REMOVE_USER][guildName][apicultura]" />
     <transition target="sspeech[username][matos][guildname][apicultura]-secondmod[action][ban_user]" event="[action][BAN_USER]" />
     <transition target="sspeech[username][matos][guildname][apicultura]-secondmod[action][ban_user][guildname][apicultura]" event="[action][BAN_USER][guildName][apicultura]" />
+    <transition target="sspeech[username][matos][guildname][apicultura]-secondmod[action][self_mute]" event="[action][SELF_MUTE]" />
+    <transition target="sspeech[username][matos][guildname][apicultura]-secondmod[action][self_mute][guildname][apicultura]" event="[action][SELF_MUTE][guildName][apicultura]" />
+    <transition target="sspeech[username][matos][guildname][apicultura]-secondmod[action][self_deaf]" event="[action][SELF_DEAF]" />
+    <transition target="sspeech[username][matos][guildname][apicultura]-secondmod[action][self_deaf][guildname][apicultura]" event="[action][SELF_DEAF][guildName][apicultura]" />
     <onexit>
       <cancel sendid="state1-timer-sspeech[username][matos][guildname][apicultura]" />
     </onexit>
@@ -2552,6 +3046,42 @@
     </onentry>
     <transition target="main" />
   </state>
+  <state id="sspeech[username][matos][guildname][apicultura]-secondmod[action][self_mute]">
+    <onentry>
+      <log label="[sspeech[username][matos][guildname][apicultura]-secondmod[action][self_mute]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="MUTE_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos][guildname][apicultura]-secondmod[action][self_mute][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][matos][guildname][apicultura]-secondmod[action][self_mute][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="MUTE_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos][guildname][apicultura]-secondmod[action][self_deaf]">
+    <onentry>
+      <log label="[sspeech[username][matos][guildname][apicultura]-secondmod[action][self_deaf]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="DEAF_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][matos][guildname][apicultura]-secondmod[action][self_deaf][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][matos][guildname][apicultura]-secondmod[action][self_deaf][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="DEAF_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
   <state id="sspeech[username][gustavo][guildname][imserver]">
     <onentry>
       <log label="[sspeech[username][gustavo][guildname][imserver]]" expr="READY" />
@@ -2563,6 +3093,10 @@
     <transition target="sspeech[username][gustavo][guildname][imserver]-secondmod[action][remove_user][guildname][imserver]" event="[action][REMOVE_USER][guildName][IMServer]" />
     <transition target="sspeech[username][gustavo][guildname][imserver]-secondmod[action][ban_user]" event="[action][BAN_USER]" />
     <transition target="sspeech[username][gustavo][guildname][imserver]-secondmod[action][ban_user][guildname][imserver]" event="[action][BAN_USER][guildName][IMServer]" />
+    <transition target="sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_mute]" event="[action][SELF_MUTE]" />
+    <transition target="sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_mute][guildname][imserver]" event="[action][SELF_MUTE][guildName][IMServer]" />
+    <transition target="sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_deaf]" event="[action][SELF_DEAF]" />
+    <transition target="sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_deaf][guildname][imserver]" event="[action][SELF_DEAF][guildName][IMServer]" />
     <onexit>
       <cancel sendid="state1-timer-sspeech[username][gustavo][guildname][imserver]" />
     </onexit>
@@ -2600,6 +3134,42 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][BAN_USER][userName][Gustavo][guildName][IMServer]')}" />
       <send event="BAN_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_mute]">
+    <onentry>
+      <log label="[sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_mute]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="MUTE_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_mute][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_mute][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="MUTE_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_deaf]">
+    <onentry>
+      <log label="[sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_deaf]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="DEAF_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_deaf][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][gustavo][guildname][imserver]-secondmod[action][self_deaf][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="DEAF_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -2816,6 +3386,12 @@
     </onentry>
     <transition target="secondmod[action][self_deaf][guildname][imserver]-final" event="timeout-ssecondmod[action][self_deaf][guildname][imserver]" />
     <transition target="ssecondmod[action][self_deaf][guildname][imserver]-speech[action][self_deaf][guildname][imserver]" event="[action][SELF_DEAF][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][ambrosio][guildname][imserver]" event="[userName][Ambrosio][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][gustavo]" event="[userName][Gustavo]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][gustavo][guildname][imserver]" event="[userName][Gustavo][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][matos]" event="[userName][Matos]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][matos][guildname][imserver]" event="[userName][Matos][guildName][IMServer]" />
     <onexit>
       <cancel sendid="state1-timer-ssecondmod[action][self_deaf][guildname][imserver]" />
     </onexit>
@@ -2834,6 +3410,60 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][SELF_DEAF][guildName][IMServer]')}" />
       <send event="SELF_DEAF_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][ambrosio]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][imserver]-speech[username][ambrosio]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="DEAF_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][ambrosio][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][imserver]-speech[username][ambrosio][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="DEAF_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][gustavo]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][imserver]-speech[username][gustavo]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="DEAF_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][gustavo][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][imserver]-speech[username][gustavo][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="DEAF_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][matos]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][imserver]-speech[username][matos]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="DEAF_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][imserver]-speech[username][matos][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][imserver]-speech[username][matos][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="DEAF_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -2879,6 +3509,12 @@
     <transition target="sspeech[username][gustavo]-secondmod[action][ban_user]" event="[action][BAN_USER]" />
     <transition target="sspeech[username][gustavo]-secondmod[action][ban_user][guildname][imserver]" event="[action][BAN_USER][guildName][IMServer]" />
     <transition target="sspeech[username][gustavo]-secondmod[action][ban_user][guildname][apicultura]" event="[action][BAN_USER][guildName][apicultura]" />
+    <transition target="sspeech[username][gustavo]-secondmod[action][self_mute]" event="[action][SELF_MUTE]" />
+    <transition target="sspeech[username][gustavo]-secondmod[action][self_mute][guildname][imserver]" event="[action][SELF_MUTE][guildName][IMServer]" />
+    <transition target="sspeech[username][gustavo]-secondmod[action][self_mute][guildname][apicultura]" event="[action][SELF_MUTE][guildName][apicultura]" />
+    <transition target="sspeech[username][gustavo]-secondmod[action][self_deaf]" event="[action][SELF_DEAF]" />
+    <transition target="sspeech[username][gustavo]-secondmod[action][self_deaf][guildname][imserver]" event="[action][SELF_DEAF][guildName][IMServer]" />
+    <transition target="sspeech[username][gustavo]-secondmod[action][self_deaf][guildname][apicultura]" event="[action][SELF_DEAF][guildName][apicultura]" />
     <onexit>
       <cancel sendid="state1-timer-sspeech[username][gustavo]" />
     </onexit>
@@ -2934,6 +3570,60 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][BAN_USER][userName][Gustavo][guildName][apicultura]')}" />
       <send event="BAN_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo]-secondmod[action][self_mute]">
+    <onentry>
+      <log label="[sspeech[username][gustavo]-secondmod[action][self_mute]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo]')}" />
+      <send event="MUTE_GUSTAVO" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo]-secondmod[action][self_mute][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][gustavo]-secondmod[action][self_mute][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="MUTE_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo]-secondmod[action][self_mute][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][gustavo]-secondmod[action][self_mute][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][MUTE_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="MUTE_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo]-secondmod[action][self_deaf]">
+    <onentry>
+      <log label="[sspeech[username][gustavo]-secondmod[action][self_deaf]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo]')}" />
+      <send event="DEAF_GUSTAVO" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo]-secondmod[action][self_deaf][guildname][imserver]">
+    <onentry>
+      <log label="[sspeech[username][gustavo]-secondmod[action][self_deaf][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="DEAF_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[username][gustavo]-secondmod[action][self_deaf][guildname][apicultura]">
+    <onentry>
+      <log label="[sspeech[username][gustavo]-secondmod[action][self_deaf][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="DEAF_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -3051,6 +3741,12 @@
     </onentry>
     <transition target="secondmod[action][self_deaf][guildname][apicultura]-final" event="timeout-ssecondmod[action][self_deaf][guildname][apicultura]" />
     <transition target="ssecondmod[action][self_deaf][guildname][apicultura]-speech[action][self_deaf][guildname][apicultura]" event="[action][SELF_DEAF][guildName][apicultura]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][ambrosio][guildname][apicultura]" event="[userName][Ambrosio][guildName][apicultura]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][gustavo]" event="[userName][Gustavo]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][gustavo][guildname][apicultura]" event="[userName][Gustavo][guildName][apicultura]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][matos]" event="[userName][Matos]" />
+    <transition target="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][matos][guildname][apicultura]" event="[userName][Matos][guildName][apicultura]" />
     <onexit>
       <cancel sendid="state1-timer-ssecondmod[action][self_deaf][guildname][apicultura]" />
     </onexit>
@@ -3069,6 +3765,60 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][SELF_DEAF][guildName][apicultura]')}" />
       <send event="SELF_DEAF_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][ambrosio]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][ambrosio]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="DEAF_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][ambrosio][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][ambrosio][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="DEAF_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][gustavo]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][gustavo]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="DEAF_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][gustavo][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][gustavo][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="DEAF_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][matos]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][matos]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="DEAF_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][matos][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf][guildname][apicultura]-speech[username][matos][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="DEAF_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
@@ -3247,6 +3997,15 @@
     </onentry>
     <transition target="secondmod[action][self_deaf]-final" event="timeout-ssecondmod[action][self_deaf]" />
     <transition target="ssecondmod[action][self_deaf]-speech[action][self_deaf]" event="[action][SELF_DEAF]" />
+    <transition target="ssecondmod[action][self_deaf]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
+    <transition target="ssecondmod[action][self_deaf]-speech[username][ambrosio][guildname][imserver]" event="[userName][Ambrosio][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_deaf]-speech[username][ambrosio][guildname][apicultura]" event="[userName][Ambrosio][guildName][apicultura]" />
+    <transition target="ssecondmod[action][self_deaf]-speech[username][gustavo]" event="[userName][Gustavo]" />
+    <transition target="ssecondmod[action][self_deaf]-speech[username][gustavo][guildname][imserver]" event="[userName][Gustavo][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_deaf]-speech[username][gustavo][guildname][apicultura]" event="[userName][Gustavo][guildName][apicultura]" />
+    <transition target="ssecondmod[action][self_deaf]-speech[username][matos]" event="[userName][Matos]" />
+    <transition target="ssecondmod[action][self_deaf]-speech[username][matos][guildname][imserver]" event="[userName][Matos][guildName][IMServer]" />
+    <transition target="ssecondmod[action][self_deaf]-speech[username][matos][guildname][apicultura]" event="[userName][Matos][guildName][apicultura]" />
     <onexit>
       <cancel sendid="state1-timer-ssecondmod[action][self_deaf]" />
     </onexit>
@@ -3265,6 +4024,87 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][SELF_DEAF]')}" />
       <send event="SELF_DEAF" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf]-speech[username][ambrosio]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf]-speech[username][ambrosio]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio]')}" />
+      <send event="DEAF_AMBROSIO" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf]-speech[username][ambrosio][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf]-speech[username][ambrosio][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][IMServer]')}" />
+      <send event="DEAF_AMBROSIO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf]-speech[username][ambrosio][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf]-speech[username][ambrosio][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Ambrosio][guildName][apicultura]')}" />
+      <send event="DEAF_AMBROSIO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf]-speech[username][gustavo]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf]-speech[username][gustavo]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo]')}" />
+      <send event="DEAF_GUSTAVO" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf]-speech[username][gustavo][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf]-speech[username][gustavo][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][IMServer]')}" />
+      <send event="DEAF_GUSTAVO_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf]-speech[username][gustavo][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf]-speech[username][gustavo][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Gustavo][guildName][apicultura]')}" />
+      <send event="DEAF_GUSTAVO_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf]-speech[username][matos]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf]-speech[username][matos]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos]')}" />
+      <send event="DEAF_MATOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf]-speech[username][matos][guildname][imserver]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf]-speech[username][matos][guildname][imserver]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][IMServer]')}" />
+      <send event="DEAF_MATOS_IMSERVER" target="IM" targettype="MC" namelist="newExtensionNotification" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="ssecondmod[action][self_deaf]-speech[username][matos][guildname][apicultura]">
+    <onentry>
+      <log label="[ssecondmod[action][self_deaf]-speech[username][matos][guildname][apicultura]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="newExtensionNotification" expr="${mmi:newExtensionNotificationF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[action][DEAF_USER][userName][Matos][guildName][apicultura]')}" />
+      <send event="DEAF_MATOS_TOPICOS" target="IM" targettype="MC" namelist="newExtensionNotification" />
     </onentry>
     <transition target="main" />
   </state>
