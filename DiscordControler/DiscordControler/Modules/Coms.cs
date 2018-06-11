@@ -16,9 +16,13 @@ namespace DiscordControler
     class Coms
     {
         private MmiCommunication mmiC;
-        private NamedPipeClientStream _ttsPipeClient;
+        private NamedPipeClientStream _ttsPipeClientSpeech;
+        private NamedPipeClientStream _ttsPipeClientGesture;
+
         private NamedPipeClientStream _guildInfoPipeClient;
-        private StreamWriter writer;
+        private StreamWriter writerSpeech;
+        private StreamWriter writerGesture;
+
         private readonly string userNick;
 
         public Coms(string userNick) {
@@ -86,20 +90,35 @@ namespace DiscordControler
         }
 
         public void SendCommandToTts(string command) {
-            if (_ttsPipeClient == null)
+            if (_ttsPipeClientSpeech == null)
             {
-                _ttsPipeClient = new NamedPipeClientStream("ttsCommands");
-                _ttsPipeClient.Connect();
-                writer = new StreamWriter(_ttsPipeClient);
-                writer.AutoFlush = true;
+                _ttsPipeClientSpeech = new NamedPipeClientStream("ttsCommandsSpeech");
+                _ttsPipeClientSpeech.Connect();
+                _ttsPipeClientGesture = new NamedPipeClientStream("ttsCommandsGesture");
+                _ttsPipeClientGesture.Connect();
+
+                writerSpeech = new StreamWriter(_ttsPipeClientSpeech);
+                writerSpeech.AutoFlush = true;
+                writerGesture = new StreamWriter(_ttsPipeClientGesture);
+                writerGesture.AutoFlush = true;
 
             }
+
             try
             {
-                writer.WriteLine(command);
+                writerSpeech.WriteLine(command);
             }
             catch (IOException e) {
-                _retry(command);
+                _retrySpeech(command);
+            }
+
+            try
+            {
+                writerGesture.WriteLine(command);
+            }
+            catch (IOException e)
+            {
+                _retryGesture(command);
             }
 
 
@@ -107,15 +126,29 @@ namespace DiscordControler
 
         public void ClosePipe()
         {
-            _ttsPipeClient.Close();
+            _ttsPipeClientSpeech.Close();
         }
         
-        private void _retry(string command) {
-            _ttsPipeClient.Close();
-            _ttsPipeClient = new NamedPipeClientStream("ttsCommands");
-            _ttsPipeClient.Connect();
-            writer = new StreamWriter(_ttsPipeClient);
-            writer.AutoFlush = true;
+        private void _retrySpeech(string command) {
+            _ttsPipeClientSpeech.Close();
+            _ttsPipeClientSpeech = new NamedPipeClientStream("ttsCommandsSpeech");
+            _ttsPipeClientSpeech.Connect();
+
+            
+            writerSpeech = new StreamWriter(_ttsPipeClientSpeech);
+            writerSpeech.AutoFlush = true;
+            SendCommandToTts(command);
+        }
+
+        private void _retryGesture(string command)
+        {
+            
+            _ttsPipeClientGesture.Close();
+            _ttsPipeClientGesture = new NamedPipeClientStream("ttsCommandsGesture");
+            _ttsPipeClientGesture.Connect();
+
+            writerGesture = new StreamWriter(_ttsPipeClientSpeech);
+            writerGesture.AutoFlush = true;
             SendCommandToTts(command);
         }
 

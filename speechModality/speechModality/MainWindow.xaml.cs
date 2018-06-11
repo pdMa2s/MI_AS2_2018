@@ -26,10 +26,11 @@ namespace speechModality
         private SpeechMod _sm;
         private NamedPipeServerStream _pipeServer;
         private bool serverThreadRunning;
+        private string comChannel = "ttsCommandsSpeech";
         public MainWindow()
         {
             InitializeComponent();
-            _pipeServer = new NamedPipeServerStream("ttsCommands");
+            _pipeServer = new NamedPipeServerStream(comChannel);
             _sm = new SpeechMod();
             serverThreadRunning = true;
             _listenTts();
@@ -40,7 +41,7 @@ namespace speechModality
         {
             if (serverThreadRunning == false)
             {
-                _pipeServer = new NamedPipeServerStream("ttsCommands");
+                _pipeServer = new NamedPipeServerStream(comChannel);
 
                 _listenTts();
             }

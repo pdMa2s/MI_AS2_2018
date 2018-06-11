@@ -97,7 +97,6 @@ namespace speechModality
                 case "userName":
                 case "channelName":
                 case "guildName":
-                case "reason":
                 case "confirmation":
                     if (first)
                     {

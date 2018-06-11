@@ -280,7 +280,7 @@
     </one-of>
     <one-of>
       <item>IMServer<tag>out="IMServer";</tag></item>
-      <item>Topicos de Apicultura<tag>out="Topicos de Apicultura";</tag></item>
+      <item>apicultura<tag>out="apicultura";</tag></item>
     </one-of>
   </rule>
   <rule id="channelNameRule">

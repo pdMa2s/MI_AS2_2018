@@ -152,9 +152,13 @@ namespace DiscordControler
                     dynamic json = JsonConvert.DeserializeObject(c.Value);
                     string modality = json.modality ?? null;
 
-                    if (modality != null && modality.Equals("speech"))
+                    if (modality != null)
                     {
-                        var confidence = json.confidence;
+                        string confidence;
+                        if (modality.Equals("speech"))
+                            confidence = json.confidence;
+                        else
+                            confidence = "implicit confirmation";
                         newJson += "\"confidence\":" + "\"" + confidence + "\", ";
 
                     }

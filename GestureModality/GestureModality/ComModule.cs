@@ -14,7 +14,7 @@ namespace GestureModality
         private NamedPipeServerStream _ttsPipeServer;
         private NamedPipeServerStream _guildInfoServer;
         private bool ttsServerRunning;
-        private readonly string comChannel = "ttsCommands";
+        private readonly string comChannel = "ttsCommandsGesture";
         private bool ttsSpeaking = true;
         private MainWindow window;
 
