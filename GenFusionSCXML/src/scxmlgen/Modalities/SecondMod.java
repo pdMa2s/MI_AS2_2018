@@ -45,6 +45,31 @@ public enum SecondMod implements IModality{
     DELETE_MESSAGE("[action][DELETE_LAST_MESSAGE]",1500),
     DELETE_MESSAGE_IMSERVER("[action][DELETE_LAST_MESSAGE][guildName][IMServer]",1500),
     DELETE_MESSAGE_TOPICOS("[action][DELETE_LAST_MESSAGE][guildName][apicultura]",1500),
+    
+    DELETE_MESSAGE_CHANNEL_TEST_IMSERVER("[action][DELETE_LAST_MESSAGE][channelName][teste][guildName][IMServer]",1500),
+    DELETE_MESSAGE_CHANNEL_SUECA_IMSERVER("[action][DELETE_LAST_MESSAGE][channelName][sueca][guildName][IMServer]",1500),
+    DELETE_MESSAGE_CHANNEL_GERAL_IMSERVER("[action][DELETE_LAST_MESSAGE][channelName][geral][guildName][IMServer]",1500),
+    
+    KICK_USER_MATOS_IMSERVER("[action][REMOVE_USER][userName][Matos][guildName][IMServer]",1500),
+    KICK_USER_AMBROSIO_IMSERVER("[action][REMOVE_USER][userName][Ambrosio][guildName][IMServer]",1500),
+    KICK_USER_GUSTAVO_IMSERVER("[action][REMOVE_USER][userName][Gustavo][guildName][IMServer]",1500),
+
+    BAN_USER_MATOS_IMSERVER("[action][BAN_USER][userName][Matos][guildName][IMServer]",1500),
+    BAN_USER_AMBROSIO_IMSERVER("[action][BAN_USER][userName][Ambrosio][guildName][IMServer]",1500),
+    BAN_USER_GUSTAVO_IMSERVER("[action][BAN_USER][userName][Gustavo][guildName][IMServer]",1500),
+
+    DELETE_MESSAGE_CHANNEL_TEST_TOPICOS("[action][DELETE_LAST_MESSAGE][channelName][teste][guildName][apicultura]",1500),
+    DELETE_MESSAGE_CHANNEL_GERAL_TOPICOS("[action][DELETE_LAST_MESSAGE][channelName][geral][guildName][apicultura]",1500),
+    
+    KICK_USER_MATOS_TOPICOS("[action][REMOVE_USER][userName][Matos][guildName][apicultura]",1500),
+    KICK_USER_AMBROSIO_TOPICOS("[action][REMOVE_USER][userName][Ambrosio][guildName][apicultura]",1500),
+    KICK_USER_GUSTAVO_TOPICOS("[action][REMOVE_USER][userName][Gustavo][guildName][apicultura]",1500),
+
+    BAN_USER_MATOS_TOPICOS("[action][BAN_USER][userName][Matos][guildName][apicultura]",1500),
+    BAN_USER_AMBROSIO_TOPICOS("[action][BAN_USER][userName][Ambrosio][guildName][apicultura]",1500),
+    BAN_USER_GUSTAVO_TOPICOS("[action][BAN_USER][userName][Gustavo][guildName][apicultura]",1500),
+
+    
     ;
     
     

@@ -299,7 +299,7 @@ namespace DiscordControler
                 await user.KickAsync();
             else
                 await user.KickAsync(reason: kickReason);
-            await channel.SendMessageAsync(_speechTemplates.GetKickUser(userName));
+            _tts.Speak(_speechTemplates.GetKickUser(userName));
         }
 
         private async Task BanUser(string userName, string guildName, string banReason, string confidence)
@@ -325,7 +325,7 @@ namespace DiscordControler
             else
                 await guild.AddBanAsync(user.Id, reason: banReason);
 
-            await channel.SendMessageAsync(_speechTemplates.GetBanUser(userName, guild.Name));
+            _tts.Speak(_speechTemplates.GetBanUser(userName, guild.Name));
         }
 
         private async Task DeleteLastMessage(string channelName, string guildNameToDeleteMsg, string confidence)
