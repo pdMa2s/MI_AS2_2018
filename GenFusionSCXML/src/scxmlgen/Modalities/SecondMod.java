@@ -34,6 +34,10 @@ public enum SecondMod implements IModality{
     SELF_DEAF_IMSERVER("[action][SELF_DEAF][guildName][IMServer]", 1500),
     SELF_DEAF_TOPICOS("[action][SELF_DEAF][guildName][apicultura]", 1500),
     
+    DEAF_USER("[action][DEAF_USER]", 1500),
+    DEAF_USER_IMSERVER("[action][DEAF_USER][guildName][IMServer]", 1500),
+    DEAF_USER_TOPICOS("[action][DEAF_USER][guildName][apicultura]", 1500),
+    
     KICK_USER("[action][REMOVE_USER]",1500),
     KICK_USER_IMSERVER("[action][REMOVE_USER][guildName][IMServer]",1500),
     KICK_USER_TOPICOS("[action][REMOVE_USER][guildName][apicultura]",1500),
