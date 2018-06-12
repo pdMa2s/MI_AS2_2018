@@ -8,27 +8,29 @@
         xmlns:k="http://schemas.microsoft.com/kinect/2014"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="HelpWindow" Height="700.5" Width="531" Activated="Window_Activated" Deactivated="Window_Deactivated">
+        Title="HelpWindow" Height="700.5" Width="657" Activated="Window_Activated" Deactivated="Window_Deactivated">
     <Grid>
-        <TextBlock x:Name="textBlockMute" HorizontalAlignment="Left" Margin="76,302,0,0" TextWrapping="Wrap" Text="Mute" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/mute.PNG" MaxHeight="230" MaxWidth="200" Margin="45,320,367,166"/>
-        <TextBlock x:Name="textBlockRight" HorizontalAlignment="Left" Margin="61,499,0,0" TextWrapping="Wrap" Text="Right Hand" VerticalAlignment="Top" FontSize="15"/>
-        <TextBlock x:Name="textBlockDeaf" HorizontalAlignment="Left" Margin="251,11,0,0" TextWrapping="Wrap" Text="Deaf" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/deaf.png" Margin="179,46,167,416"/>
-        <TextBlock x:Name="textBlockLeft" HorizontalAlignment="Left" Margin="237,260,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
-        <TextBlock x:Name="textBlockDelete" HorizontalAlignment="Left" Margin="284,302,0,0" TextWrapping="Wrap" Text="Delete Message" VerticalAlignment="Top" FontSize="20" Width="150"/>
-        <Image gif:ImageBehavior.AnimatedSource="images/deletegif.gif" MaxHeight="316" MaxWidth="308" Margin="255,329,70,171"/>
-        <k:KinectRegion x:Name="kinectRegionHelp" Margin="0,524,0,0" HorizontalAlignment="Left" Width="525">
+        <TextBlock x:Name="textBlockMute" HorizontalAlignment="Left" Margin="71,292,0,0" TextWrapping="Wrap" Text="Mute" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/mute.PNG" MaxHeight="230" MaxWidth="200" Margin="53,326,509,160"/>
+        <TextBlock x:Name="textBlockRight" HorizontalAlignment="Left" Margin="63,514,0,0" TextWrapping="Wrap" Text="Right Hand" VerticalAlignment="Top" FontSize="15"/>
+        <TextBlock x:Name="textBlockDeaf" HorizontalAlignment="Left" Margin="520,8,0,0" TextWrapping="Wrap" Text="Deaf" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/deaf.png" Margin="481,35,49,415" RenderTransformOrigin="0.529,0.647"/>
+        <TextBlock x:Name="textBlockLeft" HorizontalAlignment="Left" Margin="509,258,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
+        <TextBlock x:Name="textBlockDelete" HorizontalAlignment="Left" Margin="255,294,0,0" TextWrapping="Wrap" Text="Delete Message" VerticalAlignment="Top" FontSize="20" Width="150"/>
+        <Image gif:ImageBehavior.AnimatedSource="images/deletegif.gif" MaxHeight="316" MaxWidth="308" Margin="201,326,206,160"/>
+        <k:KinectRegion x:Name="kinectRegionHelp" Margin="0,524,0,0" HorizontalAlignment="Left" Width="641">
             <Grid x:Name="grid" Margin="0,10,0,0">
-                <Button x:Name="thankYouBTN" Click="closeHelpWindow" HorizontalAlignment="Left" Margin="154,10,0,0" VerticalAlignment="Top" Width="208" Height="124" Background="White">
+                <Button x:Name="thankYouBTN" Click="closeHelpWindow" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top" Width="208" Height="124" Background="White">
                     <Image Source="images/ok.png"></Image>
                 </Button>
             </Grid>
         </k:KinectRegion>
-        <TextBlock x:Name="textBlockMute_Copy" HorizontalAlignment="Left" Margin="57,16,0,0" TextWrapping="Wrap" Text="Kick User" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/kick.png" Margin="20,38,346,408"/>
-        <TextBlock x:Name="textBlockLeft_Copy" HorizontalAlignment="Left" Margin="66,261,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
-        <TextBlock x:Name="textBlockMute_Copy1" HorizontalAlignment="Left" Margin="390,11,0,0" TextWrapping="Wrap" Text="Ban User" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/ban.PNG" Margin="319,46,-10,416"/>
+        <TextBlock x:Name="textBlockMute_Copy" HorizontalAlignment="Left" Margin="71,8,0,0" TextWrapping="Wrap" Text="Kick User" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/kick.png" Margin="33,35,453,415"/>
+        <TextBlock x:Name="textBlockLeft_Copy" HorizontalAlignment="Left" Margin="84,255,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
+        <TextBlock x:Name="textBlockMute_Copy1" HorizontalAlignment="Left" Margin="303,8,0,0" TextWrapping="Wrap" Text="Ban User" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/ban.PNG" Margin="281,35,250,415" RenderTransformOrigin="0.407,0.693"/>
+        <TextBlock x:Name="textBlockMute_Copy2" HorizontalAlignment="Left" Margin="505,292,0,0" TextWrapping="Wrap" Text="Self Deaf" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/selfDeaf.PNG" Margin="481,326,29,160"/>
     </Grid>
 </Window>

@@ -78,7 +78,6 @@ namespace GestureModality
                     this.fpsCounter = 0;
                     this.gestureWasDetected = false;
                     MainWindow.main.ChangeDetectedGesture = "No gestures detected";
-                    MainWindow.main.ChangeConfidence = "0";
                 }
                 return;
             }
@@ -165,7 +164,6 @@ namespace GestureModality
         private void SendDetectedGesture(string gesture, double confidence)
         {
             MainWindow.main.ChangeDetectedGesture = gesture + " detected";
-            MainWindow.main.ChangeConfidence = confidence.ToString();
             string json = "{\"recognized\": [\"action\", ";
 
             switch (gesture)
