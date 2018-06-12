@@ -90,26 +90,40 @@ namespace DiscordControler
         }
 
         public void SendCommandToTts(string command) {
+            SendCommandToSpeech(command);
+            SendCommandToGesture(command);
+        }
+
+        private void SendCommandToSpeech(string command)
+        {
             if (_ttsPipeClientSpeech == null)
             {
                 _ttsPipeClientSpeech = new NamedPipeClientStream("ttsCommandsSpeech");
                 _ttsPipeClientSpeech.Connect();
-                _ttsPipeClientGesture = new NamedPipeClientStream("ttsCommandsGesture");
-                _ttsPipeClientGesture.Connect();
 
                 writerSpeech = new StreamWriter(_ttsPipeClientSpeech);
                 writerSpeech.AutoFlush = true;
-                writerGesture = new StreamWriter(_ttsPipeClientGesture);
-                writerGesture.AutoFlush = true;
-
             }
 
             try
             {
                 writerSpeech.WriteLine(command);
             }
-            catch (IOException e) {
+            catch (IOException e)
+            {
                 _retrySpeech(command);
+            }
+        }
+
+        private void SendCommandToGesture(string command)
+        {
+            if (_ttsPipeClientGesture == null)
+            {
+                _ttsPipeClientGesture = new NamedPipeClientStream("ttsCommandsGesture");
+                _ttsPipeClientGesture.Connect();
+
+                writerGesture = new StreamWriter(_ttsPipeClientGesture);
+                writerGesture.AutoFlush = true;
             }
 
             try
@@ -120,8 +134,6 @@ namespace DiscordControler
             {
                 _retryGesture(command);
             }
-
-
         }
 
         public void ClosePipe()
@@ -137,19 +149,18 @@ namespace DiscordControler
             
             writerSpeech = new StreamWriter(_ttsPipeClientSpeech);
             writerSpeech.AutoFlush = true;
-            SendCommandToTts(command);
+            SendCommandToSpeech(command);
         }
 
         private void _retryGesture(string command)
         {
-            
             _ttsPipeClientGesture.Close();
             _ttsPipeClientGesture = new NamedPipeClientStream("ttsCommandsGesture");
             _ttsPipeClientGesture.Connect();
 
             writerGesture = new StreamWriter(_ttsPipeClientSpeech);
             writerGesture.AutoFlush = true;
-            SendCommandToTts(command);
+            SendCommandToGesture(command);
         }
 
     }
