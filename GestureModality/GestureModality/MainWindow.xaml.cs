@@ -118,24 +118,17 @@ namespace GestureModality
         internal string ChangeDetectedGesture
         {
             get { return this.gestureDetected.Text.ToString(); }
-            set { Dispatcher.Invoke(new Action(() => { this.gestureDetected.Text = value; })); }
-        }
-
-        internal string ChangeConfidence
-        {
-            get { return this.confidencePercentage.Text.ToString(); }
             set { Dispatcher.Invoke(new Action(() => {
-                double confidenceValue = Convert.ToDouble(value);
-                this.confidencePercentage.Text = String.Format("{0:P2}", confidenceValue);
-                if (value.Equals("0"))
+                this.gestureDetected.Text = value;
+                if (value.Equals("No gestures detected"))
                 {
-                    this.confidencePercentage.Foreground = Brushes.Black;
+                    this.ellipse.Fill = Brushes.White;
                 }
                 else
                 {
-                    this.confidencePercentage.Foreground = Brushes.Green;
+                    this.ellipse.Fill = Brushes.LimeGreen;
                 }
-                }));
+            }));
             }
         }
 
