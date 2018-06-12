@@ -17,6 +17,8 @@ namespace GestureModality
         private const string kickGestureName = "kick";
         private const string banGestureName = "ban";
         private const string selfDeafGestureName = "selfDeaf";
+        private const string selfMuteGestureName = "selfMute";
+
 
         private LifeCycleEvents lce;
         private MmiCommunication mmic;
@@ -154,7 +156,8 @@ namespace GestureModality
         private Tuple<string, double> ProcessDiscreteGesture(DiscreteGestureResult detected, string gestureName) {
             
             if (((gestureName.Equals(muteGestureName) || gestureName.Equals(kickGestureName) || gestureName.Equals(banGestureName)
-                || gestureName.Equals(selfDeafGestureName)) && detected.Confidence > .25) || detected.Confidence > .70)
+                || gestureName.Equals(selfDeafGestureName) || gestureName.Equals(deafGestureName))
+                && detected.Confidence > .25) || detected.Confidence > .70)
                 return Tuple.Create<string, double>(gestureName, detected.Confidence);
             return Tuple.Create<string, double>(null, -1);
         }
@@ -168,16 +171,10 @@ namespace GestureModality
             switch (gesture)
             {
                 case deafGestureName:
-                    if (userSelected != null)
                         json += "\"DEAF_USER\"]";
-                    //else
-                      //  json += "\"SELF_DEAF\"]";
                     break;
                 case muteGestureName:
-                    if (userSelected != null)
                         json += "\"MUTE_USER\"]";
-                    else
-                        json += "\"SELF_MUTE\"]";
                     break;
                 case deleteGestureName:
                     json += "\"DELETE_LAST_MESSAGE\"]";
@@ -190,6 +187,9 @@ namespace GestureModality
                     break;
                 case selfDeafGestureName:
                     json += "\"SELF_DEAF\"]";
+                    break;
+                case selfMuteGestureName:
+                    json += "\"SELF_MUTE\"]";
                     break;
                 default:
                     Console.WriteLine("Invalid action");
