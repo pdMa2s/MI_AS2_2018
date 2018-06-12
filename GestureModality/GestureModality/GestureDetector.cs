@@ -16,6 +16,7 @@ namespace GestureModality
         private const string deleteGestureName = "deleteContinous";
         private const string kickGestureName = "kick";
         private const string banGestureName = "ban";
+        private const string selfDeafGestureName = "selfDeaf";
 
         private LifeCycleEvents lce;
         private MmiCommunication mmic;
@@ -152,7 +153,8 @@ namespace GestureModality
 
         private Tuple<string, double> ProcessDiscreteGesture(DiscreteGestureResult detected, string gestureName) {
             
-            if (((gestureName.Equals(muteGestureName) || gestureName.Equals(kickGestureName) || gestureName.Equals(banGestureName)) && detected.Confidence > .30) || detected.Confidence > .70)
+            if (((gestureName.Equals(muteGestureName) || gestureName.Equals(kickGestureName) || gestureName.Equals(banGestureName)
+                || gestureName.Equals(selfDeafGestureName)) && detected.Confidence > .25) || detected.Confidence > .70)
                 return Tuple.Create<string, double>(gestureName, detected.Confidence);
             return Tuple.Create<string, double>(null, -1);
         }
@@ -168,8 +170,8 @@ namespace GestureModality
                 case deafGestureName:
                     if (userSelected != null)
                         json += "\"DEAF_USER\"]";
-                    else
-                        json += "\"SELF_DEAF\"]";
+                    //else
+                      //  json += "\"SELF_DEAF\"]";
                     break;
                 case muteGestureName:
                     if (userSelected != null)
@@ -185,6 +187,9 @@ namespace GestureModality
                     break;
                 case banGestureName:
                     json += "\"BAN_USER\"]";
+                    break;
+                case selfDeafGestureName:
+                    json += "\"SELF_DEAF\"]";
                     break;
                 default:
                     Console.WriteLine("Invalid action");
