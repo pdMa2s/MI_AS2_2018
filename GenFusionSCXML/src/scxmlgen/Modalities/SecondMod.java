@@ -38,6 +38,10 @@ public enum SecondMod implements IModality{
     DEAF_USER_IMSERVER("[action][DEAF_USER][guildName][IMServer]", 1500),
     DEAF_USER_TOPICOS("[action][DEAF_USER][guildName][apicultura]", 1500),
     
+    MUTE_USER("[action][MUTE_USER]", 1500),
+    MUTE_USER_IMSERVER("[action][MUTE_USER][guildName][IMServer]", 1500),
+    MUTE_USER_TOPICOS("[action][MUTE_USER][guildName][apicultura]", 1500),
+    
     KICK_USER("[action][REMOVE_USER]",1500),
     KICK_USER_IMSERVER("[action][REMOVE_USER][guildName][IMServer]",1500),
     KICK_USER_TOPICOS("[action][REMOVE_USER][guildName][apicultura]",1500),

@@ -10,14 +10,14 @@
         ResizeMode="NoResize"
         Title="HelpWindow" Height="700.5" Width="657" Activated="Window_Activated" Deactivated="Window_Deactivated">
     <Grid>
-        <TextBlock x:Name="textBlockMute" HorizontalAlignment="Left" Margin="71,292,0,0" TextWrapping="Wrap" Text="Mute" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/mute.PNG" MaxHeight="230" MaxWidth="200" Margin="53,326,509,160"/>
-        <TextBlock x:Name="textBlockRight" HorizontalAlignment="Left" Margin="63,514,0,0" TextWrapping="Wrap" Text="Right Hand" VerticalAlignment="Top" FontSize="15"/>
-        <TextBlock x:Name="textBlockDeaf" HorizontalAlignment="Left" Margin="520,8,0,0" TextWrapping="Wrap" Text="Deaf" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/deaf.png" Margin="481,35,49,415" RenderTransformOrigin="0.529,0.647"/>
-        <TextBlock x:Name="textBlockLeft" HorizontalAlignment="Left" Margin="509,258,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
-        <TextBlock x:Name="textBlockDelete" HorizontalAlignment="Left" Margin="255,294,0,0" TextWrapping="Wrap" Text="Delete Message" VerticalAlignment="Top" FontSize="20" Width="150"/>
-        <Image gif:ImageBehavior.AnimatedSource="images/deletegif.gif" MaxHeight="316" MaxWidth="308" Margin="201,326,206,160"/>
+        <TextBlock x:Name="textBlockMute" HorizontalAlignment="Left" Margin="400,8,0,0" TextWrapping="Wrap" Text="Mute" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/mute.PNG" MaxHeight="230" MaxWidth="200" Margin="365,35,169,415"/>
+        <TextBlock x:Name="textBlockRight" HorizontalAlignment="Left" Margin="388,259,0,0" TextWrapping="Wrap" Text="Right Hand" VerticalAlignment="Top" FontSize="15"/>
+        <TextBlock x:Name="textBlockDeaf" HorizontalAlignment="Left" Margin="550,8,0,0" TextWrapping="Wrap" Text="Deaf" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/deaf.png" Margin="507,35,23,415" RenderTransformOrigin="0.529,0.647"/>
+        <TextBlock x:Name="textBlockLeft" HorizontalAlignment="Left" Margin="539,259,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
+        <TextBlock x:Name="textBlockDelete" HorizontalAlignment="Left" Margin="109,294,0,0" TextWrapping="Wrap" Text="Delete Message" VerticalAlignment="Top" FontSize="20" Width="150"/>
+        <Image gif:ImageBehavior.AnimatedSource="images/deletegif.gif" MaxHeight="316" MaxWidth="308" Margin="59,326,348,160"/>
         <k:KinectRegion x:Name="kinectRegionHelp" Margin="0,524,0,0" HorizontalAlignment="Left" Width="641">
             <Grid x:Name="grid" Margin="0,10,0,0">
                 <Button x:Name="thankYouBTN" Click="closeHelpWindow" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top" Width="208" Height="124" Background="White">
@@ -27,10 +27,12 @@
         </k:KinectRegion>
         <TextBlock x:Name="textBlockMute_Copy" HorizontalAlignment="Left" Margin="71,8,0,0" TextWrapping="Wrap" Text="Kick User" VerticalAlignment="Top" FontSize="20"/>
         <Image Source="images/kick.png" Margin="33,35,453,415"/>
-        <TextBlock x:Name="textBlockLeft_Copy" HorizontalAlignment="Left" Margin="84,255,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
-        <TextBlock x:Name="textBlockMute_Copy1" HorizontalAlignment="Left" Margin="303,8,0,0" TextWrapping="Wrap" Text="Ban User" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/ban.PNG" Margin="281,35,250,415" RenderTransformOrigin="0.407,0.693"/>
-        <TextBlock x:Name="textBlockMute_Copy2" HorizontalAlignment="Left" Margin="505,292,0,0" TextWrapping="Wrap" Text="Self Deaf" VerticalAlignment="Top" FontSize="20"/>
-        <Image Source="images/selfDeaf.PNG" Margin="481,326,29,160"/>
+        <TextBlock x:Name="textBlockLeft_Copy" HorizontalAlignment="Left" Margin="88,259,0,0" TextWrapping="Wrap" Text="Left Hand" VerticalAlignment="Top" FontSize="15"/>
+        <TextBlock x:Name="textBlockMute_Copy1" HorizontalAlignment="Left" Margin="251,8,0,0" TextWrapping="Wrap" Text="Ban User" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/ban.PNG" Margin="227,35,304,415" RenderTransformOrigin="0.407,0.693"/>
+        <TextBlock x:Name="textBlockMute_Copy2" HorizontalAlignment="Left" Margin="531,292,0,0" TextWrapping="Wrap" Text="Self Deaf" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/selfDeaf.PNG" Margin="499,326,11,160"/>
+        <TextBlock x:Name="textBlockMute_Copy3" HorizontalAlignment="Left" Margin="383,292,0,0" TextWrapping="Wrap" Text="Self Mute" VerticalAlignment="Top" FontSize="20"/>
+        <Image Source="images/selfMute.PNG" Margin="357,326,153,160"/>
     </Grid>
 </Window>
