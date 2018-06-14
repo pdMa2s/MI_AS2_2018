@@ -7,7 +7,7 @@
         xmlns:k="http://schemas.microsoft.com/kinect/2014"
         ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="MainWindow" Height="552.826" Width="551"
+        Title="GestureModality" Height="552.826" Width="551"
         Closing="MainWindow_Closing" Deactivated="Window_Deactivated" Activated="Window_Activated">
     <Grid RenderTransformOrigin="0.486,0.44" Margin="0,0,0,1">
         <TextBlock x:Name="gestureDetected" HorizontalAlignment="Left" Margin="36,31,0,0" TextWrapping="Wrap" Text="No gesture detected." VerticalAlignment="Top" Height="35" Width="334" FontSize="16"/>

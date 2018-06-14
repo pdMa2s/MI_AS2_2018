@@ -155,7 +155,7 @@ namespace GestureModality
         private Tuple<string, double> ProcessDiscreteGesture(DiscreteGestureResult detected, string gestureName) {
             
             if (((gestureName.Equals(muteGestureName) || gestureName.Equals(kickGestureName) || gestureName.Equals(banGestureName)
-                || gestureName.Equals(selfDeafGestureName) || gestureName.Equals(deafGestureName))
+                || gestureName.Equals(selfDeafGestureName) || gestureName.Equals(deafGestureName) || gestureName.Equals(selfMuteGestureName))
                 && detected.Confidence > .25) || detected.Confidence > .70)
                 return Tuple.Create<string, double>(gestureName, detected.Confidence);
             return Tuple.Create<string, double>(null, -1);
