@@ -7,6 +7,7 @@ namespace speechModality
     public class SpeechMod
     {
         private SpeechRecognitionEngine sre;
+        private bool stopRecognized;
         private Grammar gr;
         public event EventHandler<SpeechEventArg> Recognized;
         protected virtual void onRecognized(SpeechEventArg msg)
@@ -40,6 +41,7 @@ namespace speechModality
             sre.RecognizeAsync(RecognizeMode.Multiple);
             sre.SpeechRecognized += Sre_SpeechRecognized;
             sre.SpeechHypothesized += Sre_SpeechHypothesized;
+            stopRecognized = false;
         }
 
         private void Sre_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
@@ -118,11 +120,16 @@ namespace speechModality
         public void stopListening()
         {
             sre.RecognizeAsyncStop();
+            stopRecognized = true;
         }
 
         public void startListening()
         {
-            sre.RecognizeAsync(RecognizeMode.Multiple);
+            if (stopRecognized)
+            {
+                sre.RecognizeAsync(RecognizeMode.Multiple);
+                stopRecognized = false;
+            }
         }
     }
 
