@@ -55,11 +55,11 @@ namespace DiscordControler
 
             
             await _client.StartAsync();
-
+            
             _tts.Speak("Olá eu sou o wally, o teu bot do Discord! Se desejares podes-me perguntar o que é que eu sou capaz de fazer e que comandos estão disponíveis. So tenho um requisito, diz o meu nome antes de qualquer comando.");
 
             Thread.Sleep(2000);
-           
+
             comModule.SendGuildInfo(_client.Guilds);
             await Task.Delay(-1);
         }
@@ -404,21 +404,17 @@ namespace DiscordControler
         private async Task RemoveBan(string userNameToRemBan, string guildNameToRemBan, string confidence)
         {
             var guild = FindGuild(guildNameToRemBan);
-            var user = FindUser(guild, userNameToRemBan);
             SocketTextChannel channel = FindChannel(guild, "geral") as SocketTextChannel;
 
-            if (user == null)
-            {
-                await channel.SendMessageAsync(_speechTemplates.GetUnkownUser(userNameToRemBan));
-                return;
-            }
             var bans = await guild.GetBansAsync();
-            var banToRemove = (RestBan)null;
+            var banToRemove = (RestBan) null;
+            var user = (RestUser) null;
             foreach (RestBan ban in bans)
             {
                 if (ban.User.Username.Equals(userNameToRemBan))
                 {
                     banToRemove = ban;
+                    user = ban.User;
                     break;
                 }
             }
