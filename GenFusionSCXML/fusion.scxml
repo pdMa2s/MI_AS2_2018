@@ -115,7 +115,7 @@
     <onentry>
       <log label="[sspeech[action][deaf_user][username][matos][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][deaf_user][username][matos][guildname][imserver]" event="timeout-sspeech[action][deaf_user][username][matos][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][deaf_user][username][matos][guildname][imserver]" event="timeout-sspeech[action][deaf_user][username][matos][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][deaf_user][username][matos][guildname][imserver]-final" event="timeout-sspeech[action][deaf_user][username][matos][guildname][imserver]" />
     <transition target="sspeech[action][deaf_user][username][matos][guildname][imserver]-secondmod[action][deaf_user][username][matos][guildname][imserver]" event="[action][DEAF_USER][userName][Matos][guildName][IMServer]" />
@@ -163,7 +163,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user][guildname][apicultura]" event="timeout-ssecondmod[action][mute_user][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user][guildname][apicultura]" event="timeout-ssecondmod[action][mute_user][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][mute_user][guildname][apicultura]" />
     <transition target="ssecondmod[action][mute_user][guildname][apicultura]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -234,7 +234,7 @@
     <onentry>
       <log label="[sspeech[action][deaf_user][username][gustavo][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][deaf_user][username][gustavo][guildname][imserver]" event="timeout-sspeech[action][deaf_user][username][gustavo][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][deaf_user][username][gustavo][guildname][imserver]" event="timeout-sspeech[action][deaf_user][username][gustavo][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][deaf_user][username][gustavo][guildname][imserver]-final" event="timeout-sspeech[action][deaf_user][username][gustavo][guildname][imserver]" />
     <transition target="sspeech[action][deaf_user][username][gustavo][guildname][imserver]-secondmod[action][deaf_user][username][gustavo][guildname][imserver]" event="[action][DEAF_USER][userName][Gustavo][guildName][IMServer]" />
@@ -263,7 +263,7 @@
     <onentry>
       <log label="[sspeech[channelname][teste][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[channelname][teste][guildname][apicultura]" event="timeout-sspeech[channelname][teste][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[channelname][teste][guildname][apicultura]" event="timeout-sspeech[channelname][teste][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[channelname][teste][guildname][apicultura]" />
     <transition target="sspeech[channelname][teste][guildname][apicultura]-secondmod[action][delete_last_message]" event="[action][DELETE_LAST_MESSAGE]" />
@@ -313,7 +313,7 @@
     <onentry>
       <log label="[sspeech[channelname][sueca]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[channelname][sueca]" event="timeout-sspeech[channelname][sueca]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[channelname][sueca]" event="timeout-sspeech[channelname][sueca]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[channelname][sueca]" />
     <transition target="sspeech[channelname][sueca]-secondmod[action][delete_last_message]" event="[action][DELETE_LAST_MESSAGE]" />
@@ -344,7 +344,7 @@
     <onentry>
       <log label="[sspeech[action][mute_user][username][gustavo][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][mute_user][username][gustavo][guildname][imserver]" event="timeout-sspeech[action][mute_user][username][gustavo][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][mute_user][username][gustavo][guildname][imserver]" event="timeout-sspeech[action][mute_user][username][gustavo][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][mute_user][username][gustavo][guildname][imserver]-final" event="timeout-sspeech[action][mute_user][username][gustavo][guildname][imserver]" />
     <transition target="sspeech[action][mute_user][username][gustavo][guildname][imserver]-secondmod[action][mute_user][username][gustavo][guildname][imserver]" event="[action][MUTE_USER][userName][Gustavo][guildName][IMServer]" />
@@ -373,7 +373,7 @@
     <onentry>
       <log label="[sspeech[action][self_deaf][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][self_deaf][guildname][imserver]" event="timeout-sspeech[action][self_deaf][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][self_deaf][guildname][imserver]" event="timeout-sspeech[action][self_deaf][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][self_deaf][guildname][imserver]-final" event="timeout-sspeech[action][self_deaf][guildname][imserver]" />
     <transition target="sspeech[action][self_deaf][guildname][imserver]-secondmod[action][self_deaf][guildname][imserver]" event="[action][SELF_DEAF][guildName][IMServer]" />
@@ -402,7 +402,7 @@
     <onentry>
       <log label="[ssecondmod[action][self_mute][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][self_mute][guildname][apicultura]" event="timeout-ssecondmod[action][self_mute][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][self_mute][guildname][apicultura]" event="timeout-ssecondmod[action][self_mute][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][self_mute][guildname][apicultura]-final" event="timeout-ssecondmod[action][self_mute][guildname][apicultura]" />
     <transition target="ssecondmod[action][self_mute][guildname][apicultura]-speech[action][self_mute][guildname][apicultura]" event="[action][SELF_MUTE][guildName][apicultura]" />
@@ -431,7 +431,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user][guildname][apicultura]" event="timeout-ssecondmod[action][deaf_user][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user][guildname][apicultura]" event="timeout-ssecondmod[action][deaf_user][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][deaf_user][guildname][apicultura]" />
     <transition target="ssecondmod[action][deaf_user][guildname][apicultura]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -521,7 +521,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user]" event="timeout-ssecondmod[action][mute_user]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user]" event="timeout-ssecondmod[action][mute_user]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][mute_user]" />
     <transition target="ssecondmod[action][mute_user]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -622,7 +622,7 @@
     <onentry>
       <log label="[sspeech[username][matos]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[username][matos]" event="timeout-sspeech[username][matos]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[username][matos]" event="timeout-sspeech[username][matos]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[username][matos]" />
     <transition target="sspeech[username][matos]-secondmod[action][remove_user]" event="[action][REMOVE_USER]" />
@@ -753,7 +753,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user][username][gustavo][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user][username][gustavo][guildname][apicultura]" event="timeout-ssecondmod[action][deaf_user][username][gustavo][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user][username][gustavo][guildname][apicultura]" event="timeout-ssecondmod[action][deaf_user][username][gustavo][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][deaf_user][username][gustavo][guildname][apicultura]-final" event="timeout-ssecondmod[action][deaf_user][username][gustavo][guildname][apicultura]" />
     <transition target="ssecondmod[action][deaf_user][username][gustavo][guildname][apicultura]-speech[action][deaf_user][username][gustavo][guildname][apicultura]" event="[action][DEAF_USER][userName][Gustavo][guildName][apicultura]" />
@@ -782,7 +782,7 @@
     <onentry>
       <log label="[sspeech[channelname][geral][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[channelname][geral][guildname][apicultura]" event="timeout-sspeech[channelname][geral][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[channelname][geral][guildname][apicultura]" event="timeout-sspeech[channelname][geral][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[channelname][geral][guildname][apicultura]" />
     <transition target="sspeech[channelname][geral][guildname][apicultura]-secondmod[action][delete_last_message]" event="[action][DELETE_LAST_MESSAGE]" />
@@ -813,7 +813,7 @@
     <onentry>
       <log label="[sspeech[action][deaf_user][username][ambrosio][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][deaf_user][username][ambrosio][guildname][imserver]" event="timeout-sspeech[action][deaf_user][username][ambrosio][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][deaf_user][username][ambrosio][guildname][imserver]" event="timeout-sspeech[action][deaf_user][username][ambrosio][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][deaf_user][username][ambrosio][guildname][imserver]-final" event="timeout-sspeech[action][deaf_user][username][ambrosio][guildname][imserver]" />
     <transition target="sspeech[action][deaf_user][username][ambrosio][guildname][imserver]-secondmod[action][deaf_user][username][ambrosio][guildname][imserver]" event="[action][DEAF_USER][userName][Ambrosio][guildName][IMServer]" />
@@ -842,7 +842,7 @@
     <onentry>
       <log label="[sspeech[action][self_deaf]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][self_deaf]" event="timeout-sspeech[action][self_deaf]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][self_deaf]" event="timeout-sspeech[action][self_deaf]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][self_deaf]-final" event="timeout-sspeech[action][self_deaf]" />
     <transition target="sspeech[action][self_deaf]-secondmod[action][self_deaf]" event="[action][SELF_DEAF]" />
@@ -871,7 +871,7 @@
     <onentry>
       <log label="[ssecondmod[action][remove_user]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][remove_user]" event="timeout-ssecondmod[action][remove_user]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][remove_user]" event="timeout-ssecondmod[action][remove_user]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][remove_user]" />
     <transition target="ssecondmod[action][remove_user]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -991,7 +991,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user][username][ambrosio][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user][username][ambrosio][guildname][apicultura]" event="timeout-ssecondmod[action][deaf_user][username][ambrosio][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user][username][ambrosio][guildname][apicultura]" event="timeout-ssecondmod[action][deaf_user][username][ambrosio][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][deaf_user][username][ambrosio][guildname][apicultura]-final" event="timeout-ssecondmod[action][deaf_user][username][ambrosio][guildname][apicultura]" />
     <transition target="ssecondmod[action][deaf_user][username][ambrosio][guildname][apicultura]-speech[action][deaf_user][username][ambrosio][guildname][apicultura]" event="[action][DEAF_USER][userName][Ambrosio][guildName][apicultura]" />
@@ -1020,7 +1020,7 @@
     <onentry>
       <log label="[sspeech[action][mute_user][username][matos][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][mute_user][username][matos][guildname][apicultura]" event="timeout-sspeech[action][mute_user][username][matos][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][mute_user][username][matos][guildname][apicultura]" event="timeout-sspeech[action][mute_user][username][matos][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][mute_user][username][matos][guildname][apicultura]-final" event="timeout-sspeech[action][mute_user][username][matos][guildname][apicultura]" />
     <transition target="sspeech[action][mute_user][username][matos][guildname][apicultura]-secondmod[action][mute_user][username][matos][guildname][apicultura]" event="[action][MUTE_USER][userName][Matos][guildName][apicultura]" />
@@ -1049,7 +1049,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user][username][gustavo][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user][username][gustavo][guildname][apicultura]" event="timeout-ssecondmod[action][mute_user][username][gustavo][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user][username][gustavo][guildname][apicultura]" event="timeout-ssecondmod[action][mute_user][username][gustavo][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][mute_user][username][gustavo][guildname][apicultura]-final" event="timeout-ssecondmod[action][mute_user][username][gustavo][guildname][apicultura]" />
     <transition target="ssecondmod[action][mute_user][username][gustavo][guildname][apicultura]-speech[action][mute_user][username][gustavo][guildname][apicultura]" event="[action][MUTE_USER][userName][Gustavo][guildName][apicultura]" />
@@ -1078,7 +1078,7 @@
     <onentry>
       <log label="[sspeech[username][ambrosio][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[username][ambrosio][guildname][imserver]" event="timeout-sspeech[username][ambrosio][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[username][ambrosio][guildname][imserver]" event="timeout-sspeech[username][ambrosio][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[username][ambrosio][guildname][imserver]" />
     <transition target="sspeech[username][ambrosio][guildname][imserver]-secondmod[action][remove_user]" event="[action][REMOVE_USER]" />
@@ -1169,7 +1169,7 @@
     <onentry>
       <log label="[sspeech[channelname][teste]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[channelname][teste]" event="timeout-sspeech[channelname][teste]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[channelname][teste]" event="timeout-sspeech[channelname][teste]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[channelname][teste]" />
     <transition target="sspeech[channelname][teste]-secondmod[action][delete_last_message]" event="[action][DELETE_LAST_MESSAGE]" />
@@ -1210,7 +1210,7 @@
     <onentry>
       <log label="[sspeech[action][mute_user][username][ambrosio][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][mute_user][username][ambrosio][guildname][imserver]" event="timeout-sspeech[action][mute_user][username][ambrosio][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][mute_user][username][ambrosio][guildname][imserver]" event="timeout-sspeech[action][mute_user][username][ambrosio][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][mute_user][username][ambrosio][guildname][imserver]-final" event="timeout-sspeech[action][mute_user][username][ambrosio][guildname][imserver]" />
     <transition target="sspeech[action][mute_user][username][ambrosio][guildname][imserver]-secondmod[action][mute_user][username][ambrosio][guildname][imserver]" event="[action][MUTE_USER][userName][Ambrosio][guildName][IMServer]" />
@@ -1239,7 +1239,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user][username][matos][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user][username][matos][guildname][imserver]" event="timeout-ssecondmod[action][deaf_user][username][matos][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user][username][matos][guildname][imserver]" event="timeout-ssecondmod[action][deaf_user][username][matos][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][deaf_user][username][matos][guildname][imserver]-final" event="timeout-ssecondmod[action][deaf_user][username][matos][guildname][imserver]" />
     <transition target="ssecondmod[action][deaf_user][username][matos][guildname][imserver]-speech[action][deaf_user][username][matos][guildname][imserver]" event="[action][DEAF_USER][userName][Matos][guildName][IMServer]" />
@@ -1268,7 +1268,7 @@
     <onentry>
       <log label="[ssecondmod[action][self_mute]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][self_mute]" event="timeout-ssecondmod[action][self_mute]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][self_mute]" event="timeout-ssecondmod[action][self_mute]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][self_mute]-final" event="timeout-ssecondmod[action][self_mute]" />
     <transition target="ssecondmod[action][self_mute]-speech[action][self_mute]" event="[action][SELF_MUTE]" />
@@ -1316,7 +1316,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user][username][gustavo][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user][username][gustavo][guildname][imserver]" event="timeout-ssecondmod[action][deaf_user][username][gustavo][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user][username][gustavo][guildname][imserver]" event="timeout-ssecondmod[action][deaf_user][username][gustavo][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][deaf_user][username][gustavo][guildname][imserver]-final" event="timeout-ssecondmod[action][deaf_user][username][gustavo][guildname][imserver]" />
     <transition target="ssecondmod[action][deaf_user][username][gustavo][guildname][imserver]-speech[action][deaf_user][username][gustavo][guildname][imserver]" event="[action][DEAF_USER][userName][Gustavo][guildName][IMServer]" />
@@ -1345,7 +1345,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user][guildname][imserver]" event="timeout-ssecondmod[action][deaf_user][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user][guildname][imserver]" event="timeout-ssecondmod[action][deaf_user][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][deaf_user][guildname][imserver]" />
     <transition target="ssecondmod[action][deaf_user][guildname][imserver]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -1435,7 +1435,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user][username][matos]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user][username][matos]" event="timeout-ssecondmod[action][deaf_user][username][matos]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user][username][matos]" event="timeout-ssecondmod[action][deaf_user][username][matos]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][deaf_user][username][matos]-final" event="timeout-ssecondmod[action][deaf_user][username][matos]" />
     <transition target="ssecondmod[action][deaf_user][username][matos]-speech[action][deaf_user][username][matos]" event="[action][DEAF_USER][userName][Matos]" />
@@ -1464,7 +1464,7 @@
     <onentry>
       <log label="[ssecondmod[action][delete_last_message][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][delete_last_message][guildname][apicultura]" event="timeout-ssecondmod[action][delete_last_message][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][delete_last_message][guildname][apicultura]" event="timeout-ssecondmod[action][delete_last_message][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][delete_last_message][guildname][apicultura]" />
     <transition target="ssecondmod[action][delete_last_message][guildname][apicultura]-speech[channelname][geral]" event="[channelName][geral]" />
@@ -1515,7 +1515,7 @@
     <onentry>
       <log label="[ssecondmod[action][delete_last_message][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][delete_last_message][guildname][imserver]" event="timeout-ssecondmod[action][delete_last_message][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][delete_last_message][guildname][imserver]" event="timeout-ssecondmod[action][delete_last_message][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][delete_last_message][guildname][imserver]" />
     <transition target="ssecondmod[action][delete_last_message][guildname][imserver]-speech[channelname][geral]" event="[channelName][geral]" />
@@ -1586,7 +1586,7 @@
     <onentry>
       <log label="[sspeech[action][self_mute][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][self_mute][guildname][apicultura]" event="timeout-sspeech[action][self_mute][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][self_mute][guildname][apicultura]" event="timeout-sspeech[action][self_mute][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][self_mute][guildname][apicultura]-final" event="timeout-sspeech[action][self_mute][guildname][apicultura]" />
     <transition target="sspeech[action][self_mute][guildname][apicultura]-secondmod[action][self_mute][guildname][apicultura]" event="[action][SELF_MUTE][guildName][apicultura]" />
@@ -1615,7 +1615,7 @@
     <onentry>
       <log label="[sspeech[username][gustavo][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[username][gustavo][guildname][apicultura]" event="timeout-sspeech[username][gustavo][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[username][gustavo][guildname][apicultura]" event="timeout-sspeech[username][gustavo][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[username][gustavo][guildname][apicultura]" />
     <transition target="sspeech[username][gustavo][guildname][apicultura]-secondmod[action][remove_user]" event="[action][REMOVE_USER]" />
@@ -1706,7 +1706,7 @@
     <onentry>
       <log label="[sspeech[action][deaf_user][username][ambrosio][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][deaf_user][username][ambrosio][guildname][apicultura]" event="timeout-sspeech[action][deaf_user][username][ambrosio][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][deaf_user][username][ambrosio][guildname][apicultura]" event="timeout-sspeech[action][deaf_user][username][ambrosio][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][deaf_user][username][ambrosio][guildname][apicultura]-final" event="timeout-sspeech[action][deaf_user][username][ambrosio][guildname][apicultura]" />
     <transition target="sspeech[action][deaf_user][username][ambrosio][guildname][apicultura]-secondmod[action][deaf_user][username][ambrosio][guildname][apicultura]" event="[action][DEAF_USER][userName][Ambrosio][guildName][apicultura]" />
@@ -1754,7 +1754,7 @@
     <onentry>
       <log label="[sspeech[username][ambrosio]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[username][ambrosio]" event="timeout-sspeech[username][ambrosio]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[username][ambrosio]" event="timeout-sspeech[username][ambrosio]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[username][ambrosio]" />
     <transition target="sspeech[username][ambrosio]-secondmod[action][remove_user]" event="[action][REMOVE_USER]" />
@@ -1885,7 +1885,7 @@
     <onentry>
       <log label="[sspeech[action][deaf_user][username][ambrosio]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][deaf_user][username][ambrosio]" event="timeout-sspeech[action][deaf_user][username][ambrosio]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][deaf_user][username][ambrosio]" event="timeout-sspeech[action][deaf_user][username][ambrosio]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][deaf_user][username][ambrosio]-final" event="timeout-sspeech[action][deaf_user][username][ambrosio]" />
     <transition target="sspeech[action][deaf_user][username][ambrosio]-secondmod[action][deaf_user][username][ambrosio]" event="[action][DEAF_USER][userName][Ambrosio]" />
@@ -1914,7 +1914,7 @@
     <onentry>
       <log label="[ssecondmod[action][delete_last_message]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][delete_last_message]" event="timeout-ssecondmod[action][delete_last_message]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][delete_last_message]" event="timeout-ssecondmod[action][delete_last_message]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][delete_last_message]" />
     <transition target="ssecondmod[action][delete_last_message]-speech[channelname][geral]" event="[channelName][geral]" />
@@ -2005,7 +2005,7 @@
     <onentry>
       <log label="[sspeech[action][mute_user][username][gustavo][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][mute_user][username][gustavo][guildname][apicultura]" event="timeout-sspeech[action][mute_user][username][gustavo][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][mute_user][username][gustavo][guildname][apicultura]" event="timeout-sspeech[action][mute_user][username][gustavo][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][mute_user][username][gustavo][guildname][apicultura]-final" event="timeout-sspeech[action][mute_user][username][gustavo][guildname][apicultura]" />
     <transition target="sspeech[action][mute_user][username][gustavo][guildname][apicultura]-secondmod[action][mute_user][username][gustavo][guildname][apicultura]" event="[action][MUTE_USER][userName][Gustavo][guildName][apicultura]" />
@@ -2034,7 +2034,7 @@
     <onentry>
       <log label="[sspeech[action][deaf_user][username][matos][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][deaf_user][username][matos][guildname][apicultura]" event="timeout-sspeech[action][deaf_user][username][matos][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][deaf_user][username][matos][guildname][apicultura]" event="timeout-sspeech[action][deaf_user][username][matos][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][deaf_user][username][matos][guildname][apicultura]-final" event="timeout-sspeech[action][deaf_user][username][matos][guildname][apicultura]" />
     <transition target="sspeech[action][deaf_user][username][matos][guildname][apicultura]-secondmod[action][deaf_user][username][matos][guildname][apicultura]" event="[action][DEAF_USER][userName][Matos][guildName][apicultura]" />
@@ -2063,7 +2063,7 @@
     <onentry>
       <log label="[sspeech[action][self_mute]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][self_mute]" event="timeout-sspeech[action][self_mute]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][self_mute]" event="timeout-sspeech[action][self_mute]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][self_mute]-final" event="timeout-sspeech[action][self_mute]" />
     <transition target="sspeech[action][self_mute]-secondmod[action][self_mute]" event="[action][SELF_MUTE]" />
@@ -2111,7 +2111,7 @@
     <onentry>
       <log label="[sspeech[action][mute_user][username][matos][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][mute_user][username][matos][guildname][imserver]" event="timeout-sspeech[action][mute_user][username][matos][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][mute_user][username][matos][guildname][imserver]" event="timeout-sspeech[action][mute_user][username][matos][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][mute_user][username][matos][guildname][imserver]-final" event="timeout-sspeech[action][mute_user][username][matos][guildname][imserver]" />
     <transition target="sspeech[action][mute_user][username][matos][guildname][imserver]-secondmod[action][mute_user][username][matos][guildname][imserver]" event="[action][MUTE_USER][userName][Matos][guildName][IMServer]" />
@@ -2140,7 +2140,7 @@
     <onentry>
       <log label="[ssecondmod[action][remove_user][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][remove_user][guildname][apicultura]" event="timeout-ssecondmod[action][remove_user][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][remove_user][guildname][apicultura]" event="timeout-ssecondmod[action][remove_user][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][remove_user][guildname][apicultura]" />
     <transition target="ssecondmod[action][remove_user][guildname][apicultura]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -2230,7 +2230,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user][username][ambrosio]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user][username][ambrosio]" event="timeout-ssecondmod[action][mute_user][username][ambrosio]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user][username][ambrosio]" event="timeout-ssecondmod[action][mute_user][username][ambrosio]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][mute_user][username][ambrosio]-final" event="timeout-ssecondmod[action][mute_user][username][ambrosio]" />
     <transition target="ssecondmod[action][mute_user][username][ambrosio]-speech[action][mute_user][username][ambrosio]" event="[action][MUTE_USER][userName][Ambrosio]" />
@@ -2278,7 +2278,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user][username][gustavo][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user][username][gustavo][guildname][imserver]" event="timeout-ssecondmod[action][mute_user][username][gustavo][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user][username][gustavo][guildname][imserver]" event="timeout-ssecondmod[action][mute_user][username][gustavo][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][mute_user][username][gustavo][guildname][imserver]-final" event="timeout-ssecondmod[action][mute_user][username][gustavo][guildname][imserver]" />
     <transition target="ssecondmod[action][mute_user][username][gustavo][guildname][imserver]-speech[action][mute_user][username][gustavo][guildname][imserver]" event="[action][MUTE_USER][userName][Gustavo][guildName][IMServer]" />
@@ -2307,7 +2307,7 @@
     <onentry>
       <log label="[ssecondmod[action][self_mute][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][self_mute][guildname][imserver]" event="timeout-ssecondmod[action][self_mute][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][self_mute][guildname][imserver]" event="timeout-ssecondmod[action][self_mute][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][self_mute][guildname][imserver]-final" event="timeout-ssecondmod[action][self_mute][guildname][imserver]" />
     <transition target="ssecondmod[action][self_mute][guildname][imserver]-speech[action][self_mute][guildname][imserver]" event="[action][SELF_MUTE][guildName][IMServer]" />
@@ -2336,7 +2336,7 @@
     <onentry>
       <log label="[sspeech[channelname][sueca][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[channelname][sueca][guildname][imserver]" event="timeout-sspeech[channelname][sueca][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[channelname][sueca][guildname][imserver]" event="timeout-sspeech[channelname][sueca][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[channelname][sueca][guildname][imserver]" />
     <transition target="sspeech[channelname][sueca][guildname][imserver]-secondmod[action][delete_last_message]" event="[action][DELETE_LAST_MESSAGE]" />
@@ -2367,7 +2367,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user][username][matos][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user][username][matos][guildname][apicultura]" event="timeout-ssecondmod[action][mute_user][username][matos][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user][username][matos][guildname][apicultura]" event="timeout-ssecondmod[action][mute_user][username][matos][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][mute_user][username][matos][guildname][apicultura]-final" event="timeout-ssecondmod[action][mute_user][username][matos][guildname][apicultura]" />
     <transition target="ssecondmod[action][mute_user][username][matos][guildname][apicultura]-speech[action][mute_user][username][matos][guildname][apicultura]" event="[action][MUTE_USER][userName][Matos][guildName][apicultura]" />
@@ -2396,7 +2396,7 @@
     <onentry>
       <log label="[sspeech[action][deaf_user][username][gustavo]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][deaf_user][username][gustavo]" event="timeout-sspeech[action][deaf_user][username][gustavo]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][deaf_user][username][gustavo]" event="timeout-sspeech[action][deaf_user][username][gustavo]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][deaf_user][username][gustavo]-final" event="timeout-sspeech[action][deaf_user][username][gustavo]" />
     <transition target="sspeech[action][deaf_user][username][gustavo]-secondmod[action][deaf_user][username][gustavo]" event="[action][DEAF_USER][userName][Gustavo]" />
@@ -2425,7 +2425,7 @@
     <onentry>
       <log label="[ssecondmod[action][ban_user]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][ban_user]" event="timeout-ssecondmod[action][ban_user]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][ban_user]" event="timeout-ssecondmod[action][ban_user]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][ban_user]" />
     <transition target="ssecondmod[action][ban_user]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -2526,7 +2526,7 @@
     <onentry>
       <log label="[sspeech[channelname][teste][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[channelname][teste][guildname][imserver]" event="timeout-sspeech[channelname][teste][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[channelname][teste][guildname][imserver]" event="timeout-sspeech[channelname][teste][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[channelname][teste][guildname][imserver]" />
     <transition target="sspeech[channelname][teste][guildname][imserver]-secondmod[action][delete_last_message]" event="[action][DELETE_LAST_MESSAGE]" />
@@ -2557,7 +2557,7 @@
     <onentry>
       <log label="[sspeech[action][mute_user][username][ambrosio][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][mute_user][username][ambrosio][guildname][apicultura]" event="timeout-sspeech[action][mute_user][username][ambrosio][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][mute_user][username][ambrosio][guildname][apicultura]" event="timeout-sspeech[action][mute_user][username][ambrosio][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][mute_user][username][ambrosio][guildname][apicultura]-final" event="timeout-sspeech[action][mute_user][username][ambrosio][guildname][apicultura]" />
     <transition target="sspeech[action][mute_user][username][ambrosio][guildname][apicultura]-secondmod[action][mute_user][username][ambrosio][guildname][apicultura]" event="[action][MUTE_USER][userName][Ambrosio][guildName][apicultura]" />
@@ -2605,7 +2605,7 @@
     <onentry>
       <log label="[sspeech[username][matos][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[username][matos][guildname][imserver]" event="timeout-sspeech[username][matos][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[username][matos][guildname][imserver]" event="timeout-sspeech[username][matos][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[username][matos][guildname][imserver]" />
     <transition target="sspeech[username][matos][guildname][imserver]-secondmod[action][remove_user]" event="[action][REMOVE_USER]" />
@@ -2696,7 +2696,7 @@
     <onentry>
       <log label="[ssecondmod[action][ban_user][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][ban_user][guildname][imserver]" event="timeout-ssecondmod[action][ban_user][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][ban_user][guildname][imserver]" event="timeout-ssecondmod[action][ban_user][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][ban_user][guildname][imserver]" />
     <transition target="ssecondmod[action][ban_user][guildname][imserver]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -2767,7 +2767,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user][username][ambrosio][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user][username][ambrosio][guildname][imserver]" event="timeout-ssecondmod[action][mute_user][username][ambrosio][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user][username][ambrosio][guildname][imserver]" event="timeout-ssecondmod[action][mute_user][username][ambrosio][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][mute_user][username][ambrosio][guildname][imserver]-final" event="timeout-ssecondmod[action][mute_user][username][ambrosio][guildname][imserver]" />
     <transition target="ssecondmod[action][mute_user][username][ambrosio][guildname][imserver]-speech[action][mute_user][username][ambrosio][guildname][imserver]" event="[action][MUTE_USER][userName][Ambrosio][guildName][IMServer]" />
@@ -2796,7 +2796,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user][username][matos][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user][username][matos][guildname][apicultura]" event="timeout-ssecondmod[action][deaf_user][username][matos][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user][username][matos][guildname][apicultura]" event="timeout-ssecondmod[action][deaf_user][username][matos][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][deaf_user][username][matos][guildname][apicultura]-final" event="timeout-ssecondmod[action][deaf_user][username][matos][guildname][apicultura]" />
     <transition target="ssecondmod[action][deaf_user][username][matos][guildname][apicultura]-speech[action][deaf_user][username][matos][guildname][apicultura]" event="[action][DEAF_USER][userName][Matos][guildName][apicultura]" />
@@ -2825,7 +2825,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user][username][gustavo]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user][username][gustavo]" event="timeout-ssecondmod[action][mute_user][username][gustavo]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user][username][gustavo]" event="timeout-ssecondmod[action][mute_user][username][gustavo]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][mute_user][username][gustavo]-final" event="timeout-ssecondmod[action][mute_user][username][gustavo]" />
     <transition target="ssecondmod[action][mute_user][username][gustavo]-speech[action][mute_user][username][gustavo]" event="[action][MUTE_USER][userName][Gustavo]" />
@@ -2854,7 +2854,7 @@
     <onentry>
       <log label="[ssecondmod[action][remove_user][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][remove_user][guildname][imserver]" event="timeout-ssecondmod[action][remove_user][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][remove_user][guildname][imserver]" event="timeout-ssecondmod[action][remove_user][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][remove_user][guildname][imserver]" />
     <transition target="ssecondmod[action][remove_user][guildname][imserver]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -2925,7 +2925,7 @@
     <onentry>
       <log label="[sspeech[action][deaf_user][username][matos]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][deaf_user][username][matos]" event="timeout-sspeech[action][deaf_user][username][matos]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][deaf_user][username][matos]" event="timeout-sspeech[action][deaf_user][username][matos]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][deaf_user][username][matos]-final" event="timeout-sspeech[action][deaf_user][username][matos]" />
     <transition target="sspeech[action][deaf_user][username][matos]-secondmod[action][deaf_user][username][matos]" event="[action][DEAF_USER][userName][Matos]" />
@@ -2954,7 +2954,7 @@
     <onentry>
       <log label="[sspeech[channelname][geral][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[channelname][geral][guildname][imserver]" event="timeout-sspeech[channelname][geral][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[channelname][geral][guildname][imserver]" event="timeout-sspeech[channelname][geral][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[channelname][geral][guildname][imserver]" />
     <transition target="sspeech[channelname][geral][guildname][imserver]-secondmod[action][delete_last_message]" event="[action][DELETE_LAST_MESSAGE]" />
@@ -2985,7 +2985,7 @@
     <onentry>
       <log label="[sspeech[username][ambrosio][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[username][ambrosio][guildname][apicultura]" event="timeout-sspeech[username][ambrosio][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[username][ambrosio][guildname][apicultura]" event="timeout-sspeech[username][ambrosio][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[username][ambrosio][guildname][apicultura]" />
     <transition target="sspeech[username][ambrosio][guildname][apicultura]-secondmod[action][remove_user]" event="[action][REMOVE_USER]" />
@@ -3076,7 +3076,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user][username][matos][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user][username][matos][guildname][imserver]" event="timeout-ssecondmod[action][mute_user][username][matos][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user][username][matos][guildname][imserver]" event="timeout-ssecondmod[action][mute_user][username][matos][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][mute_user][username][matos][guildname][imserver]-final" event="timeout-ssecondmod[action][mute_user][username][matos][guildname][imserver]" />
     <transition target="ssecondmod[action][mute_user][username][matos][guildname][imserver]-speech[action][mute_user][username][matos][guildname][imserver]" event="[action][MUTE_USER][userName][Matos][guildName][IMServer]" />
@@ -3105,7 +3105,7 @@
     <onentry>
       <log label="[sspeech[username][matos][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[username][matos][guildname][apicultura]" event="timeout-sspeech[username][matos][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[username][matos][guildname][apicultura]" event="timeout-sspeech[username][matos][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[username][matos][guildname][apicultura]" />
     <transition target="sspeech[username][matos][guildname][apicultura]-secondmod[action][remove_user]" event="[action][REMOVE_USER]" />
@@ -3196,7 +3196,7 @@
     <onentry>
       <log label="[sspeech[username][gustavo][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[username][gustavo][guildname][imserver]" event="timeout-sspeech[username][gustavo][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[username][gustavo][guildname][imserver]" event="timeout-sspeech[username][gustavo][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[username][gustavo][guildname][imserver]" />
     <transition target="sspeech[username][gustavo][guildname][imserver]-secondmod[action][remove_user]" event="[action][REMOVE_USER]" />
@@ -3306,7 +3306,7 @@
     <onentry>
       <log label="[sspeech[action][self_mute][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][self_mute][guildname][imserver]" event="timeout-sspeech[action][self_mute][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][self_mute][guildname][imserver]" event="timeout-sspeech[action][self_mute][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][self_mute][guildname][imserver]-final" event="timeout-sspeech[action][self_mute][guildname][imserver]" />
     <transition target="sspeech[action][self_mute][guildname][imserver]-secondmod[action][self_mute][guildname][imserver]" event="[action][SELF_MUTE][guildName][IMServer]" />
@@ -3335,7 +3335,7 @@
     <onentry>
       <log label="[sspeech[action][mute_user][username][matos]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][mute_user][username][matos]" event="timeout-sspeech[action][mute_user][username][matos]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][mute_user][username][matos]" event="timeout-sspeech[action][mute_user][username][matos]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][mute_user][username][matos]-final" event="timeout-sspeech[action][mute_user][username][matos]" />
     <transition target="sspeech[action][mute_user][username][matos]-secondmod[action][mute_user][username][matos]" event="[action][MUTE_USER][userName][Matos]" />
@@ -3364,7 +3364,7 @@
     <onentry>
       <log label="[sspeech[action][deaf_user][username][gustavo][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][deaf_user][username][gustavo][guildname][apicultura]" event="timeout-sspeech[action][deaf_user][username][gustavo][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][deaf_user][username][gustavo][guildname][apicultura]" event="timeout-sspeech[action][deaf_user][username][gustavo][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][deaf_user][username][gustavo][guildname][apicultura]-final" event="timeout-sspeech[action][deaf_user][username][gustavo][guildname][apicultura]" />
     <transition target="sspeech[action][deaf_user][username][gustavo][guildname][apicultura]-secondmod[action][deaf_user][username][gustavo][guildname][apicultura]" event="[action][DEAF_USER][userName][Gustavo][guildName][apicultura]" />
@@ -3393,7 +3393,7 @@
     <onentry>
       <log label="[sspeech[action][self_deaf][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][self_deaf][guildname][apicultura]" event="timeout-sspeech[action][self_deaf][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][self_deaf][guildname][apicultura]" event="timeout-sspeech[action][self_deaf][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][self_deaf][guildname][apicultura]-final" event="timeout-sspeech[action][self_deaf][guildname][apicultura]" />
     <transition target="sspeech[action][self_deaf][guildname][apicultura]-secondmod[action][self_deaf][guildname][apicultura]" event="[action][SELF_DEAF][guildName][apicultura]" />
@@ -3422,7 +3422,7 @@
     <onentry>
       <log label="[sspeech[action][mute_user][username][gustavo]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][mute_user][username][gustavo]" event="timeout-sspeech[action][mute_user][username][gustavo]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][mute_user][username][gustavo]" event="timeout-sspeech[action][mute_user][username][gustavo]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][mute_user][username][gustavo]-final" event="timeout-sspeech[action][mute_user][username][gustavo]" />
     <transition target="sspeech[action][mute_user][username][gustavo]-secondmod[action][mute_user][username][gustavo]" event="[action][MUTE_USER][userName][Gustavo]" />
@@ -3451,7 +3451,7 @@
     <onentry>
       <log label="[sspeech[channelname][geral]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[channelname][geral]" event="timeout-sspeech[channelname][geral]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[channelname][geral]" event="timeout-sspeech[channelname][geral]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[channelname][geral]" />
     <transition target="sspeech[channelname][geral]-secondmod[action][delete_last_message]" event="[action][DELETE_LAST_MESSAGE]" />
@@ -3492,7 +3492,7 @@
     <onentry>
       <log label="[ssecondmod[action][self_deaf][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][self_deaf][guildname][imserver]" event="timeout-ssecondmod[action][self_deaf][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][self_deaf][guildname][imserver]" event="timeout-ssecondmod[action][self_deaf][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][self_deaf][guildname][imserver]-final" event="timeout-ssecondmod[action][self_deaf][guildname][imserver]" />
     <transition target="ssecondmod[action][self_deaf][guildname][imserver]-speech[action][self_deaf][guildname][imserver]" event="[action][SELF_DEAF][guildName][IMServer]" />
@@ -3521,7 +3521,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user][username][matos]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user][username][matos]" event="timeout-ssecondmod[action][mute_user][username][matos]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user][username][matos]" event="timeout-ssecondmod[action][mute_user][username][matos]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][mute_user][username][matos]-final" event="timeout-ssecondmod[action][mute_user][username][matos]" />
     <transition target="ssecondmod[action][mute_user][username][matos]-speech[action][mute_user][username][matos]" event="[action][MUTE_USER][userName][Matos]" />
@@ -3550,7 +3550,7 @@
     <onentry>
       <log label="[sspeech[username][gustavo]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[username][gustavo]" event="timeout-sspeech[username][gustavo]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[username][gustavo]" event="timeout-sspeech[username][gustavo]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-sspeech[username][gustavo]" />
     <transition target="sspeech[username][gustavo]-secondmod[action][remove_user]" event="[action][REMOVE_USER]" />
@@ -3681,7 +3681,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user]" event="timeout-ssecondmod[action][deaf_user]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user]" event="timeout-ssecondmod[action][deaf_user]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][deaf_user]" />
     <transition target="ssecondmod[action][deaf_user]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -3782,7 +3782,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user][guildname][imserver]" event="timeout-ssecondmod[action][mute_user][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user][guildname][imserver]" event="timeout-ssecondmod[action][mute_user][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][mute_user][guildname][imserver]" />
     <transition target="ssecondmod[action][mute_user][guildname][imserver]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -3853,7 +3853,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user][username][ambrosio][guildname][imserver]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user][username][ambrosio][guildname][imserver]" event="timeout-ssecondmod[action][deaf_user][username][ambrosio][guildname][imserver]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user][username][ambrosio][guildname][imserver]" event="timeout-ssecondmod[action][deaf_user][username][ambrosio][guildname][imserver]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][deaf_user][username][ambrosio][guildname][imserver]-final" event="timeout-ssecondmod[action][deaf_user][username][ambrosio][guildname][imserver]" />
     <transition target="ssecondmod[action][deaf_user][username][ambrosio][guildname][imserver]-speech[action][deaf_user][username][ambrosio][guildname][imserver]" event="[action][DEAF_USER][userName][Ambrosio][guildName][IMServer]" />
@@ -3882,7 +3882,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user][username][gustavo]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user][username][gustavo]" event="timeout-ssecondmod[action][deaf_user][username][gustavo]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user][username][gustavo]" event="timeout-ssecondmod[action][deaf_user][username][gustavo]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][deaf_user][username][gustavo]-final" event="timeout-ssecondmod[action][deaf_user][username][gustavo]" />
     <transition target="ssecondmod[action][deaf_user][username][gustavo]-speech[action][deaf_user][username][gustavo]" event="[action][DEAF_USER][userName][Gustavo]" />
@@ -3911,7 +3911,7 @@
     <onentry>
       <log label="[ssecondmod[action][mute_user][username][ambrosio][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][mute_user][username][ambrosio][guildname][apicultura]" event="timeout-ssecondmod[action][mute_user][username][ambrosio][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][mute_user][username][ambrosio][guildname][apicultura]" event="timeout-ssecondmod[action][mute_user][username][ambrosio][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][mute_user][username][ambrosio][guildname][apicultura]-final" event="timeout-ssecondmod[action][mute_user][username][ambrosio][guildname][apicultura]" />
     <transition target="ssecondmod[action][mute_user][username][ambrosio][guildname][apicultura]-speech[action][mute_user][username][ambrosio][guildname][apicultura]" event="[action][MUTE_USER][userName][Ambrosio][guildName][apicultura]" />
@@ -3959,7 +3959,7 @@
     <onentry>
       <log label="[ssecondmod[action][self_deaf][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][self_deaf][guildname][apicultura]" event="timeout-ssecondmod[action][self_deaf][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][self_deaf][guildname][apicultura]" event="timeout-ssecondmod[action][self_deaf][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][self_deaf][guildname][apicultura]-final" event="timeout-ssecondmod[action][self_deaf][guildname][apicultura]" />
     <transition target="ssecondmod[action][self_deaf][guildname][apicultura]-speech[action][self_deaf][guildname][apicultura]" event="[action][SELF_DEAF][guildName][apicultura]" />
@@ -3988,7 +3988,7 @@
     <onentry>
       <log label="[sspeech[action][mute_user][username][ambrosio]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[action][mute_user][username][ambrosio]" event="timeout-sspeech[action][mute_user][username][ambrosio]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[action][mute_user][username][ambrosio]" event="timeout-sspeech[action][mute_user][username][ambrosio]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[action][mute_user][username][ambrosio]-final" event="timeout-sspeech[action][mute_user][username][ambrosio]" />
     <transition target="sspeech[action][mute_user][username][ambrosio]-secondmod[action][mute_user][username][ambrosio]" event="[action][MUTE_USER][userName][Ambrosio]" />
@@ -4017,7 +4017,7 @@
     <onentry>
       <log label="[ssecondmod[action][ban_user][guildname][apicultura]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][ban_user][guildname][apicultura]" event="timeout-ssecondmod[action][ban_user][guildname][apicultura]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][ban_user][guildname][apicultura]" event="timeout-ssecondmod[action][ban_user][guildname][apicultura]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="main" event="timeout-ssecondmod[action][ban_user][guildname][apicultura]" />
     <transition target="ssecondmod[action][ban_user][guildname][apicultura]-speech[username][ambrosio]" event="[userName][Ambrosio]" />
@@ -4107,7 +4107,7 @@
     <onentry>
       <log label="[ssecondmod[action][deaf_user][username][ambrosio]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][deaf_user][username][ambrosio]" event="timeout-ssecondmod[action][deaf_user][username][ambrosio]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][deaf_user][username][ambrosio]" event="timeout-ssecondmod[action][deaf_user][username][ambrosio]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][deaf_user][username][ambrosio]-final" event="timeout-ssecondmod[action][deaf_user][username][ambrosio]" />
     <transition target="ssecondmod[action][deaf_user][username][ambrosio]-speech[action][deaf_user][username][ambrosio]" event="[action][DEAF_USER][userName][Ambrosio]" />
@@ -4155,7 +4155,7 @@
     <onentry>
       <log label="[ssecondmod[action][self_deaf]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-ssecondmod[action][self_deaf]" event="timeout-ssecondmod[action][self_deaf]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-ssecondmod[action][self_deaf]" event="timeout-ssecondmod[action][self_deaf]" delay="2000" target="" targettype="" namelist="" />
     </onentry>
     <transition target="secondmod[action][self_deaf]-final" event="timeout-ssecondmod[action][self_deaf]" />
     <transition target="ssecondmod[action][self_deaf]-speech[action][self_deaf]" event="[action][SELF_DEAF]" />
